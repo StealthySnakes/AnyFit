@@ -32,6 +32,13 @@ CREATE TABLE workout_info (
     rep_count INT,
     workout_length INT,
     workout_desc VARCHAR(250),
+    workout_name VARCHAR(40),
+    rating INT,
+    category VARCHAR(40),
+    intensity INT,
+    ExpLevel VARCHAR(40),
+    comments VARCHAR(250),
+    Pub/Pri BOOLEAN,
     FOREIGN KEY(exercise) REFERENCES exercise(exercise_id)
 );
 
