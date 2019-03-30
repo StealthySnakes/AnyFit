@@ -16,7 +16,15 @@ class Login extends Component {
         };
 
   };
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  }
 
+  handleSubmit = event => {
+    event.preventDefault();
+  }
   render() {
     return (
       <>
