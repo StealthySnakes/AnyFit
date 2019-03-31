@@ -86,7 +86,8 @@ class WorkoutGenerator extends Component {
       <ButtonToolbar>
         <Button className="mt-4" size="lg" variant="outline-success" block>Generate</Button>
       </ButtonToolbar>
-
+      <h2> Choose exercises to keep in Generated Workout </h2>
+      <Button className="mt-4" size="lg" variant="outline-success" block>Add to Workout</Button>
     </>
     );
   }
