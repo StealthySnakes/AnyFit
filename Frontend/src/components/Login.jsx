@@ -33,7 +33,7 @@ class Login extends Component {
     <h1> Login </h1>
 
 
-      <div id="login" className="Login" class= "mx-auto">
+      <div id="login" className="Login mx-auto">
             <Form onSubmit={this.handleSubmit}>
               <Form.Label>Email address</Form.Label>
               <Form.Group controlId="email" bsSize="large">
