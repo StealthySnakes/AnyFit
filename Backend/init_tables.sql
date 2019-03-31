@@ -38,7 +38,7 @@ CREATE TABLE workout_info (
     intensity INT,
     ExpLevel VARCHAR(40),
     comments VARCHAR(250),
-    Pub/Pri BOOLEAN,
+    PubPri BOOLEAN,
     FOREIGN KEY(exercise) REFERENCES exercise(exercise_id)
 );
 
