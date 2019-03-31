@@ -48,7 +48,7 @@ class AccountHome extends Component {
                   </Container>
                   <Container>
                     <Row>
-                      <h2 className="details" id="previews">previews</h2>
+                      <h2 className="details" id="previews">Previews</h2>
                     </Row>
                   </Container>
                 </Col>                                {/* Right Side Close */}
