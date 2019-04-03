@@ -41,11 +41,7 @@ CREATE TABLE workout_info (
     intensity INT,
     ExpLevel VARCHAR(40),
     comments VARCHAR(250),
-<<<<<<< HEAD
-    PubPri BOOLEAN,
-=======
     visibility BOOLEAN,
->>>>>>> backend
     FOREIGN KEY(exercise) REFERENCES exercise(exercise_id)
 );
 
