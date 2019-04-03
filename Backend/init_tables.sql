@@ -21,6 +21,9 @@ CREATE TABLE user_workout (
     user_id INT PRIMARY KEY,
     username VARCHAR(40),
     workout_id INT,
+    past_workout BOOLEAN,
+    custom_workout BOOLEAN,
+    favorite_workout BOOLEAN,
     FOREIGN KEY(user_id) REFERENCES user_info(user_id),
     FOREIGN KEY(workout_id) REFERENCES workout_info(workout_id)
 );
@@ -32,6 +35,13 @@ CREATE TABLE workout_info (
     rep_count INT,
     workout_length INT,
     workout_desc VARCHAR(250),
+    workout_name VARCHAR(40),
+    rating INT,
+    category VARCHAR(40),
+    intensity INT,
+    ExpLevel VARCHAR(40),
+    comments VARCHAR(250),
+    visibility BOOLEAN,
     FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id)
 );
 
