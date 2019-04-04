@@ -1,3 +1,13 @@
+# Frontend
+
+The folders containing the files are pretty self explanatory.
+* Inside /node_modules lies all of the modules.
+* Inside /src lies all of the source files which include the components and the style sheets.
+* Inside public is the index.html file
+
+
+
+<--------------------------------------------------------------------------------------------------------------->
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
