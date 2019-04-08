@@ -28,7 +28,7 @@ class Login extends Component {
   render() {
     return (
       <>
-      < Navigation />
+      < Navigation hideNav={true} />
 
     <h1> Login </h1>
 
