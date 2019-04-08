@@ -1,20 +1,20 @@
---use ______; -- insert database name
+use anyfit;
 
 CREATE TABLE user_info (
     user_id INT PRIMARY KEY,
     username VARCHAR(40),
     _name VARCHAR(14),
     _password VARCHAR(40),
-    avatar VARBINARY
+    avatar VARCHAR(250)
 );
 
 CREATE TABLE friends (
     user_id INT PRIMARY KEY,
     username VARCHAR(40),
     friend_id INT,
-    f_username VARCHAR(40),
-    FOREIGN KEY(user_id) REFERENCES user_info(user_id),
-    FOREIGN KEY(username) REFERENCES user_info(username)
+    f_username VARCHAR(40)
+   -- FOREIGN KEY(user_id) REFERENCES user_info(user_id),
+    -- FOREIGN KEY(username) REFERENCES user_info(username)
 );
 
 CREATE TABLE user_workout (
@@ -42,7 +42,7 @@ CREATE TABLE workout_info (
     ExpLevel VARCHAR(40),
     comments VARCHAR(250),
     visibility BOOLEAN,
-    FOREIGN KEY(exercise) REFERENCES exercise(exercise_id)
+    FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id)
 );
 
 CREATE TABLE exercise (
@@ -51,5 +51,7 @@ CREATE TABLE exercise (
     exercise_desc VARCHAR(250),
     default_length INT
 );
+
+
 
 
