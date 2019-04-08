@@ -7,6 +7,9 @@ import Bootstrap from "react-bootstrap";
 import './WorkoutGenerator.css';
 import Navigation from './Navigation';
 
+
+
+
 class WorkoutGenerator extends Component {
 
   constructor(props, context) {
@@ -15,10 +18,10 @@ class WorkoutGenerator extends Component {
       this.handleChange = this.handleChange.bind(this);
 
       this.state = {
-        category: ["Strength","Speed"],
-        expertise: [1,2],
-        length: [1,2],
-        intensity: [1,2],
+        category: [],
+        expertise: [],
+        length: [],
+        intensity: [],
       };
     }
 
@@ -31,12 +34,13 @@ class WorkoutGenerator extends Component {
       <>
       < Navigation />
 
-      <h2> Focus </h2>
+    <h2> Focus</h2>
       <ToggleButtonGroup
+        name="Focus"
         id="category"
-        type="checkbox"
+        type="radio"
         value={this.state.category}
-        onChange={this.handleChange}
+        onChange={event => this.setState({category: [event]})}
       >
         <ToggleButton value={"Strength"}>Strength</ToggleButton>
         <ToggleButton value={"Muscle"}>Muscle</ToggleButton>
@@ -49,9 +53,10 @@ class WorkoutGenerator extends Component {
 
       <h2> Expertise </h2>
       <ToggleButtonGroup
-        type="checkbox"
+        name="Expertise"
+        type="radio"
         value={this.state.expertise}
-        onChange={this.handleChange}
+        onChange={event => this.setState({expertise: [event]})}
       >
         <ToggleButton value={1}>Beginner</ToggleButton>
         <ToggleButton value={2}>Novice</ToggleButton>
@@ -61,9 +66,10 @@ class WorkoutGenerator extends Component {
 
       <h2> Length </h2>
         <ToggleButtonGroup
-          type="checkbox"
+          name="Length"
+          type="radio"
           value={this.state.length}
-          onChange={this.handleChange}
+          onChange={event => this.setState({length: [event]})}
         >
           <ToggleButton value={1}>30 min</ToggleButton>
           <ToggleButton value={2}>60 min</ToggleButton>
@@ -74,9 +80,10 @@ class WorkoutGenerator extends Component {
 
       <h2> Intensity </h2>
         <ToggleButtonGroup
-          type="checkbox"
+          name="Intensity"
+          type="radio"
           value={this.state.intensity}
-          onChange={this.handleChange}
+          onChange={event => this.setState({intensity: [event]})}
         >
         <ToggleButton value={1}>Easy</ToggleButton>
         <ToggleButton value={2}>Medium</ToggleButton>
