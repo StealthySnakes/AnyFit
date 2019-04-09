@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import Logo from '../assets/logo.png';
 // import './AccoutHome.css';
-function navOp(){
-  return
-}
 class Navigation extends Component {
   constructor(props) {
     super(props);
