@@ -13,10 +13,12 @@ import {Exercise} from '../models/Exercise';
 
 import { ExerciseCard, ExerciseList } from './ExerciseList';
 
-// function customExercise(props){
-//
-//   return
-// }
+
+function FormOptions(props){
+  return <>
+  {props.opts.map((opt) => <option value={opt}>{opt}</option>)  }
+    </>
+}
 
 class WorkoutGenerator extends Component {
 
@@ -34,39 +36,37 @@ class WorkoutGenerator extends Component {
         new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,10),
         new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,10,10),
       ],
+      //these are the exercise that have been kept
       chosenExercises:[],
       showAddExercise:false,
-      showAddWorkout:false
+      showAddWorkout:false,
+      customExerciseName:"",
+      customExerciseSets:0,
+      customExerciseReps:0,
+      customExerciseDuration:0,
+      customExerciseDescription:0,
+      workoutName:0,
+      workoutIntensity:0,
+      workoutExperience:0,
+      workoutDuration:0,
+      workoutDescription:0
     };
     this.handleWorkoutGenerate = this.handleWorkoutGenerate.bind(this);
-    this.handleCustomAddition = this.handleCustomAddition.bind(this);
-    this.handleCustomAdditionClose = this.handleCustomAdditionClose.bind(this);
+    this.handleCustomAdditionSubmit = this.handleCustomAdditionSubmit.bind(this);
     this.handleWorkoutSubmit = this.handleWorkoutSubmit.bind(this);
-    this.handleWorkoutSubmitClose = this.handleWorkoutSubmitClose.bind(this);
   }
 
   handleWorkoutGenerate(event) {
 
-    this.setState({ showAddWorkout: true });
+    //get backend exercise recommendations
 
   }
-  handleCustomAddition(event) {
-
-    this.setState({ showAddExercise: true });
-
-  }
-  handleCustomAdditionClose(event) {
-
+  handleCustomAdditionSubmit(event) {
+    //add to generated workouts
     this.setState({ showAddExercise: false });
-
   }
   handleWorkoutSubmit(event) {
     this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:true});
-  }
-  handleWorkoutSubmitClose(event) {
-
-    this.setState({ showAddWorkout: false });
-
   }
 
   render() {
@@ -113,70 +113,55 @@ class WorkoutGenerator extends Component {
 
     <ButtonToolbar bsPrefix="inline-flex">
       <Button onClick={this.handleWorkoutGenerate} className="m-4" size="lg" variant="outline-primary">Generate Workout</Button>
-      <Button onClick={this.handleCustomAddition} className="m-4" size="lg"  variant="outline-secondary">Add custom exercise</Button>
+      <Button onClick={event => this.setState({ showAddExercise: true })} className="m-4" size="lg"  variant="outline-secondary">Add custom exercise</Button>
     </ButtonToolbar>
 
     <hr></hr>
-    <Modal show={this.state.showAddExercise} onHide={this.handleCustomAdditionClose}>
+    <Modal show={this.state.showAddExercise} onHide={event => this.setState({ showAddExercise: false })}>
             <Modal.Header closeButton>
               <Modal.Title>Add Custom Exercise</Modal.Title>
             </Modal.Header>
             <Modal.Body>
 
 
-
               <Form>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Label>Exercises</Form.Label>
-                  <Form.Control as="select">
-                    <option>Planks</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <Form.Control as="select"
+                    onChange={event =>  {this.setState({customExerciseName: event.currentTarget.value})}}>
+                    <FormOptions opts={["plank", "situp"]}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Label>Sets</Form.Label>
-                  <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <Form.Control as="select"
+                    onChange={event =>  {this.setState({customExerciseSets: event.currentTarget.value})}}>
+                    <FormOptions opts={[1,2,3,4,5]}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Label>Reps</Form.Label>
-                  <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <Form.Control as="select" onChange={event =>  {this.setState({customExerciseReps: event.currentTarget.value})}}>
+                    <FormOptions opts={[1,2,3,4,5]}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Label>Duration</Form.Label>
-                  <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <Form.Control as="select" onChange={event =>  {this.setState({customExerciseDuration: event.currentTarget.value})}}>
+                    <FormOptions opts={[1,2,3,4,5]}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                   <Form.Label>Description</Form.Label>
-                  <Form.Control as="textarea" rows="3" />
+                  <Form.Control as="textarea" rows="3" onChange={event =>  {this.setState({customExerciseDescription: event.currentTarget.value})}} />
                 </Form.Group>
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleClose}>
+              <Button variant="secondary" onClick={event => this.setState({ showAddExercise: false })}>
                 Cancel
               </Button>
-              <Button variant="primary" onClick={this.handleClose}>
+              <Button variant="primary" onClick={this.handleCustomAdditionSubmit}>
                 Add Exercise
               </Button>
             </Modal.Footer>
@@ -204,7 +189,7 @@ class WorkoutGenerator extends Component {
          <Button onClick={this.handleWorkoutSubmit} className="mt-4" size="lg" variant="outline-success" block="block">Add to Workouts</Button>
 
 
-           <Modal show={this.state.showAddWorkout} onHide={this.handleWorkoutSubmitClose}>
+           <Modal show={this.state.showAddWorkout} onHide={event => this.setState({ showAddWorkout: false })}>
                    <Modal.Header closeButton>
                      <Modal.Title>Add Workout</Modal.Title>
                    </Modal.Header>
@@ -219,46 +204,34 @@ class WorkoutGenerator extends Component {
                        </Form.Group>
                        <Form.Group controlId="exampleForm.ControlSelect1">
                          <Form.Label>Intensity</Form.Label>
-                         <Form.Control as="select">
-                           <option>1</option>
-                           <option>2</option>
-                           <option>3</option>
-                           <option>4</option>
-                           <option>5</option>
+                         <Form.Control as="select" onChange={event =>  {this.setState({workoutIntensity: event.currentTarget.value})}}>
+                           <FormOptions opts={[1,2,3,4,5]}/>
                          </Form.Control>
                        </Form.Group>
                        <Form.Group controlId="exampleForm.ControlSelect1">
                          <Form.Label>Experience Level</Form.Label>
-                         <Form.Control as="select">
-                           <option>1</option>
-                           <option>2</option>
-                           <option>3</option>
-                           <option>4</option>
-                           <option>5</option>
+                         <Form.Control as="select" onChange={event =>  {this.setState({workoutExperience: event.currentTarget.value})}}>
+                           <FormOptions opts={[1,2,3,4,5]}/>
                          </Form.Control>
                        </Form.Group>
                        <Form.Group controlId="exampleForm.ControlSelect1">
                          <Form.Label>Duration</Form.Label>
-                         <Form.Control as="select">
-                           <option>1</option>
-                           <option>2</option>
-                           <option>3</option>
-                           <option>4</option>
-                           <option>5</option>
+                         <Form.Control as="select" onChange={event =>  {this.setState({workoutDuration: event.currentTarget.value})}}>
+                           <FormOptions opts={[1,2,3,4,5]}/>
                          </Form.Control>
                        </Form.Group>
                        <Form.Group controlId="exampleForm.ControlTextarea1">
                          <Form.Label>Workout Description</Form.Label>
-                         <Form.Control as="textarea" rows="3" />
+                         <Form.Control as="textarea" rows="3" onChange={event =>  {this.setState({workoutDescription: event.currentTarget.value})}}/>
                        </Form.Group>
                      </Form>
                    </Modal.Body>
                    <Modal.Footer>
-                     <Button variant="secondary" onClick={this.handleClose}>
+                     <Button variant="secondary" onClick={event => this.setState({ showAddWorkout: false })}>
                        Cancel
                      </Button>
-                     <Button variant="primary" onClick={this.handleClose}>
-                       Add Exercise
+                     <Button variant="primary" onClick={event => this.setState({ showAddWorkout: false })}>
+                       Add Workout
                      </Button>
                    </Modal.Footer>
                  </Modal>
