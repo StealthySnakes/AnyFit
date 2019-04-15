@@ -58,14 +58,27 @@ class WorkoutGenerator extends Component {
 
   handleWorkoutGenerate(event) {
 
-    //get backend exercise recommendations
+    //generate the the workout using the button chosen parameters
 
   }
   handleCustomAdditionSubmit(event) {
     //add to generated workouts
-    this.setState({ showAddExercise: false });
+
+             this.setState(
+               state => {state.exercisesGenerated.push(new Exercise(this.state.customExerciseName,
+                 this.state.customExerciseDescription,
+                 "https://i1.wp.com/muscleandbrawn.com/wp-content/uploads/2009/11/100.jpg?resize=150%2C150",
+                 //"https://via.placeholder.com/150",
+                 this.state.customExerciseDuration,
+                 this.state.customExerciseSets,
+                 this.state.customExerciseReps))
+                 return state;
+               })
+
   }
-  handleWorkoutSubmit(event) {
+  handleWorkoutSubmit(event){
+
+  //add workout array to backend ----exercisesGenerated and all workout meta data
     this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:true});
   }
 
@@ -73,7 +86,8 @@ class WorkoutGenerator extends Component {
     return (<> < Navigation />
     <h1>Generate Workout</h1>
    <h2>  Focus</h2>
-    <ToggleButtonGroup name="Focus" id="category" type="radio" value={this.state.category} onChange={event => this.setState({category: [event]})}>
+   <div >
+    <ToggleButtonGroup className="w-100" name="Focus" id="category" type="radio" value={this.state.category} onChange={event => this.setState({category: [event]})}>
       <ToggleButton value={"Strength"}>Strength</ToggleButton>
       <ToggleButton value={"Muscle"}>Muscle</ToggleButton>
       <ToggleButton value={"Mobility"}>Mobility</ToggleButton>
@@ -85,7 +99,7 @@ class WorkoutGenerator extends Component {
     <h2>
       Expertise
     </h2>
-    <ToggleButtonGroup name="Expertise" type="radio" value={this.state.expertise} onChange={event => this.setState({expertise: [event]})}>
+    <ToggleButtonGroup className="w-75" name="Expertise" type="radio" value={this.state.expertise} onChange={event => this.setState({expertise: [event]})}>
       <ToggleButton value={1}>Beginner</ToggleButton>
       <ToggleButton value={2}>Novice</ToggleButton>
       <ToggleButton value={3}>Intermediate</ToggleButton>
@@ -95,7 +109,7 @@ class WorkoutGenerator extends Component {
     <h2>
       Length
     </h2>
-    <ToggleButtonGroup name="Length" type="radio" value={this.state.length} onChange={event => this.setState({length: [event]})}>
+    <ToggleButtonGroup className="w-50" name="Length" type="radio" value={this.state.length} onChange={event => this.setState({length: [event]})}>
       <ToggleButton value={1}>30 min</ToggleButton>
       <ToggleButton value={2}>60 min</ToggleButton>
       <ToggleButton value={3}>90 min</ToggleButton>
@@ -105,12 +119,12 @@ class WorkoutGenerator extends Component {
     <h2>
       Intensity
     </h2>
-    <ToggleButtonGroup name="Intensity" type="radio" value={this.state.intensity} onChange={event => this.setState({intensity: [event]})}>
+    <ToggleButtonGroup className="w-25"  name="Intensity" type="radio" value={this.state.intensity} onChange={event => this.setState({intensity: [event]})}>
       <ToggleButton value={1}>Easy</ToggleButton>
       <ToggleButton value={2}>Medium</ToggleButton>
       <ToggleButton value={3}>Hard</ToggleButton>
     </ToggleButtonGroup>
-
+    </div>
     <ButtonToolbar bsPrefix="inline-flex">
       <Button onClick={this.handleWorkoutGenerate} className="m-4" size="lg" variant="outline-primary">Generate Workout</Button>
       <Button onClick={event => this.setState({ showAddExercise: true })} className="m-4" size="lg"  variant="outline-secondary">Add custom exercise</Button>
@@ -180,7 +194,7 @@ class WorkoutGenerator extends Component {
              return state;
            })
 
-           alert(this.state.chosenExercises)
+           // alert(this.state.chosenExercises)
 
          }
        }

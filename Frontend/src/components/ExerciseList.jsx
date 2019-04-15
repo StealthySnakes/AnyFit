@@ -29,7 +29,6 @@ function ExerciseCard(props) {
 
         {props.desc}
       </Card.Text>
-      <Button variant="primary">Go to exercise page</Button>
     </Card.Body>
   </Card>
 
