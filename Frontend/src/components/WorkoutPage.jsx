@@ -59,7 +59,7 @@ export class WorkoutPage extends React.Component{
             </div>
             <Container style={{margin:'1em'}}>               {/* Outer Container */}
 
-              <Row>
+              <Row >
                 <Col md={2}>                               {/* Left Side */}
                     <Row>
 
