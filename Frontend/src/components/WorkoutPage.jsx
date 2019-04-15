@@ -7,6 +7,9 @@ import StopWatch from './StopWatch';
 import Stopwatch from './StopWatch';
 import {ExerciseCard, ExerciseList} from './ExerciseList';
 import './WorkoutPage.css';
+import {Rating} from './Rating';
+import {Comment} from './../models/Comment';
+import {ReviewForm} from './reviews/reviewForm';
 
 export class WorkoutPage extends React.Component{
     state = {
@@ -23,11 +26,21 @@ export class WorkoutPage extends React.Component{
                 new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,10,10),
               ],
             5,
-            ["good workout, helped my dick grow", "nice traps after this"]
+            [
+                new Comment("Jimbo", "my favorite workout"),
+                new Comment("Jumbo", "I am not Jimbo")
+            ]
         ),
         beginClk: false,
         btnCol: {background: 'dodgerblue'},
         btnWord: "Start"
+    }
+
+    onNewReview(review){
+        this.setState(state => {
+            state.wrkt.comments.push(review);
+            return state;
+        });
     }
 
     timerState(){
@@ -69,6 +82,7 @@ export class WorkoutPage extends React.Component{
                     <Container>
                         <Row style={{display:'block'}}>
                             <h1>{this.state.wrkt.name}</h1>
+                            <Rating value = {this.state.wrkt.rating} />
                             <p style={{fontWeight:'bold'}}>focus: <span style={{fontWeight:'normal'}}>{this.state.wrkt.focus}</span> 
                             <span style={{marginLeft:'1em'}}>expertise level: <span style={{fontWeight:'normal'}}>{this.state.wrkt.expertise}</span></span>
                             <span style={{marginLeft:'1em'}}>length: <span style={{fontWeight:'normal'}}>{this.state.wrkt.length}</span></span>
@@ -91,6 +105,12 @@ export class WorkoutPage extends React.Component{
                 
                 )}
             </Container>                              {/* Outer Container Close */}
+
+            <div style={{margin:'2em'}}>
+                <h1>Comments</h1>
+                <ReviewForm reviews={this.state.wrkt.comments} onNewReview={a => this.onNewReview(a)}/>
+            </div>
+            
         
         </>);
     }
