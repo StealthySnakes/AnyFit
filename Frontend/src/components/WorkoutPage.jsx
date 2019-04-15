@@ -83,6 +83,7 @@ export class WorkoutPage extends React.Component{
                         <Row style={{display:'block'}}>
                             <h1>{this.state.wrkt.name}</h1>
                             <Rating value = {this.state.wrkt.rating} />
+                            <button class="btn btn-primary"style={{marginLeft:'2em', marginBottom:'1em'}}>Rate Workout</button>
                             <p style={{fontWeight:'bold'}}>focus: <span style={{fontWeight:'normal'}}>{this.state.wrkt.focus}</span> 
                             <span style={{marginLeft:'1em'}}>expertise level: <span style={{fontWeight:'normal'}}>{this.state.wrkt.expertise}</span></span>
                             <span style={{marginLeft:'1em'}}>length: <span style={{fontWeight:'normal'}}>{this.state.wrkt.length}</span></span>
