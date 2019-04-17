@@ -4,10 +4,10 @@ const app = express();
 const port = 3000;
 
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "abc123",
-    database: "Hats",
+    host: "127.0.0.1",
+    user: "dev",
+    password: "anyfit0987",
+    database: "anyfit",
   });
 
 // checks connection to database
