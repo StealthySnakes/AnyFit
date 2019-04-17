@@ -5,7 +5,7 @@ import Workout from './../models/Workout';
 import { Container, Media, Row, Col } from 'react-bootstrap';
 import StopWatch from './StopWatch';
 import Stopwatch from './StopWatch';
-import {ExerciseCard, ExerciseList} from './ExerciseList';
+import {ExerciseCard, ExerciseList} from './ExerciseCard';
 import './WorkoutPage.css';
 import {Rating} from './Rating';
 import {Comment} from './../models/Comment';
