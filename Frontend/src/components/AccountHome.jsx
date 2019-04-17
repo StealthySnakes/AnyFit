@@ -46,7 +46,7 @@ class AccountHome extends Component {
 
                 <Col xs={12} sm={12} md={2} lg={3} xl={5}>                                 {/* Right Side */}
                   <Container>
-                    <Row>
+                    <Row className="justify-content-xs-between">
                       <Col xs={4} sm={6} md={6} lg={6} xl={6}>
                         <h2 className="details" id="friends">Friends</h2>
                       </Col>
