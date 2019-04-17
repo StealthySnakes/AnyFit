@@ -7,7 +7,7 @@ import Bootstrap from "react-bootstrap";
 import './WorkoutGenerator.css';
 import {Card, Form, Modal} from 'react-bootstrap';
 import Navigation from './Navigation';
-
+import axios from 'axios';
 
 import {Exercise} from '../models/Exercise';
 
@@ -55,9 +55,26 @@ class WorkoutGenerator extends Component {
     this.handleCustomAdditionSubmit = this.handleCustomAdditionSubmit.bind(this);
     this.handleWorkoutSubmit = this.handleWorkoutSubmit.bind(this);
   }
+  componentDidMount() {
+    // axios.get(`https://jsonplaceholder.typicode.com/users`)
+    //   .then(res => {
+    //     const persons = res.data;
+    //     console.log(persons)
+    //     this.setState({ persons });
+    //   })
+
+  }
+
 
   handleWorkoutGenerate(event) {
-
+    axios.get('https://site.com/', {
+      params: {
+        category:this.state.category,
+        expertise:this.state.expertise,
+        length:this.state.length,
+        intensity:this.state.intensity
+      }
+    })
     //generate the the workout using the button chosen parameters
 
   }
@@ -77,6 +94,24 @@ class WorkoutGenerator extends Component {
 
   }
   handleWorkoutSubmit(event){
+
+    event.preventDefault();
+
+    const workout = {
+      chosenExercises:    this.state.chosenExercises,
+      workoutName:    this.state.workoutName,
+      workoutIntensity:   this.state.workoutIntensity,
+      workoutExperience:    this.state.workoutExperience,
+      workoutDuration:    this.state.workoutDuration,
+      workoutDescription:   this.state.workoutDescription
+    };
+
+
+    axios.post(`https://jsonplaceholder.typicode.com/users`, { workout })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
 
   //add workout array to backend ----exercisesGenerated and all workout meta data
     this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:true});
