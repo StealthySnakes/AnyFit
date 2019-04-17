@@ -1,6 +1,7 @@
 FROM mysql:5.7.25
 
-COPY ./init_tables.sql ./Anyfit
+RUN mkdir /Anyfit
+COPY ./init_tables.sql /Anyfit
 WORKDIR /Anyfit
 RUN /Anyfit/setup.sh
 
