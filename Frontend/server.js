@@ -1,7 +1,5 @@
-'use strict';
-
-const mysql = require('mysql');
 const express = require('express');
+var mysql = require('mysql');
 const app = express();
 const port = 3000;
 
@@ -39,4 +37,5 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
+
 

@@ -49,9 +49,6 @@ CREATE TABLE exercise (
     exercise_id INT PRIMARY KEY,
     exercise_name VARCHAR(40),
     exercise_desc VARCHAR(250),
+    exercise_image VARCHAR(250),
     default_length INT
 );
-
-
-
-
