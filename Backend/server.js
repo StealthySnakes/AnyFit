@@ -1,27 +1,16 @@
+'use strict';
+
 const express = require('express');
-var mysql = require('mysql');
+
+// Constants
+const PORT = 8080;
+const HOST = '0.0.0.0';
+
+// App
 const app = express();
-const port = 3000;
-
-var con = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "dev",
-    password: "anyfit0987",
-    database: "anyfit",
-  });
-
-// checks connection to database
-con.connect(function(err) {
-	if (err) {
-  		console.error('Error Connecting to DB...' +err.stack);
-  		return;
-  	}
-  	console.log("Connected!");
+app.get('/', (req, res) => {
+  res.send('Hello world\n');
 });
 
-
-app.listen(port, () => {
-	console.log('Incoming Request');
-});
-
-
+app.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
