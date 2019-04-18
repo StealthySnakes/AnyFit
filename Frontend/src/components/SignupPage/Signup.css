@@ -1,0 +1,30 @@
+
+
+.Signup .card{
+  margin: 0;
+  padding:1em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+
+
+.Signup input, label{
+  display:block;
+}
+
+.Signup input[type=text] {
+  width: 20em;
+}
+
+.Signup #password{
+  width: 20em;
+}
+
+.btn{
+  width:20em;
+}
