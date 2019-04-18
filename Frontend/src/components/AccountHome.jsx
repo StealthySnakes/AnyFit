@@ -60,14 +60,14 @@ class AccountHome extends Component {
                   <Container>
                     <Row>
                       <Col xs={4}>
-                        <h2 className="details" id="customs">Custom Workouts</h2>
+                        <h2 className="details" id="customs">Favorites</h2>
                       </Col>
                     </Row>
                   </Container>
                   <Container>
                     <Row>
                       <Col xs={4}>
-                        <h2 className="details" id="previews">Previews</h2>
+                        <h2 className="details" id="previews">History</h2>
                       </Col>
                     </Row>
                   </Container>

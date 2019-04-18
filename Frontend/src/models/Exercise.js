@@ -8,3 +8,4 @@ export class Exercise {
     this.reps = reps;
   }
 }
+export default Exercise;

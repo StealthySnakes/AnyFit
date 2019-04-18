@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import Exercise from './../models/Exercise';
 import Workout from './../models/Workout';
 import { Container, Media, Row, Col } from 'react-bootstrap';
-import Stopwatch from './StopWatch';
+import StopWatch from './StopWatch';
 import {ExerciseCard, ExerciseList} from './ExerciseCard';
 import './WorkoutPage.css';
 import {Rating} from './Rating';
@@ -66,7 +66,7 @@ export class WorkoutPage extends React.Component{
         <>
             <Navigation/>
             <div class = "card" style={{float:'right', margin:'2em', padding:'1em'}}>
-                <Stopwatch begin = {this.state.beginClk}/>
+                <StopWatch begin = {this.state.beginClk}/>
                 <button class = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
             </div>
             <Container style={{margin:'1em'}}>               {/* Outer Container */}
