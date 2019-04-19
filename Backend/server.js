@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 const mysql = require('mysql');
 const express = require('express');
@@ -25,6 +25,10 @@ app.get('/home',(req, res) => {
 	console.log('Incoming request for home...');
 });
 
+app.get('/WorkoutPage', (req, res) => {
+  res.send('<h1> YOU READY TO WORKOUT BROTHER? </h1>');
+  console.log('Workout page has been accessed');
+});
 var con = mysql.createConnection({
     host: "127.0.0.1",
     user: "dev",
