@@ -72,7 +72,7 @@ con.query('SELECT exercise_name FROM exercise;' , function (error, results, fiel
 	if (error)
 	throw error;
 res.send(results);
-console.log(results);
+console.log("Incoming request for exercise name... ");
 	});
 });
 
@@ -82,7 +82,7 @@ con.query('SELECT exercise_image FROM exercise WHERE exercise_name = \'' + req.p
 	if (error)
 	throw error;
 res.send(results);
-console.log(results);
+console.log("Incoming request for exercise image...");
 	});
 });
 
