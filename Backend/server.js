@@ -76,6 +76,16 @@ console.log(results);
 	});
 });
 
+//Return exercise image url
+app.get('/exerciseName/:exerciseName', (req, res) => {
+con.query('SELECT exercise_image FROM exercise WHERE exercise_name = \'' + req.params['exerciseName'] + "\';" , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log(results);
+	});
+});
+
 app.get('/home',(req, res) => {
 	res.send('<h1>Hello World</h1>');
 	console.log('Incoming request for home...');
