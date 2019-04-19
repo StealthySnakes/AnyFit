@@ -16,7 +16,7 @@ app.post('/home/:login/password/:password', (req, res) => {
 		else {
 			res.send("null")
 		}
-	
+
 	console.log("Incoming login request...");
   });
 });
@@ -66,6 +66,15 @@ app.get('/home/:userID/bio', (req,res) =>{
 	});
 });
 
+//Return all exercises
+app.get('/exercises', (req, res) => {
+con.query('SELECT exercise_name FROM exercise;' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log(results);
+	});
+});
 
 app.get('/home',(req, res) => {
 	res.send('<h1>Hello World</h1>');
@@ -92,4 +101,3 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
-
