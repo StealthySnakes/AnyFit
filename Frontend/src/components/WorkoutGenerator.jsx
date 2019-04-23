@@ -10,9 +10,10 @@ import Navigation from './Navigation';
 import axios from 'axios';
 
 import {Exercise} from '../models/Exercise';
+import {Workout} from '../models/Workout';
 
 import { ExerciseCard, ExerciseList } from './ExerciseList';
-
+import { WorkoutGeneratorRepository } from '../api/workoutGenRepo';
 
 function FormOptions(props){
   return <>
@@ -21,6 +22,8 @@ function FormOptions(props){
 }
 
 class WorkoutGenerator extends Component {
+
+  workoutGeneratorRepo = new WorkoutGeneratorRepository;
 
   constructor(props, context) {
     super(props, context);
@@ -63,6 +66,37 @@ class WorkoutGenerator extends Component {
     //     this.setState({ persons });
     //   })
 
+    var ex=new Exercise("Jumping Jacks", "up and down boysssszzz", "https://data.whicdn.com/images/132534183/large.png", 4,4,8);
+    var wrkt = new Workout(
+        "jimbo's stretch routine",
+        "Arms and Crotch",
+        "Beginner",
+        "8 hours",
+        "Intense",
+        [
+            new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,3),
+            new Exercise("Jumping Jacks", "up and down boysssszzz", "https://data.whicdn.com/images/132534183/large.png", 4,4,8),
+            new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,10),
+            new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,10,10),
+          ],
+        5,
+        [
+            new Comment("Jimbo", "my favorite workout"),
+            new Comment("Jumbo", "I am not Jimbo")
+        ]
+    )
+
+    this.workoutGeneratorRepo.getExercises().then(exercises => console.log("getExercises:      "+exercises));
+    this.workoutGeneratorRepo.getExercisePic("plank").then(image => console.log("getExercisePic:      "+image));
+    this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(workout => console.log("getGeneratedWorkout:      "+workout));
+    this.workoutGeneratorRepo.addWorkout(wrkt);
+    this.workoutGeneratorRepo.addExerciseToWorkout(wrkt.name,ex);
+    this.workoutGeneratorRepo.getUserId("asinga","pass");
+
+
+
+
+    // console.log("what the fuck")
   }
 
 
@@ -106,15 +140,15 @@ class WorkoutGenerator extends Component {
       workoutDescription:   this.state.workoutDescription
     };
 
-
-    axios.post(`https://jsonplaceholder.typicode.com/users`, { workout })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+    console.log(workout)
+    // axios.post(`https://jsonplaceholder.typicode.com/users`, { workout })
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //   })
 
   //add workout array to backend ----exercisesGenerated and all workout meta data
-    this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:true});
+    this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:false});
   }
 
   render() {
@@ -235,7 +269,7 @@ class WorkoutGenerator extends Component {
        }
 
            />
-         <Button onClick={this.handleWorkoutSubmit} className="mt-4" size="lg" variant="outline-success" block="block">Add to Workouts</Button>
+         <Button onClick={event => this.setState({ showAddWorkout: true })} className="mt-4" size="lg" variant="outline-success" block="block">Add to Workouts</Button>
 
 
            <Modal show={this.state.showAddWorkout} onHide={event => this.setState({ showAddWorkout: false })}>
@@ -249,7 +283,7 @@ class WorkoutGenerator extends Component {
                      <Form>
                        <Form.Group controlId="exampleForm.ControlInput1">
                          <Form.Label>Workout Name</Form.Label>
-                         <Form.Control type="text" placeholder="2n semester workout" />
+                         <Form.Control type="text" placeholder="2n semester workout" onChange={event =>  {this.setState({workoutName: event.currentTarget.value})}}/>
                        </Form.Group>
                        <Form.Group controlId="exampleForm.ControlSelect1">
                          <Form.Label>Intensity</Form.Label>
@@ -279,7 +313,7 @@ class WorkoutGenerator extends Component {
                      <Button variant="secondary" onClick={event => this.setState({ showAddWorkout: false })}>
                        Cancel
                      </Button>
-                     <Button variant="primary" onClick={event => this.setState({ showAddWorkout: false })}>
+                     <Button variant="primary" onClick={this.handleWorkoutSubmit}>
                        Add Workout
                      </Button>
                    </Modal.Footer>
