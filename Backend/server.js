@@ -86,6 +86,16 @@ console.log("Incoming request for exercise image...");
 	});
 });
 
+//Return exercises with specified set
+app.get('/focus/:focus/expertise/:expertise/length/:length/intensity/:intensity', (req, res) => {
+con.query('SELECT exercise_name, rep_count, set_count, default_length FROM exercise NATURAL JOIN workout_info WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND workout_length = \'' + req.params['length'] + '\' AND intensity = \'' + req.params['intensity'] + "\';" , function (error, results, fields) {
+  if (error)
+  throw error;
+res.send(results);
+console.log(results);
+  });
+});
+
 app.get('/home',(req, res) => {
 	res.send('<h1>Hello World</h1>');
 	console.log('Incoming request for home...');
