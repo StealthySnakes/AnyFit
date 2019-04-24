@@ -72,7 +72,17 @@ con.query('SELECT exercise_name FROM exercise;' , function (error, results, fiel
 	if (error)
 	throw error;
 res.send(results);
-console.log(results);
+console.log("Incoming request for exercise name... ");
+	});
+});
+
+//Return exercise image url
+app.get('/exerciseName/:exerciseName', (req, res) => {
+con.query('SELECT exercise_image FROM exercise WHERE exercise_name = \'' + req.params['exerciseName'] + "\';" , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request for exercise image...");
 	});
 });
 
