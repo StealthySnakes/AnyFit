@@ -181,7 +181,7 @@ con.query('UPDATE workout_info SET comments = '+ req.params['comments'] +' WHERE
 	if (error)
 	throw error;
 res.send(results);
-console.log("Incoming request to update workout_id's workout name...");
+console.log("Incoming request to update workout_id's comments...");
 	});
 });
 
@@ -190,7 +190,7 @@ con.query('UPDATE workout_info SET visibility = '+ req.params['visibility'] +' W
 	if (error)
 	throw error;
 res.send(results);
-console.log("Incoming request to update workout_id's workout name...");
+console.log("Incoming request to update workout_id's visibility...");
 	});
 });
 //Return exercises with specified set
