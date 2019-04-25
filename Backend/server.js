@@ -131,6 +131,68 @@ console.log("Incoming request to update workout_id's workout desc...");
 	});
 });
 
+app.put('/exercises/:workout_id/workout_name/:workout_name', (req, res) => {
+con.query('UPDATE workout_info SET workout_name = '+ req.params['workout_name'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request to update workout_id's workout name...");
+	});
+});
+
+app.put('/exercises/:workout_id/rating/:rating', (req, res) => {
+con.query('UPDATE workout_info SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request to update workout_id's rating...");
+	});
+});
+
+app.put('/exercises/:workout_id/category/:category', (req, res) => {
+con.query('UPDATE workout_info SET category = '+ req.params['category'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request to update workout_id's category...");
+	});
+});
+
+app.put('/exercises/:workout_id/intensity/:intensity', (req, res) => {
+con.query('UPDATE workout_info SET intensity = '+ req.params['intensity'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request to update workout_id's intensity...");
+	});
+});
+
+app.put('/exercises/:workout_id/explevel/:ExpLevel', (req, res) => {
+con.query('UPDATE workout_info SET ExpLevel = '+ req.params['ExpLevel'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request to update workout_id's ExpLevel...");
+	});
+});
+
+app.put('/exercises/:workout_id/comments/:comments', (req, res) => {
+con.query('UPDATE workout_info SET comments = '+ req.params['comments'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request to update workout_id's workout name...");
+	});
+});
+
+app.put('/exercises/:workout_id/visibility/:visibility', (req, res) => {
+con.query('UPDATE workout_info SET visibility = '+ req.params['visibility'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log("Incoming request to update workout_id's workout name...");
+	});
+});
 //Return exercises with specified set
 app.get('/focus/:focus/expertise/:expertise/length/:length/intensity/:intensity', (req, res) => {
 con.query('SELECT exercise_name, rep_count, set_count, default_length FROM exercise NATURAL JOIN workout_info WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND workout_length = \'' + req.params['length'] + '\' AND intensity = \'' + req.params['intensity'] + "\';" , function (error, results, fields) {
