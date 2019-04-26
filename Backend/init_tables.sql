@@ -22,15 +22,6 @@ CREATE TABLE user_workout (
     favorite_workout BOOLEAN,
     custom_workout BOOLEAN,
     workout_counter INT,
-    FOREIGN KEY(user_id) REFERENCES user_info(user_id),
-    FOREIGN KEY(workout_id) REFERENCES workout_info(workout_id)
-);
-
-CREATE TABLE workout_info (
-    workout_id INT PRIMARY KEY,
-    exercise_id INT,
-    set_count INT,
-    rep_count INT,
     workout_length INT,
     workout_desc VARCHAR(250),
     workout_name VARCHAR(40),
@@ -40,6 +31,16 @@ CREATE TABLE workout_info (
     ExpLevel VARCHAR(40),
     comments VARCHAR(250),
     visibility BOOLEAN,
+    FOREIGN KEY(user_id) REFERENCES user_info(user_id),
+    FOREIGN KEY(workout_id) REFERENCES workout_info(workout_id)
+);
+
+CREATE TABLE workout_info (
+    workout_id INT,
+    exercise_id INT,
+    set_count INT,
+    rep_count INT,
+    PRIMARY KEY( workout_id, exercise_id),
     FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id)
 );
 
