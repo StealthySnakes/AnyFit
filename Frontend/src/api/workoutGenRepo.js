@@ -1,10 +1,11 @@
 import axios from 'axios';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 export class WorkoutGeneratorRepository {
-    url = "https://0cc24f35-8c5b-4be6-b8e7-2ef38f802af1.mock.pstmn.io";
+    url = "http://18.218.117.25:3000";
     config = {
       headers: {
-        Authorization: 'jlawrimore'
+        Authorization: 'jlawrimore',
       }
     };
     //expected format for get requests
@@ -16,13 +17,13 @@ export class WorkoutGeneratorRepository {
       return new Promise((resolve, reject) => {
         axios.post(`${this.url}/home/${l}/password/${p}`, this.config)
         .then(resp => resolve(resp.data))
-        .catch(resp => alert(l,p));
+        .catch(resp => alert(resp));
       });
     }
 
     getExercises() {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/exercises`, this.config)
+            axios.get(`${this.url}/exerciseNames`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });
@@ -37,7 +38,7 @@ export class WorkoutGeneratorRepository {
     }
     getGeneratedWorkout(focus, expertise, length, intensity) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/generateWorkout/:focus/:expertise/:length/:intensity`, this.config)
+            axios.get(`${this.url}/exercises`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });

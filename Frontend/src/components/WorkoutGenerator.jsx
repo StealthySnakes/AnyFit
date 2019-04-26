@@ -86,12 +86,12 @@ class WorkoutGenerator extends Component {
         ]
     )
 
-    this.workoutGeneratorRepo.getExercises().then(exercises => console.log("getExercises:      "+exercises));
-    this.workoutGeneratorRepo.getExercisePic("plank").then(image => console.log("getExercisePic:      "+image));
-    this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(workout => console.log("getGeneratedWorkout:      "+workout));
-    this.workoutGeneratorRepo.addWorkout(wrkt);
-    this.workoutGeneratorRepo.addExerciseToWorkout(wrkt.name,ex);
-    this.workoutGeneratorRepo.getUserId("asinga","pass");
+    this.workoutGeneratorRepo.getExercises().then(exercises => console.log("getExercises:      "+exercises.toSource()));
+    // this.workoutGeneratorRepo.getExercisePic("Squats").then(image => console.log("getExercisePic:      "+image.toSource()));
+    // this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(workout => console.log("getGeneratedWorkout:      "+workout.toSource()));
+    // this.workoutGeneratorRepo.addWorkout(wrkt);
+    // this.workoutGeneratorRepo.addExerciseToWorkout(wrkt.name,ex);
+    // this.workoutGeneratorRepo.getUserId("lifter97","password").then(user_id => console.log("getUserId:      "+user_id.toSource()));
 
 
 
