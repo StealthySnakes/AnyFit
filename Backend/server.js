@@ -66,6 +66,16 @@ app.get('/home/:userID/bio', (req,res) =>{
 	});
 });
 
+//Return list of favorite workouts
+app.get('/home/:userID/favorite_workout', (req, res) => {
+con.query('SELECT favorite_workout FROM user_workout WHERE user_id = \'' + req.params['userID'] + "\';" , function (error, results, fields) {
+	if (error)
+	throw error;
+res.send(results);
+console.log(results);
+	});
+});
+
 //Return all exercises
 app.get('/exercises/', (req, res) => {
 con.query('SELECT exercise_name FROM exercise;' , function (error, results, fields) {
