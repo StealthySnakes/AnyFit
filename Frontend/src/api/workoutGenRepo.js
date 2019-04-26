@@ -31,7 +31,7 @@ export class WorkoutGeneratorRepository {
 
     getExercisePic(exerciseName) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/exerciseName/${exerciseName}/`, this.config)
+            axios.get(`${this.url}/exerciseName/${exerciseName}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });

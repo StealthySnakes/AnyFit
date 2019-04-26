@@ -52,81 +52,84 @@ class WorkoutGenerator extends Component {
       workoutIntensity:0,
       workoutExperience:0,
       workoutDuration:0,
-      workoutDescription:0
+      workoutDescription:0,
+
+      exerciseOptions:[],
+      custom_image_url:"https://via.placeholder.com/150"
     };
     this.handleWorkoutGenerate = this.handleWorkoutGenerate.bind(this);
     this.handleCustomAdditionSubmit = this.handleCustomAdditionSubmit.bind(this);
     this.handleWorkoutSubmit = this.handleWorkoutSubmit.bind(this);
   }
   componentDidMount() {
-    // axios.get(`https://jsonplaceholder.typicode.com/users`)
-    //   .then(res => {
-    //     const persons = res.data;
-    //     console.log(persons)
-    //     this.setState({ persons });
-    //   })
 
-    var ex=new Exercise("Jumping Jacks", "up and down boysssszzz", "https://data.whicdn.com/images/132534183/large.png", 4,4,8);
-    var wrkt = new Workout(
-        "jimbo's stretch routine",
-        "Arms and Crotch",
-        "Beginner",
-        "8 hours",
-        "Intense",
-        [
-            new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,3),
-            new Exercise("Jumping Jacks", "up and down boysssszzz", "https://data.whicdn.com/images/132534183/large.png", 4,4,8),
-            new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,10),
-            new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,10,10),
-          ],
-        5,
-        [
-            new Comment("Jimbo", "my favorite workout"),
-            new Comment("Jumbo", "I am not Jimbo")
-        ]
-    )
+    //set up exercise for drop down
 
-    this.workoutGeneratorRepo.getExercises().then(exercises => console.log("getExercises:      "+exercises.toSource()));
-    // this.workoutGeneratorRepo.getExercisePic("Squats").then(image => console.log("getExercisePic:      "+image.toSource()));
-    // this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(workout => console.log("getGeneratedWorkout:      "+workout.toSource()));
+    this.workoutGeneratorRepo.getExercises().then(
+      exercises =>
+      {
+        var temp=[]
+        for(let i=0;i<exercises.length;i++){
+          temp.push(exercises[i].exercise_name)
+        }
+        this.setState({ exerciseOptions: temp })
+      }
+
+
+    );
+
     // this.workoutGeneratorRepo.addWorkout(wrkt);
     // this.workoutGeneratorRepo.addExerciseToWorkout(wrkt.name,ex);
-    // this.workoutGeneratorRepo.getUserId("lifter97","password").then(user_id => console.log("getUserId:      "+user_id.toSource()));
 
-
-
-
-    // console.log("what the fuck")
   }
 
 
   handleWorkoutGenerate(event) {
-    axios.get('https://site.com/', {
-      params: {
-        category:this.state.category,
-        expertise:this.state.expertise,
-        length:this.state.length,
-        intensity:this.state.intensity
+    this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(
+      workout => {
+        var temp=[]
+        // exercise_id
+
+        for(let exercise of workout){
+          temp.push(new Exercise(exercise.exercise_name, exercise.exercise_desc, exercise.exercise_image,exercise.default_length, 2,2))
+        }
+        this.setState({ exercisesGenerated: temp })
       }
-    })
+    )
+
+
     //generate the the workout using the button chosen parameters
 
   }
   handleCustomAdditionSubmit(event) {
     //add to generated workouts
+    // var loc_image=this.state.exerciseOptions.indexOf(this.state.customExerciseName)
 
+    // this.setState({custom_image_url:""});
+    // alert(this.state.custom_image_urls)
+
+
+
+    this.workoutGeneratorRepo.getExercisePic(this.state.customExerciseName).then(image =>
+
+
+
+        {
              this.setState(
                state => {state.exercisesGenerated.push(new Exercise(this.state.customExerciseName,
                  this.state.customExerciseDescription,
-                 "https://i1.wp.com/muscleandbrawn.com/wp-content/uploads/2009/11/100.jpg?resize=150%2C150",
-                 //"https://via.placeholder.com/150",
+                image[0].exercise_image,
                  this.state.customExerciseDuration,
                  this.state.customExerciseSets,
                  this.state.customExerciseReps))
                  return state;
                })
+        }
+             );
+               this.setState({ showAddExercise: false })
 
   }
+
   handleWorkoutSubmit(event){
 
     event.preventDefault();
@@ -212,7 +215,7 @@ class WorkoutGenerator extends Component {
                   <Form.Label>Exercises</Form.Label>
                   <Form.Control as="select"
                     onChange={event =>  {this.setState({customExerciseName: event.currentTarget.value})}}>
-                    <FormOptions opts={["plank", "situp"]}/>
+                    <FormOptions opts={this.state.exerciseOptions}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">

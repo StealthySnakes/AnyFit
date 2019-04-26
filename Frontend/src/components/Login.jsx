@@ -27,7 +27,7 @@ class Login extends Component {
         super(props);
 
         this.state = {
-          email: "",
+          username: "",
           password: "",
           failed_login:false
         };
@@ -41,11 +41,23 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    // "lifter97","password"
+    this.workoutGeneratorRepo.getUserId(this.state.username,this.state.password).then(
 
+      login_success => {
+
+        if (login_success){
+          //add redirect later
+          alert("Login success will redirect now..")
+        }
+        else{
+          this.setState({ failed_login: true })
+        }
+      }
+    );
     // login_success = this.workoutGeneratorRepo.getUserId(this.state.email, this.state.password);
     //add redirect if login success not null
     // else show login failed
-    this.setState({ failed_login: true })
 
   }
   render() {
@@ -62,13 +74,13 @@ class Login extends Component {
                   />
                 <p/>
       <h2> Sign in to Anyfit</h2>
-      <div id="login" className="Login mx-auto">
+      <div id="login" className="mx-auto">
             <Form onSubmit={this.handleSubmit}>
-              <Form.Label>Email address</Form.Label>
-              <Form.Group controlId="email" bsSize="large">
+              <Form.Label>Username</Form.Label>
+              <Form.Group controlId="username" bsSize="large">
                 <Form.Control
                   autoFocus
-                  type="email"
+                  type="username"
                   value={this.state.email}
                   onChange={this.handleChange}
                 />
