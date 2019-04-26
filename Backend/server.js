@@ -67,6 +67,7 @@ app.get('/home/:userID/bio', (req,res) =>{
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 app.put('/exercises/:userID/workout_id/:workout_id/favorite/:favorite', (req, res) => {
 con.query('UPDATE user_workout SET favorite_workout = '+ req.params['favorite'] +' WHERE user_id = '+ req.params['userID'] + ' AND workout_id = ' + req.params['workout_id'] + ';' , function (error, results, fields) {
 	if (error)
@@ -76,6 +77,8 @@ console.log("Incoming request to update user_workout's favorite_workout...");
 	});
 });
 =======
+=======
+>>>>>>> 381e988013aa59346c9f564b8370bfdf4f2cef38
 //Return list of favorite workouts
 app.get('/home/:userID/favorite_workout', (req, res) => {
 con.query('SELECT favorite_workout FROM user_workout WHERE user_id = \'' + req.params['userID'] + "\';" , function (error, results, fields) {
@@ -86,6 +89,9 @@ console.log(results);
 	});
 });
 
+<<<<<<< HEAD
+>>>>>>> 381e988013aa59346c9f564b8370bfdf4f2cef38
+=======
 >>>>>>> 381e988013aa59346c9f564b8370bfdf4f2cef38
 //Return all exercises
 app.get('/exercises/', (req, res) => {
