@@ -10,9 +10,10 @@ import Navigation from './Navigation';
 import axios from 'axios';
 
 import {Exercise} from '../models/Exercise';
+import {Workout} from '../models/Workout';
 
 import { ExerciseCard, ExerciseList } from './ExerciseList';
-
+import { WorkoutGeneratorRepository } from '../api/workoutGenRepo';
 
 function FormOptions(props){
   return <>
@@ -21,6 +22,8 @@ function FormOptions(props){
 }
 
 class WorkoutGenerator extends Component {
+
+  workoutGeneratorRepo = new WorkoutGeneratorRepository;
 
   constructor(props, context) {
     super(props, context);
@@ -49,50 +52,84 @@ class WorkoutGenerator extends Component {
       workoutIntensity:0,
       workoutExperience:0,
       workoutDuration:0,
-      workoutDescription:0
+      workoutDescription:0,
+
+      exerciseOptions:[],
+      custom_image_url:"https://via.placeholder.com/150"
     };
     this.handleWorkoutGenerate = this.handleWorkoutGenerate.bind(this);
     this.handleCustomAdditionSubmit = this.handleCustomAdditionSubmit.bind(this);
     this.handleWorkoutSubmit = this.handleWorkoutSubmit.bind(this);
   }
   componentDidMount() {
-    // axios.get(`https://jsonplaceholder.typicode.com/users`)
-    //   .then(res => {
-    //     const persons = res.data;
-    //     console.log(persons)
-    //     this.setState({ persons });
-    //   })
+
+    //set up exercise for drop down
+
+    this.workoutGeneratorRepo.getExercises().then(
+      exercises =>
+      {
+        var temp=[]
+        for(let i=0;i<exercises.length;i++){
+          temp.push(exercises[i].exercise_name)
+        }
+        this.setState({ exerciseOptions: temp })
+      }
+
+
+    );
+
+    // this.workoutGeneratorRepo.addWorkout(wrkt);
+    // this.workoutGeneratorRepo.addExerciseToWorkout(wrkt.name,ex);
 
   }
 
 
   handleWorkoutGenerate(event) {
-    axios.get('https://site.com/', {
-      params: {
-        category:this.state.category,
-        expertise:this.state.expertise,
-        length:this.state.length,
-        intensity:this.state.intensity
+    this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(
+      workout => {
+        var temp=[]
+        // exercise_id
+
+        for(let exercise of workout){
+          temp.push(new Exercise(exercise.exercise_name, exercise.exercise_desc, exercise.exercise_image,exercise.default_length, 2,2))
+        }
+        this.setState({ exercisesGenerated: temp })
       }
-    })
+    )
+
+
     //generate the the workout using the button chosen parameters
 
   }
   handleCustomAdditionSubmit(event) {
     //add to generated workouts
+    // var loc_image=this.state.exerciseOptions.indexOf(this.state.customExerciseName)
 
+    // this.setState({custom_image_url:""});
+    // alert(this.state.custom_image_urls)
+
+
+
+    this.workoutGeneratorRepo.getExercisePic(this.state.customExerciseName).then(image =>
+
+
+
+        {
              this.setState(
                state => {state.exercisesGenerated.push(new Exercise(this.state.customExerciseName,
                  this.state.customExerciseDescription,
-                 "https://i1.wp.com/muscleandbrawn.com/wp-content/uploads/2009/11/100.jpg?resize=150%2C150",
-                 //"https://via.placeholder.com/150",
+                image[0].exercise_image,
                  this.state.customExerciseDuration,
                  this.state.customExerciseSets,
                  this.state.customExerciseReps))
                  return state;
                })
+        }
+             );
+               this.setState({ showAddExercise: false })
 
   }
+
   handleWorkoutSubmit(event){
 
     event.preventDefault();
@@ -106,15 +143,15 @@ class WorkoutGenerator extends Component {
       workoutDescription:   this.state.workoutDescription
     };
 
-
-    axios.post(`https://jsonplaceholder.typicode.com/users`, { workout })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+    console.log(workout)
+    // axios.post(`https://jsonplaceholder.typicode.com/users`, { workout })
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //   })
 
   //add workout array to backend ----exercisesGenerated and all workout meta data
-    this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:true});
+    this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:false});
   }
 
   render() {
@@ -178,7 +215,7 @@ class WorkoutGenerator extends Component {
                   <Form.Label>Exercises</Form.Label>
                   <Form.Control as="select"
                     onChange={event =>  {this.setState({customExerciseName: event.currentTarget.value})}}>
-                    <FormOptions opts={["plank", "situp"]}/>
+                    <FormOptions opts={this.state.exerciseOptions}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
@@ -235,7 +272,7 @@ class WorkoutGenerator extends Component {
        }
 
            />
-         <Button onClick={this.handleWorkoutSubmit} className="mt-4" size="lg" variant="outline-success" block="block">Add to Workouts</Button>
+         <Button onClick={event => this.setState({ showAddWorkout: true })} className="mt-4" size="lg" variant="outline-success" block="block">Add to Workouts</Button>
 
 
            <Modal show={this.state.showAddWorkout} onHide={event => this.setState({ showAddWorkout: false })}>
@@ -249,7 +286,7 @@ class WorkoutGenerator extends Component {
                      <Form>
                        <Form.Group controlId="exampleForm.ControlInput1">
                          <Form.Label>Workout Name</Form.Label>
-                         <Form.Control type="text" placeholder="2n semester workout" />
+                         <Form.Control type="text" placeholder="2n semester workout" onChange={event =>  {this.setState({workoutName: event.currentTarget.value})}}/>
                        </Form.Group>
                        <Form.Group controlId="exampleForm.ControlSelect1">
                          <Form.Label>Intensity</Form.Label>
@@ -279,7 +316,7 @@ class WorkoutGenerator extends Component {
                      <Button variant="secondary" onClick={event => this.setState({ showAddWorkout: false })}>
                        Cancel
                      </Button>
-                     <Button variant="primary" onClick={event => this.setState({ showAddWorkout: false })}>
+                     <Button variant="primary" onClick={this.handleWorkoutSubmit}>
                        Add Workout
                      </Button>
                    </Modal.Footer>

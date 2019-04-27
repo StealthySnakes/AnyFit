@@ -4,15 +4,32 @@ import Button from 'react-bootstrap/Button';
 import Bootstrap from "react-bootstrap";
 import './Login.css';
 import Navigation from './Navigation';
+import { WorkoutGeneratorRepository } from '../api/workoutGenRepo';
+import Logo from '../assets/logo.png';
+
+
+function FailedLogin(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <div class="alert alert-primary" role="alert">
+  Login FAAAILED
+</div>;
+  }
+  return <></>;
+}
+
+
 
 class Login extends Component {
+  workoutGeneratorRepo = new WorkoutGeneratorRepository;
 
   constructor(props) {
         super(props);
 
         this.state = {
-          email: "",
-          password: ""
+          username: "",
+          password: "",
+          failed_login:false
         };
 
   };
@@ -24,22 +41,46 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    // "lifter97","password"
+    this.workoutGeneratorRepo.getUserId(this.state.username,this.state.password).then(
+
+      login_success => {
+
+        if (login_success){
+          //add redirect later
+          alert("Login success will redirect now..")
+        }
+        else{
+          this.setState({ failed_login: true })
+        }
+      }
+    );
+    // login_success = this.workoutGeneratorRepo.getUserId(this.state.email, this.state.password);
+    //add redirect if login success not null
+    // else show login failed
+
   }
   render() {
     return (
       <>
       < Navigation hideNav={true} />
 
-    <h1> Login </h1>
 
-
-      <div id="login" className="Login mx-auto">
+      <img
+                  alt=""
+                  src={Logo}
+                  width="300"
+                  className="d-inline-block align-top"
+                  />
+                <p/>
+      <h2> Sign in to Anyfit</h2>
+      <div id="login" className="mx-auto">
             <Form onSubmit={this.handleSubmit}>
-              <Form.Label>Email address</Form.Label>
-              <Form.Group controlId="email" bsSize="large">
+              <Form.Label>Username</Form.Label>
+              <Form.Group controlId="username" bsSize="large">
                 <Form.Control
                   autoFocus
-                  type="email"
+                  type="username"
                   value={this.state.email}
                   onChange={this.handleChange}
                 />
@@ -62,8 +103,11 @@ class Login extends Component {
               >
                 Login
               </Button>
-              <a className="text-muted">Click Here to Sign UP</a>
+
+              <a href="http://www.google.com">Click Here to Sign UP</a>
             </Form>
+
+            <FailedLogin isLoggedIn={this.state.failed_login}/>
           </div>
           </>
     );
