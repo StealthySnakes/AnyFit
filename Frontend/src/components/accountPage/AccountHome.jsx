@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import './AccountHome.css';
 import Account from '../../models/Account';
 import { HomeRepository } from '../../api/HomeRepository';
+import Timeline from './Timeline';
 
 class AccountHome extends Component {
 
@@ -67,9 +68,7 @@ class AccountHome extends Component {
 
                 <Col xs={12} sm={6} md={5} lg={5} xl={4}>                                 {/* Center Timeline */}
                   <Container>
-                    <Row>
-                      <h2 className="details">Timeline</h2>
-                    </Row>
+                    <Timeline user={this.currentAccount.id} repository={this.repo}/>                                                         {/* Timeline component */}
                   </Container>
                 </Col>
 
