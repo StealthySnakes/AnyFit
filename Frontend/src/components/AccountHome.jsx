@@ -16,12 +16,22 @@ class AccountHome extends Component {
       avatar: '',
       bio: '',
       friends: [],
+      workouts: [],
       favorites: [],
       history: []
     }
   }
 
   componentDidMount() {
+    this.repo.getProfilePic(this.props.userID).then(avi => {
+      this.setState.avatar({avi})
+    });
+    this.repo.getBio(this.props.userID).then(info => {
+      this.setState.bio({info})
+    });
+    this.repo.getFriends(this.props.userID).then(buddies => {
+      this.setState.friends({buddies})
+    });
 
   }
 
