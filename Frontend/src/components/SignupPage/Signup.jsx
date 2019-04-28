@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Signup.css';
-import {Navigation} from "./NavigationUnlog";
+import Navigation from "./NavigationUnlog";
 import {Addimg} from "./Addimg";
 
 

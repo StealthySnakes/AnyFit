@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import Logo from '../assets/logo.png';
+import Logo from '../../assets/logo.png';
 // import './AccoutHome.css';
 
 class Navigation extends Component {
