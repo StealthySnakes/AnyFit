@@ -130,6 +130,8 @@ class WorkoutGenerator extends Component {
 
   }
 
+  //WIP
+
   handleWorkoutSubmit(event){
 
     event.preventDefault();
@@ -152,6 +154,16 @@ class WorkoutGenerator extends Component {
 
   //add workout array to backend ----exercisesGenerated and all workout meta data
     this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:false});
+
+    var workoutId=2; //going to get one from the API
+    var accntId=0;//passed from previous page link also through state
+    this.props.history.push(
+      {
+        pathname: `/workoutpage/${workoutId}`,
+        state: {
+          accountId: accntId,
+        }
+      })
   }
 
   render() {
@@ -200,6 +212,8 @@ class WorkoutGenerator extends Component {
     <ButtonToolbar bsPrefix="inline-flex">
       <Button onClick={this.handleWorkoutGenerate} className="m-4" size="lg" variant="outline-primary">Generate Workout</Button>
       <Button onClick={event => this.setState({ showAddExercise: true })} className="m-4" size="lg"  variant="outline-secondary">Add custom exercise</Button>
+      <Button onClick={event => this.setState({ showAddWorkout: true })} className="m-4" size="lg" variant="outline-success" >Add to Workouts</Button>
+
     </ButtonToolbar>
 
     <hr></hr>
@@ -272,7 +286,6 @@ class WorkoutGenerator extends Component {
        }
 
            />
-         <Button onClick={event => this.setState({ showAddWorkout: true })} className="mt-4" size="lg" variant="outline-success" block="block">Add to Workouts</Button>
 
 
            <Modal show={this.state.showAddWorkout} onHide={event => this.setState({ showAddWorkout: false })}>
