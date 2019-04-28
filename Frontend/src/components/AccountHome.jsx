@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import './AccountHome.css';
 
 class AccountHome extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+  }
 
   render() {
     return (
@@ -62,6 +69,11 @@ class AccountHome extends Component {
                       <Col xs={4}>
                         <h2 className="details" id="customs">Favorites</h2>
                       </Col>
+                    </Row>
+                    <Row>
+                      <Card>
+
+                      </Card>
                     </Row>
                   </Container>
                   <Container>
