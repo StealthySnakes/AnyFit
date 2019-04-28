@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Navigation from './Navigation';
+import Navigation from '../Navigation';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import './AccountHome.css';
-import Account from '../models/Account';
-import { HomeRepository } from './../api/HomeRepository';
+import Account from '../../models/Account';
+import { HomeRepository } from '../../api/HomeRepository';
 
 class AccountHome extends Component {
 
@@ -16,12 +16,22 @@ class AccountHome extends Component {
       avatar: '',
       bio: '',
       friends: [],
+      workouts: [],
       favorites: [],
       history: []
     }
   }
 
   componentDidMount() {
+    this.repo.getProfilePic(this.props.userID).then(avi => {
+      this.setState.avatar({avi})
+    });
+    this.repo.getBio(this.props.userID).then(info => {
+      this.setState.bio({info})
+    });
+    this.repo.getFriends(this.props.userID).then(buddies => {
+      this.setState.friends({buddies})
+    });
 
   }
 
