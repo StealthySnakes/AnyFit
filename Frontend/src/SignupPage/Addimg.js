@@ -11,9 +11,6 @@ export const Addimg = props =>(
         <div className="form-group">
             <label htmlFor="img"></label>
             <input type="text" name="Img" id="addimg" placeholder="Add image link here"></input>
-            <form action="/action_page.php">
-                <input type="file" name="pic" accept="image/*"/>
-            </form>
         </div>
     </>
 );
