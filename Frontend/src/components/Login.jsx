@@ -6,7 +6,7 @@ import './Login.css';
 import Navigation from './Navigation';
 import { WorkoutGeneratorRepository } from '../api/workoutGenRepo';
 import Logo from '../assets/logo.png';
-
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 function FailedLogin(props) {
   const isLoggedIn = props.isLoggedIn;
@@ -47,17 +47,24 @@ class Login extends Component {
       login_success => {
 
         if (login_success){
-          //add redirect later
           alert("Login success will redirect now..")
+          this.props.history.push(
+            {
+              pathname: '/home',
+              state: {
+                accountId: login_success,
+              }
+            }
+          )
         }
         else{
           this.setState({ failed_login: true })
         }
       }
     );
-    // login_success = this.workoutGeneratorRepo.getUserId(this.state.email, this.state.password);
-    //add redirect if login success not null
-    // else show login failed
+
+    //should be able to access using: const { fromNotifications } = this.props.location.state
+
 
   }
   render() {
@@ -96,15 +103,13 @@ class Login extends Component {
                   type="password"
                 />
               </Form.Group>
-              <Button
-                block
-                bsSize="large"
+              <Button className="m-1"
                 type="submit"
               >
                 Login
               </Button>
 
-              <a href="http://www.google.com">Click Here to Sign UP</a>
+              <Link to={`/signup`}>Click Here to Sign UP</Link>
             </Form>
 
             <FailedLogin isLoggedIn={this.state.failed_login}/>
