@@ -43,7 +43,11 @@ export class HomeRepository {
     }
 
     getTimeline(userID) {
-
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/${userID}/timeline`, this.config)                // Assume this will change.
+            .then(resp => resolve(resp.data))
+            .catch(resp => alert(resp))
+        });
     }
 
     setFavorite(userID, workoutID) {
