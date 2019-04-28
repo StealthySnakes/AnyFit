@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import Navigation from './Navigation';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import './AccountHome.css';
+import Account from '../models/Account';
+import { HomeRepository } from './../api/HomeRepository';
 
 class AccountHome extends Component {
+
+  repo = new HomeRepository();
+  currentAccount = new Account();
 
   constructor(props) {
     super(props);
     this.state = {
-
+      avatar: '',
+      bio: '',
+      friends: [],
+      favorites: [],
+      history: []
     }
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
