@@ -67,7 +67,7 @@ export class WorkoutPage extends React.Component{
         <>
             <Navigation/>
             <div class = "card" style={{float:'right', margin:'2em', padding:'1em'}}>
-                <Stopwatch begin = {this.state.beginClk}/>
+                <Stopwatch beginClk = {this.state.beginClk}/>
                 <button class = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
             </div>
             <Container style={{margin:'1em'}}>               {/* Outer Container */}

@@ -1,20 +1,24 @@
 import * as React from 'react';
 import ReactStopwatch from 'react-stopwatch';
  
-export const Stopwatch = (begin) => (
+export const Stopwatch = (props) => (
   <ReactStopwatch
     seconds={0}
     minutes={0}
     hours={0}
-    autoStart= {begin}
 
     render={({ formatted, hours, minutes, seconds }) => {
-      return (
-        <div>
+      if(props.beginClk){
+        return(
           <h1>
-            { formatted }
+            {formatted}
           </h1>
-        </div>
+        );
+      }
+      return (
+          <h1>
+            00:00:00
+          </h1>
       );
     }}
    />
