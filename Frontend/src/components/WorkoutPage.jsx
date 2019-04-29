@@ -10,11 +10,14 @@ import './WorkoutPage.css';
 import {Rating} from './Rating';
 import {Comment} from './../models/Comment';
 import {ReviewForm} from './reviews/reviewForm';
+import {Link} from 'react-router-dom';
 
 export class WorkoutPage extends React.Component{
     state = {
         wrkt: new Workout(
+            0,
             "jimbo's stretch routine",
+            "a fun workout that embiggens you",
             "Arms and Crotch",
             "Beginner",
             "8 hours",
@@ -32,8 +35,9 @@ export class WorkoutPage extends React.Component{
             ]
         ),
         beginClk: false,
+        pauseClk: false,
         btnCol: {background: 'dodgerblue'},
-        btnWord: "Start"
+        btnWord: "Start",
     }
 
     onNewReview(review){
@@ -48,12 +52,13 @@ export class WorkoutPage extends React.Component{
             this.setState({
                 beginClk: true,
                 btnCol: {background: 'indianred'},
-                btnWord: "Stop"
+                btnWord: "Reset"
             })
         }
         else{
             this.setState({
                 beginClk: false,
+                pauseClk: true,
                 btnCol: {background: 'dodgerblue'},
                 btnWord: "Start"
             })
@@ -66,9 +71,9 @@ export class WorkoutPage extends React.Component{
         return(
         <>
             <Navigation/>
-            <div class = "card" style={{float:'right', margin:'2em', padding:'1em'}}>
-                <Stopwatch beginClk = {this.state.beginClk}/>
-                <button class = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
+            <div className = "card" style={{float:'right', margin:'2em', padding:'5em', position:'fixed', zIndex:1, right:'1em'}}>
+                <Stopwatch beginClk = {this.state.beginClk} pauseClk = {this.state.pauseClk}/>
+                <button className = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
             </div>
             <Container style={{margin:'1em'}}>               {/* Outer Container */}
 
@@ -78,13 +83,14 @@ export class WorkoutPage extends React.Component{
 
                     </Row>
                 </Col>                                {/* Left Side Close */}
-                <Col md={10} style={{background:'white'}}>                                 {/* Right Side */}
+                <Col md={10} style={{background:'white', display:'block'}}>                                 {/* Right Side */}
                     <Container>
                         <Row style={{display:'block'}}>
                             <h1>{this.state.wrkt.name}</h1>
+                             <button type="button" class="btn btn-warning btn-block">Edit Workout</button>
                             <Rating value = {this.state.wrkt.rating} />
-                            <button class="btn btn-primary"style={{marginLeft:'2em', marginBottom:'1em'}}>Rate Workout</button>
-                            <p style={{fontWeight:'bold'}}>focus: <span style={{fontWeight:'normal'}}>{this.state.wrkt.focus}</span> 
+                            <button className="btn btn-primary"style={{marginLeft:'2em', marginBottom:'1em', marginTop:'0.5em'}}>Rate Workout</button>
+                            <p style={{fontWeight:'bold'}}><span style={{fontWeight:'normal'}}>{this.state.wrkt.description}<br></br></span>focus: <span style={{fontWeight:'normal'}}>{this.state.wrkt.focus}</span> 
                             <span style={{marginLeft:'1em'}}>expertise level: <span style={{fontWeight:'normal'}}>{this.state.wrkt.expertise}</span></span>
                             <span style={{marginLeft:'1em'}}>length: <span style={{fontWeight:'normal'}}>{this.state.wrkt.length}</span></span>
                             <span style={{marginLeft:'1em'}}>intensity: <span style={{fontWeight:'normal'}}>{this.state.wrkt.intensity}</span></span></p>
@@ -95,11 +101,11 @@ export class WorkoutPage extends React.Component{
                 {this.state.wrkt.exercises.map((ex) => 
                 <Row>
                     <Col md={2}>
-                        <div class = "form form-control-lg">
-                            <label><input class = "checks" type="checkbox" value=""/></label>
+                        <div className = "form form-control-lg">
+                            <label><input className = "checks" type="checkbox" value=""/></label>
                         </div>
                     </Col>
-                    <Col >
+                    <Col md={10}>
                         <ExerciseCard name={ex.name} desc={ex.desc} imageUrl={ex.imageUrl} length={ex.length} sets={ex.sets} reps={ex.reps}/>
                     </Col>
                 </Row>
@@ -107,8 +113,7 @@ export class WorkoutPage extends React.Component{
                 )}
             </Container>                              {/* Outer Container Close */}
 
-            <div style={{margin:'2em'}}>
-                <h1>Comments</h1>
+            <div style={{margin:'2em', textAlign:'left'}}>
                 <ReviewForm reviews={this.state.wrkt.comments} onNewReview={a => this.onNewReview(a)}/>
             </div>
             

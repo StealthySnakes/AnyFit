@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 export const ReviewList = (props) =>(
     <>
-        <h4>Product Reviews <span style={{opacity:0.5}}>({props.reviews.length})</span></h4>
-        {props.reviews.length ==0 && <p>Be the first to leave a review!</p>}
+        <h4>Comments <span style={{opacity:0.5}}>({props.reviews.length})</span></h4>
+        {props.reviews.length ==0 && <p>Be the first to leave a comment!</p>}
         <div>
             {
                 props.reviews.map(r =>

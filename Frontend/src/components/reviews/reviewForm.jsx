@@ -28,7 +28,7 @@ export class ReviewForm extends React.Component {
             </div>
     
             <div class = "card ">
-                <h5 class = "card-header bg-secondary text-white">Add Review</h5>
+                <h5 class = "card-header bg-secondary text-white">Add Comment</h5>
                 <form style = {{margin:'1em'}}>
                     <div class = "form-group" style = {{float:'left',display:'block', marginRight:'1em', width:'70%'}}>
                         <label for="name" style={{textAlign:'left'}}>Your Name</label>
