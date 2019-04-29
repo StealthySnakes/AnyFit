@@ -124,6 +124,22 @@ console.log(results);
   });
 });
 
+//Return Workout ID for newly created Workout
+app.post('/userID/:userID/workoutName/:workoutName/experience/:experience/intensity/:intensity/workoutDesc/:workoutDesc' , (req, res) => {
+  var maxWorkout = 0;
+  con.query('SELECT MAX(workout_id) FROM workout_info;', function (error, results, fields) {
+    if(error)
+    throw error;
+    maxWorkout = results + 1;
+  });
+  con.query('INSERT INTO user_workout (user_id, workout_id, past_workout, favorite_workout, custom_workout, workout_counter, workout_length, workout_desc, workout_name, rating, category, intensity, ExpLevel, comments, visibility, Time_stamp) VALUES ( \'' + req.params['userID'] + '\', \'' + maxWorkout + '\', null, null, null, null, null, \'' + req.params['workoutDesc'] + '\' , \'' + req.params['workoutName'] + '\', null, null, \'' + req.params['intensity'] + '\', \'' + req.params['experience'] + '\', null, null, CURRENT_TIMESTAMP);', function (error, results, fields) {
+    if(error)
+    throw error;
+    res.send(maxWorkout);
+    console.log(maxWorkout);
+  });
+});
+
 app.get('/home',(req, res) => {
 	res.send('<h1>Hello World</h1>');
 	console.log('Incoming request for home...');
