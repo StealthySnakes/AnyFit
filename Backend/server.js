@@ -86,7 +86,7 @@ console.log(results);
 });
 
 //Return all exercises
-app.get('/exercises/', (req, res) => {
+app.get('/exercises', (req, res) => {
 con.query('SELECT exercise_name FROM exercise;' , function (error, results, fields) {
 	if (error)
 	throw error;
