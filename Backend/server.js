@@ -4,6 +4,9 @@ const mysql = require('mysql');
 const express = require('express');
 const app = express();
 const port = 3000;
+const cors = require('cors');
+
+app.use(cors());
 
 app.post('/home/:login/password/:password', (req, res) => {
 	con.query('SELECT user_id FROM user_info WHERE username = \'' + req.params['login'] + '\' AND _password =\'' + req.params['password'] + "\';" , function (error, results, fields) {
@@ -20,6 +23,12 @@ app.post('/home/:login/password/:password', (req, res) => {
 	console.log("Incoming login request...");
   });
 });
+
+//create user
+//app.put('newuser/:name/:username/:password/:avatar', (req,res) => {
+//	var userId;
+
+
 
 //return user's friends
 app.get('/home/:userID', (req,res) => {
@@ -213,6 +222,18 @@ res.send(results);
 console.log("Incoming request to update workout_id's visibility...");
 	});
 });
+
+//return workout by workout_id
+app.get('/workout/:workout_id', (req,res) => {
+	var workout_id = parseInt(req.params['workout_id']);
+	con.query('SELECT DISTINCT * from workout_info NATURAL JOIN user_workout NATURAL JOIN exercise WHERE workout_id = ' + workout_id + ' ;', function(error,results,fields) {
+		if(error)
+			throw error;
+	res.send(results);
+	console.log("Incoming request for workout...");
+	});
+});
+
 //Return exercises with specified set
 app.get('/focus/:focus/expertise/:expertise/length/:length/intensity/:intensity', (req, res) => {
 con.query('SELECT exercise_name, rep_count, set_count, default_length FROM exercise NATURAL JOIN workout_info WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND workout_length = \'' + req.params['length'] + '\' AND intensity = \'' + req.params['intensity'] + "\';" , function (error, results, fields) {
