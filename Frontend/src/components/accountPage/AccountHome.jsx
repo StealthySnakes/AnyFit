@@ -5,6 +5,7 @@ import './AccountHome.css';
 import Account from '../../models/Account';
 import { HomeRepository } from '../../api/HomeRepository';
 import Timeline from './Timeline';
+import { Link } from 'react-router-dom';
 
 class AccountHome extends Component {
 
@@ -68,7 +69,14 @@ class AccountHome extends Component {
 
                 <Col xs={12} sm={6} md={5} lg={5} xl={4}>                                 {/* Center Timeline */}
                   <Container>
-                    <Timeline user={this.currentAccount.id} repository={this.repo}/>                                                         {/* Timeline component */}
+                  <Row>
+                  {/*<Link className="btn btn-info">                                 Link to the other page
+                    Generate Workout!
+                  </Link> */ }
+                  </Row>
+                  <Row>
+                    <Timeline user={this.currentAccount.id} repository={this.repo}/>
+                  </Row>                                                         {/* Timeline component */}
                   </Container>
                 </Col>
 
@@ -88,8 +96,11 @@ class AccountHome extends Component {
                   
                   <Container>
                     <Row>
-                      <Col xs={4}>
+                      <Col xs={4} sm={6} md={6} lg={6} xl={6}>
                         <h2 className="details" id="customs">Favorites</h2>
+                      </Col>
+                      <Col >
+
                       </Col>
                     </Row>
                     <Row>
