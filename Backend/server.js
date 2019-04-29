@@ -257,13 +257,14 @@ console.log(results);
 
 //Return Workout ID for newly created Workout
 app.post('/newWorkoutId/:workoutObject' , (req, res) => {
+  var obj = req.params['workoutObject'];
   var maxWorkout = 0;
   con.query('SELECT MAX(workout_id) FROM workout_info;', function (error, results, fields) {
     if(error)
     throw error;
     maxWorkout = results + 1;
   });
-  con.query('INSERT INTO user_workout (user_id, workout_id, past_workout, favorite_workout, custom_workout, workout_counter, workout_length, workout_desc, workout_name, rating, category, intensity, ExpLevel, comments, visibility, Time_stamp) VALUES ( \'' + req.params['userID'] + '\', \'' + maxWorkout + '\', null, null, null, null, null, \'' + req.params['workoutDesc'] + '\' , \'' + req.params['workoutName'] + '\', null, null, \'' + req.params['intensity'] + '\', \'' + req.params['experience'] + '\', null, null, CURRENT_TIMESTAMP);', function (error, results, fields) {
+  con.query('INSERT INTO user_workout (user_id, workout_id, past_workout, favorite_workout, custom_workout, workout_counter, workout_length, workout_desc, workout_name, rating, category, intensity, ExpLevel, comments, visibility, Time_stamp) VALUES ( \'' + obj['userID'] + '\', \'' + maxWorkout + '\', null, null, null, null, null, \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\', null, null, \'' + obj['intensity'] + '\', \'' + obj['experience'] + '\', null, null, CURRENT_TIMESTAMP);', function (error, results, fields) {
     if(error)
     throw error;
     res.send(maxWorkout);
@@ -310,6 +311,3 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
-
-
-
