@@ -31,6 +31,7 @@ CREATE TABLE user_workout (
     ExpLevel VARCHAR(40),
     comments VARCHAR(250),
     visibility BOOLEAN,
+    Time_stamp DATETIME,
     FOREIGN KEY(user_id) REFERENCES user_info(user_id),
     FOREIGN KEY(workout_id) REFERENCES workout_info(workout_id)
 );
