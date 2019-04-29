@@ -67,7 +67,7 @@ app.get('/home/:userID/bio', (req,res) =>{
 });
 
 //Return all exercises
-app.get('/exercises/', (req, res) => {
+app.get('/exerciseNames/', (req, res) => {
 con.query('SELECT exercise_name FROM exercise;' , function (error, results, fields) {
 	if (error)
 	throw error;
@@ -77,11 +77,12 @@ console.log("Incoming request for exercise name... ");
 });
 
 //Return exercise image url!
-app.get('/exerciseName/:workout_id', (req, res) => {
-con.query('SELECT exercise_image FROM exercise WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+app.get('/exerciseName/:exercise_name', (req, res) => {
+con.query('SELECT exercise_image FROM exercise WHERE exercise_name = \''+ req.params['exercise_name'] + '\' ;' , function (error, results, fields) {
 	if (error)
 	throw error;
 res.send(results);
+console.log(results);
 console.log("Incoming request for exercise image...");
 	});
 });
@@ -139,6 +140,16 @@ con.query('SELECT exercise_name, rep_count, set_count, default_length FROM exerc
 res.send(results);
 console.log(results);
   });
+});
+
+app.get('/exercises/',(req,res) => {
+	con.query('SELECT * from exercise LIMIT 5;', function(error,results,fields) {
+		if(error)
+			throw error;
+		res.send(results);
+	});
+console.log("Incoming request for exercises...");
+
 });
 
 app.get('/home',(req, res) => {
