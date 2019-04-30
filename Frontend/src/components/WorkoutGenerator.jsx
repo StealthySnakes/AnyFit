@@ -50,7 +50,7 @@ class WorkoutGenerator extends Component {
       workoutExperience:0,
       workoutDuration:0,
       workoutDescription:0,
-
+      createWorkoutID:0,
       exerciseOptions:[],
       custom_image_url:"https://via.placeholder.com/150"
     };
@@ -131,7 +131,8 @@ class WorkoutGenerator extends Component {
 
   //WIP
 
-  handleWorkoutSubmit(event){
+
+  async handleWorkoutSubmit(event){
 
     event.preventDefault();
 
