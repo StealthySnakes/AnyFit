@@ -145,39 +145,35 @@ class WorkoutGenerator extends Component {
       workoutDescription:   this.state.workoutDescription
     };
 
-    console.log(workout)
-    // axios.post(`https://jsonplaceholder.typicode.com/users`, { workout })
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //   })
 
+    await this.workoutGeneratorRepo.addWorkout(workout).then(workout_id => this.setState({createWorkoutID: workout_id}))
   //add workout array to backend ----exercisesGenerated and all workout meta data
+  // addExerciseToWorkout
+
+
     this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:false});
 
     var workoutId=2; //going to get one from the API
     var accntId=0;//passed from previous page link also through state
     this.props.history.push(
       {
-        pathname: `/workoutpage/${workoutId}`,
+        pathname: `/workoutpage/${this.state.createWorkoutID}`,
         state: {
-          accountId: accntId,
+          accountId: this.props.location.state.accountId,
         }
       })
   }
-
   render() {
     return (<> < Navigation />
     <h1>Generate Workout</h1>
    <h2>  Focus</h2>
    <div >
     <ToggleButtonGroup className="w-100" name="Focus" id="category" type="radio" value={this.state.category} onChange={event => this.setState({category: [event]})}>
-      <ToggleButton value={"Strength"}>Strength</ToggleButton>
-      <ToggleButton value={"Muscle"}>Muscle</ToggleButton>
-      <ToggleButton value={"Mobility"}>Mobility</ToggleButton>
-      <ToggleButton value={"Speed"}>Speed</ToggleButton>
-      <ToggleButton value={"Flexibility"}>Flexibility</ToggleButton>
-      <ToggleButton value={"Cardio"}>Cardio</ToggleButton>
+      <ToggleButton value={"upper body"}>Upper body </ToggleButton>
+      <ToggleButton value={"lower body"}>Lower body </ToggleButton>
+      <ToggleButton value={"full body"}>Full body </ToggleButton>
+      <ToggleButton value={"cardio"}>Cardio</ToggleButton>
+      <ToggleButton value={"abdominals"}>Abdominals</ToggleButton>
     </ToggleButtonGroup>
 
     <h2>
@@ -194,10 +190,10 @@ class WorkoutGenerator extends Component {
       Length
     </h2>
     <ToggleButtonGroup className="w-50" name="Length" type="radio" value={this.state.length} onChange={event => this.setState({length: [event]})}>
-      <ToggleButton value={1}>30 min</ToggleButton>
-      <ToggleButton value={2}>60 min</ToggleButton>
-      <ToggleButton value={3}>90 min</ToggleButton>
-      <ToggleButton value={4}>120 min</ToggleButton>
+      <ToggleButton value={30}>30 min</ToggleButton>
+      <ToggleButton value={60}>60 min</ToggleButton>
+      <ToggleButton value={90}>90 min</ToggleButton>
+      <ToggleButton value={120}>120 min</ToggleButton>
     </ToggleButtonGroup>
 
     <h2>
