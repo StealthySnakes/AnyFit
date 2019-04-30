@@ -312,7 +312,7 @@ app.listen(port, () => {
 	console.log('Incoming Request');
 });
 
- app.put('/exercises/:workout_id/rating/:rating', (req, res) => {
+ app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
  con.query('UPDATE user_workout SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
  	if (error)
  	throw error;
@@ -321,12 +321,21 @@ app.listen(port, () => {
  	});
  });
 
- app.put('/exercises/:workout_id/comments/:comments', (req, res) => {
+ app.patch('/exercises/:workout_id/comments/:comments', (req, res) => {
  con.query('UPDATE user_workout SET comments = '+ req.params['comments'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
  	if (error)
  	throw error;
  res.send(results);
  console.log("Incoming request to update workout_id's comments...");
+ 	});
+ });
+ 
+ app.put('/exercises/:workout_id/exercise_name/:exercise_name/exercise_desc/:exercise_desc/default_length/:default_length/exercise_image/:exercise_image', (req, res) => {
+ con.query('insert into excercise (exercise_id, exercise_name, exercise_desc, default_length, exercise_image) VALUES (' + req.params['workout_id'] + ', ' + req.params['exercise_name'] + ', ' + req.params['exercise_desc'] + ', ' + req.params['default_length'] + ', ' + req.params['exercise_image'] +';' , function (error, results, fields) {
+ 	if (error)
+ 	throw error;
+ res.send(results);
+ console.log("Creating exercise...");
  	});
  });
 
