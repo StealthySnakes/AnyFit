@@ -1,9 +1,9 @@
 import Login from './components/Login';
-import AccountHome from './components/AccountHome';
 import Signup from './components/SignupPage/Signup';
 import WorkoutGenerator from './components/WorkoutGenerator';
 import WorkoutPage from './components/WorkoutPage';
 import StopWatch from './components/StopWatch';
+import AccountHome from './components/accountPage/AccountHome';
 
 
 export const ROUTES = [
