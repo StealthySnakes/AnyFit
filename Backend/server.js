@@ -107,7 +107,6 @@ console.log(results);
 });
 
 //Return all exercises
-app.get('/exercises', (req, res) => {
 app.get('/exerciseNames/', (req, res) => {
 con.query('SELECT exercise_name FROM exercise;' , function (error, results, fields) {
 	if (error)
@@ -118,8 +117,6 @@ console.log("Incoming request for exercise name... ");
 });
 
 //Return exercise image url!
-app.get('/exerciseName/:workout_id', (req, res) => {
-con.query('SELECT exercise_image FROM exercise WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 app.get('/exerciseName/:exercise_name', (req, res) => {
 con.query('SELECT exercise_image FROM exercise WHERE exercise_name = \''+ req.params['exercise_name'] + '\' ;' , function (error, results, fields) {
 	if (error)
@@ -139,7 +136,6 @@ console.log("Incoming request for workout_info... ");
 	});
 });
 
-//Return exercises with specified set
 app.put('/exercises/:workout_id/set_count/:set_count', (req, res) => {
 con.query('UPDATE workout_info SET set_count = '+ req.params['set_count'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 	if (error)
@@ -259,9 +255,6 @@ console.log(results);
   });
 });
 
-app.get('/home',(req, res) => {
-	res.send('<h1>Hello World</h1>');
-	console.log('Incoming request for home...');
 //Return Workout ID for newly created Workout
 app.post('/newWorkoutId/:workoutObject' , (req, res) => {
   var obj = req.params['workoutObject'];
@@ -279,10 +272,6 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
   });
 });
 
-app.get('/WorkoutPage', (req, res) => {
-  res.send('<h1> YOU READY TO WORKOUT BROTHER? </h1>');
-  console.log('Workout page has been accessed');
-});
 
 
 app.get('/home/username/:username', (req,res) => {
@@ -322,6 +311,7 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
+<<<<<<< HEAD
 
 
 
@@ -425,3 +415,5 @@ app.listen(port, () => {
 // console.log("Incoming request to update workout_id's visibility...");
 // 	});
 // });
+=======
+>>>>>>> eb5da12e5d1d56ebbc123c076409c20a1a7471b1
