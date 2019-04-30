@@ -319,6 +319,7 @@ app.listen(port, () => {
 });
 <<<<<<< HEAD
 
+
  app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
  con.query('UPDATE user_workout SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
  	if (error)
