@@ -330,19 +330,5 @@ app.listen(port, () => {
  	});
  });
  
- app.put('/exercises/exercise_name/:exercise_name/exercise_desc/:exercise_desc/default_length/:default_length/exercise_image/:exercise_image', (req, res) => {
-	var workoutID;
- 	 con.query('SELECT MAX(workoutID) FROM user_workout;', function (error, results, fields) {
-    		if(error)
-    		throw error;
-    		workoutID = results + 1;
-  	});
- con.query('insert into excercise (exercise_id, exercise_name, exercise_desc, default_length, exercise_image) VALUES (' + workoutID + ', \'' + req.params['exercise_name'] + '\', \'' + req.params['exercise_desc'] + '\', \'' + req.params['default_length'] + '\', \'' + req.params['exercise_image'] +'\';' , function (error, results, fields) {
- 	if (error)
- 	throw error;
- res.send(results);
- console.log("Creating exercise...");
- 	});
- });
 
 
