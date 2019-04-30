@@ -32,13 +32,12 @@ app.put('newuser/:name/:username/:password/:avatar', (req,res) => {
     		throw error1;
     		userId = results1[0].userID + 1;
 
-		con.query('INSERT INTO user_info VALUES(' + userId + ',\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
-			if(error)
-			throw error;
-			res.send(results);
-			console.log('Incoming request to create user...');
-		});
-
+	con.query('INSERT INTO user_info VALUES(' + userId + ',\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
+		if(error)
+		throw error;
+		res.send(results);
+		console.log('Incoming request to create user...');
+	});
   	});
 });
 
@@ -248,8 +247,8 @@ app.get('/workout/:workout_id', (req,res) => {
 	});
 });
 
-app.get('/focus/:focus/expertise/:expertise/intensity/:intensity/image/:image/length/:length', (req, res) => {
-con.query('SELECT exercise_name, rep_count, set_count, exercise_image, exercise_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise']  + '\' AND intensity = \'' + req.params['intensity'] + '\' AND exercise_image = \'' + req.params['image'] + '\' AND ecercise_length = \'' + req.params['length'] + '\';', function (error, results, fields) {
+app.get('/focus/:focus/expertise/:expertise/length/:length/intensity/:intensity', (req, res) => {
+con.query('SELECT exercise_name, rep_count, set_count, default_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND workout_length = \'' + req.params['length'] + '\' AND intensity = \'' + req.params['intensity'] + "\';" , function (error, results, fields) {
   if (error)
   throw error;
 res.send(results);
@@ -265,7 +264,7 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
     if(error1)
     throw error1;
     maxWorkout = results1[0].workoutID + 1;
-try{
+//try{
   con.query('INSERT INTO user_workout (user_id, workout_id, workout_length, workout_desc, workout_name, category, intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + maxWorkout + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\', \'' + obj['category'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
     if(error)
     throw error;
@@ -273,10 +272,7 @@ try{
     console.log("Incoming request to create workout...");
     //console.log(maxWorkout);
   });
-}
-catch(err){
 
-}
 
 
 });
@@ -321,38 +317,3 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
-
- app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
- con.query('UPDATE user_workout SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
- 	if (error)
- 	throw error;
- res.send(results);
- console.log("Incoming request to update workout_id's rating...");
- 	});
- });
-
- app.patch('/exercises/:workout_id/comments/:comments', (req, res) => {
- con.query('UPDATE user_workout SET comments = '+ req.params['comments'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
- 	if (error)
- 	throw error;
- res.send(results);
- console.log("Incoming request to update workout_id's comments...");
- 	});
- });
- 
- app.put('/exercises/exercise_name/:exercise_name/exercise_desc/:exercise_desc/default_length/:default_length/exercise_image/:exercise_image', (req, res) => {
-	var workoutID;
- 	 con.query('SELECT MAX(workoutID) FROM user_workout;', function (error, results, fields) {
-    		if(error)
-    		throw error;
-    		workoutID = results + 1;
-  	});
- con.query('insert into excercise (exercise_id, exercise_name, exercise_desc, default_length, exercise_image) VALUES (' + workoutID + ', \'' + req.params['exercise_name'] + '\', \'' + req.params['exercise_desc'] + '\', \'' + req.params['default_length'] + '\', \'' + req.params['exercise_image'] +'\';' , function (error, results, fields) {
- 	if (error)
- 	throw error;
- res.send(results);
- console.log("Creating exercise...");
- 	});
- });
-
-
