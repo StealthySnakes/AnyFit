@@ -1,7 +1,7 @@
 use anyfit;
 
 CREATE TABLE user_info (
-    user_id INT PRIMARY KEY,
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(40),
     _name VARCHAR(14),
     _password VARCHAR(40),
@@ -17,7 +17,7 @@ CREATE TABLE friends (
 
 CREATE TABLE user_workout (
     user_id INT,
-    workout_id INT,
+    workout_id INT AUTO_INCREMENT,
     past_workout BOOLEAN,
     favorite_workout BOOLEAN,
     custom_workout BOOLEAN,
