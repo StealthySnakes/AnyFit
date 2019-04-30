@@ -19,17 +19,23 @@ app.post('/home/:login/password/:password', (req, res) => {
 			res.send("null");
 		}
 
-	console.log("Incoming login request...");
+		console.log("Incoming login request...");
   });
 });
 
 //create user
 app.put('newuser/:name/:username/:password/:avatar', (req,res) => {
-	con.query('INSERT INTO user_info VALUES('\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
-		if(error)
-		throw error;
-
-	});
+	try {
+		con.query('INSERT INTO user_info VALUES('\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
+			if(error)
+				throw error;
+	
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+	//select recently created user_id and return it
 	con.query('SELECT max(user_id) as userID from user_info;', function(error,results,fields){
 		var max = results[0].userID;
 		res.send({userID: max});
@@ -255,31 +261,31 @@ console.log(results);
   });
 });
 
-//add try catch
+
 //Return Workout ID for newly created Workout
 app.post('/newWorkoutId/:workoutObject' , (req, res) => {
-  var obj = JSON.parse(req.params['workoutObject']);
-try {
- con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name, category, intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\', \'' + obj['category'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
-    if(error)
-    throw error;
-
-  });
-}
-catch(err){
-	console.log(error);
-}
+	var obj = JSON.parse(req.params['workoutObject']);
+	//Insert new workout object into user_workout
+	try {
+ 			con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name, category, intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\', \'' + obj['category'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
+    	if(error)
+    		throw error;
+  		});
+	}
+	catch(err){
+		console.log(error);
+	}
 	
-	
+	//select workoutID that was created in the last step return it
 	con.query('SELECT max(workout_id) as workoutID from user_workout;', function(error,results,fields){
 		var max = results[0].workoutID;
 		res.send({workoutID: max});
 	});
 
+	console.log("Incoming request to create workout...");
+});
+    
 
-});
-    console.log("Incoming request to create workout...");
-});
 
 
 
