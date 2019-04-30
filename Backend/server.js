@@ -246,8 +246,8 @@ app.get('/workout/:workout_id', (req,res) => {
 	});
 });
 
-app.get('/focus/:focus/expertise/:expertise/length/:length/intensity/:intensity', (req, res) => {
-con.query('SELECT exercise_name, rep_count, set_count, default_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND workout_length = \'' + req.params['length'] + '\' AND intensity = \'' + req.params['intensity'] + "\';" , function (error, results, fields) {
+app.get('/focus/:focus/expertise/:expertise/intensity/:intensity/image/:image/length/:length', (req, res) => {
+con.query('SELECT exercise_name, rep_count, set_count, exercise_image, exercise_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise']  + '\' AND intensity = \'' + req.params['intensity'] + '\' AND exercise_image = \'' + req.params['image'] + '\' AND ecercise_length = \'' + req.params['length'] + '\';', function (error, results, fields) {
   if (error)
   throw error;
 res.send(results);
