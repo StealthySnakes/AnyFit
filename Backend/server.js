@@ -259,13 +259,16 @@ console.log(results);
 //Return Workout ID for newly created Workout
 app.post('/newWorkoutId/:workoutObject' , (req, res) => {
   var obj = JSON.parse(req.params['workoutObject']);
-
+try {
  con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name, category, intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\', \'' + obj['category'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
     if(error)
     throw error;
 
   });
- 
+}
+catch(err){
+	console.log(error);
+}
 	
 	
 	con.query('SELECT max(workout_id) as workoutID from user_workout;', function(error,results,fields){
