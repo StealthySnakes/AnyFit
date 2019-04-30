@@ -25,6 +25,9 @@ class AccountHome extends Component {
   }
 
   componentDidMount() {
+
+    alert("here is the passed in accountId: "+this.props.location.state.accountId)
+
     this.repo.getProfilePic(this.props.userID).then(avi => {
       this.setState.avatar({avi})
     });
@@ -70,9 +73,13 @@ class AccountHome extends Component {
                 <Col xs={12} sm={6} md={5} lg={5} xl={4}>                                 {/* Center Timeline */}
                   <Container>
                   <Row>
-                  {/*<Link className="btn btn-info">                                 Link to the other page
-                    Generate Workout!
-                  </Link> */ }
+                  {<Link className="btn btn-info btn-lg btn-warning" to={{
+                      pathname: '/workoutgen',
+                      state: {
+                        "accountId": this.props.location.state.accountId
+                      }
+                    }}>
+                    Generate Workout!</Link>  }
                   </Row>
                   <Row>
                     <Timeline user={this.currentAccount.id} repository={this.repo}/>

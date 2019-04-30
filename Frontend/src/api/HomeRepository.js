@@ -13,7 +13,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${userID}`, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp))
+            .catch(resp => alert("getFriends failed: "+resp))
         });
     }
 
@@ -21,7 +21,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${userID}/avatar`, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp))
+            .catch(resp => alert("getProfilePic failed: "+resp))
         });
     }
 
@@ -29,7 +29,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${userID}/bio`, this.config)                     //prepare to switch this link
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp))
+            .catch(resp => alert("getBio failed: "+resp))
         });
     }
 
@@ -37,7 +37,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {                                   // this just gets a list of custom workouts
             axios.get(`${this.url}/${userID}/workouts`, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp))
+            .catch(resp => alert("getWorkouts failed: "+resp))
         })
 
     }
@@ -46,15 +46,15 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${userID}/timeline`, this.config)                // Assume this will change.
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp))
+            .catch(resp => alert("getTimeline failed: "+resp))
         });
     }
 
     setFavorite(userID, workoutID) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/${userID}`, workoutID, this.config)              
+            axios.put(`${this.url}/${userID}`, workoutID, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp))
+            .catch(resp => alert("setFavorite failed: "+resp))
         });
     }
 
@@ -62,7 +62,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${userID}/favorites`, this.config)               //prepare to switch this link
             .then(resp => resolve(resp.data))
-            .catch(resp => alert(resp))
+            .catch(resp => alert("getFavorites failed: "+resp))
         });
     }
 }

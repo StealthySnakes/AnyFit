@@ -54,7 +54,7 @@ class Navigation extends Component {
                           <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                           <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
                           <NavDropdown.Divider />
-                          <NavDropdown.Item href="#action/3.4">Log Out</NavDropdown.Item>
+                          <NavDropdown.Item href="/login">Log Out</NavDropdown.Item>
                       </NavDropdown>
                   </Nav>
               </Navbar>
