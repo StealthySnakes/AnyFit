@@ -243,8 +243,11 @@ app.get('/workout/:workout_id', (req,res) => {
 	});
 });
 
-app.get('/focus/:focus/expertise/:expertise/length/:length/intensity/:intensity', (req, res) => {
-con.query('SELECT exercise_name, rep_count, set_count, default_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND workout_length = \'' + req.params['length'] + '\' AND intensity = \'' + req.params['intensity'] + "\';" , function (error, results, fields) {
+
+// Returns a list of exercises from a workout with the category, ExpLevel, intensity, image, and length parameters
+app.get('/focus/:focus/expertise/:expertise/intensity/:intensity', (req, res) => {
+con.query('SELECT exercise_name, rep_count, set_count, exercise_image, exercise_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\';', function (error, results, fields) {
+
   if (error)
   throw error;
 res.send(results);
@@ -315,3 +318,25 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
+
+
+ app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
+ con.query('UPDATE user_workout SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+ 	if (error)
+ 	throw error;
+ res.send(results);
+ console.log("Incoming request to update workout_id's rating...");
+ 	});
+ });
+
+ app.patch('/exercises/:workout_id/comments/:comments', (req, res) => {
+ con.query('UPDATE user_workout SET comments = '+ req.params['comments'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+ 	if (error)
+ 	throw error;
+ res.send(results);
+ console.log("Incoming request to update workout_id's comments...");
+ 	});
+ });
+ 
+
+
