@@ -20,7 +20,7 @@ class Timeline extends Component {
         let theDate = "";
         let officMonth = this.months[m];
         theDate = `${officMonth} ${d}, ${y}`;
-        
+
         return theDate;
     }
 
@@ -45,10 +45,10 @@ class Timeline extends Component {
                 <h2 style={{fontWeight: 'bold'}}>Timeline</h2>
 
                 {
-                    this.timeline.length === 0 ? this.noActivity() : ""
+                    this.state.timeline.length === 0 ? this.noActivity() : ""
                 }
                 {
-                    this.timeline.map(friend => (
+                    this.state.timeline.map(friend => (
                         <Container>
                             <Card className="mt-2">
                                 <Card.Header>
