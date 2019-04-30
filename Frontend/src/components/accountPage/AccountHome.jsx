@@ -25,6 +25,9 @@ class AccountHome extends Component {
   }
 
   componentDidMount() {
+
+    alert("here is the passed in accountId: "+this.props.location.state.accountId)
+
     this.repo.getProfilePic(this.props.userID).then(avi => {
       this.setState.avatar({avi})
     });

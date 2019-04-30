@@ -17,7 +17,7 @@ export class WorkoutGeneratorRepository {
       return new Promise((resolve, reject) => {
         axios.post(`${this.url}/home/${l}/password/${p}`, this.config)
         .then(resp => resolve(resp.data))
-        .catch(resp => {alert("getUserId failed "+resp)});
+        .catch(resp => {alert("getUserId failed supply dummy user id 123"+resp); resolve(123)});
       });
     }
 
@@ -25,7 +25,7 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/exerciseNames`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert("getExercises failed "+resp));
+                .catch(resp => {alert("getExercises failed .... supplying dummy data"+resp); resolve([{exercise_name:'situp'},{exercise_name:'plank'}])});
         });
     }
 
@@ -33,14 +33,14 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/exerciseName/${exerciseName}`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert("getExercisePic failed "+resp));
+                .catch(resp => alert("getExercisePic failed.... supplying dummy data"+resolve([{exercise_image:'https://sites.google.com/site/bodybildingserbia/_/rsrc/1472783288416/ronnie-coleman/Ronniecoleman.jpg?height=195&width=200'}])));
         });
     }
     getGeneratedWorkout(focus, expertise, length, intensity) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/exercises`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert("getGeneratedWorkout failed "+resp));
+                .catch(resp => {alert("getGeneratedWorkout failed... supply dummy data "+resp); resolve([{exercise_desc: "up and down boysssszzz", exercise_image: "https://data.whicdn.com/images/132534183/large.png", default_length: 4, exercise_name: "Jumping Jacks", reps: 8, sets: 4}, {exercise_desc: "lie there on the floor",exercise_image: "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1",default_length: 4,exercise_name:"Planks",reps: 10,sets: 3}])});
         });
     }
     //
@@ -48,14 +48,14 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.post(this.url, workout, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert("addWorkout failed "+workout.toSource()));
+                .catch(resp => {alert("addWorkout failed... supply dummy workout id 222"+workout.toSource()); resolve(222)});
         });
     }
     addExerciseToWorkout(workoutName,exercise) {
         return new Promise((resolve, reject) => {
             axios.post(this.url, workoutName,exercise, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert("addExerciseToWorkout failed "+exercise.toSource()));
+                .catch(resp => {alert("addExerciseToWorkout failed... no dummy data this behing the scenes "+exercise.toSource())});
         });
     }
 

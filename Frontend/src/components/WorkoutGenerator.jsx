@@ -34,10 +34,7 @@ class WorkoutGenerator extends Component {
       length: [],
       intensity: [],
       exercisesGenerated: [
-        new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,3),
-        new Exercise("Jumping Jacks", "up and down boysssszzz", "https://data.whicdn.com/images/132534183/large.png", 4,4,8),
-        new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,10),
-        new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,10,10),
+
       ],
       //these are the exercise that have been kept
       chosenExercises:[],
@@ -63,6 +60,8 @@ class WorkoutGenerator extends Component {
   }
   componentDidMount() {
 
+
+    alert("here is the passed in accountId: "+this.props.location.state.accountId)
     //set up exercise for drop down
 
     this.workoutGeneratorRepo.getExercises().then(
@@ -91,7 +90,7 @@ class WorkoutGenerator extends Component {
         // exercise_id
 
         for(let exercise of workout){
-          temp.push(new Exercise(exercise.exercise_name, exercise.exercise_desc, exercise.exercise_image,exercise.default_length, 2,2))
+          temp.push(new Exercise(exercise.exercise_name, exercise.exercise_desc, exercise.exercise_image,exercise.default_length, exercise.sets,exercise.reps))
         }
         this.setState({ exercisesGenerated: temp })
       }
