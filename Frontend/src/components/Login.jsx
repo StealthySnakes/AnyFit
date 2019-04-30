@@ -47,12 +47,11 @@ class Login extends Component {
       login_success => {
 
         if (login_success){
-          alert("Login success will redirect now..")
           this.props.history.push(
             {
               pathname: '/home',
               state: {
-                accountId: login_success,
+                accountId: login_success[0].user_id,
               }
             }
           )

@@ -17,7 +17,7 @@ export class WorkoutGeneratorRepository {
       return new Promise((resolve, reject) => {
         axios.post(`${this.url}/home/${l}/password/${p}`, this.config)
         .then(resp => resolve(resp.data))
-        .catch(resp => alert(resp));
+        .catch(resp => resolve(null));
       });
     }
 
