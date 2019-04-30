@@ -26,7 +26,7 @@ app.post('/home/:login/password/:password', (req, res) => {
 //create user
 app.put('newuser/:name/:username/:password/:avatar', (req,res) => {
 	try {
-		con.query('INSERT INTO user_info VALUES('\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
+		con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
 			if(error)
 				throw error;
 	
