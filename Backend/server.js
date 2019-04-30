@@ -311,57 +311,7 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
-<<<<<<< HEAD
 
-
-
-// Might Have to Delete Later
-
-// app.put('/exercises/:workout_id/set_count/:set_count', (req, res) => {
-// con.query('UPDATE workout_info SET set_count = '+ req.params['set_count'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's set count...");
-// 	});
-// });
-//
-// app.put('/exercises/:workout_id/rep_count/:rep_count', (req, res) => {
-// con.query('UPDATE workout_info SET rep_count = '+ req.params['rep_count'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's rep count...");
-// 	});
-// });
-//
-// app.put('/exercises/:workout_id/workout_length/:workout_length', (req, res) => {
-// con.query('UPDATE workout_info SET workout_length = '+ req.params['workout_length'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's workout length...");
-// 	});
-// });
-//
-// app.put('/exercises/:workout_id/workout_desc/:workout_desc', (req, res) => {
-// con.query('UPDATE workout_info SET workout_desc = '+ req.params['workout_desc'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's workout desc...");
-// 	});
-// });
-//
-// app.put('/exercises/:workout_id/workout_name/:workout_name', (req, res) => {
-// con.query('UPDATE workout_info SET workout_name = '+ req.params['workout_name'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's workout name...");
-// 	});
-// });
-//
  app.put('/exercises/:workout_id/rating/:rating', (req, res) => {
  con.query('UPDATE user_workout SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
  	if (error)
@@ -370,34 +320,7 @@ app.listen(port, () => {
  console.log("Incoming request to update workout_id's rating...");
  	});
  });
-//
-// app.put('/exercises/:workout_id/category/:category', (req, res) => {
-// con.query('UPDATE workout_info SET category = '+ req.params['category'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's category...");
-// 	});
-// });
-//
-// app.put('/exercises/:workout_id/intensity/:intensity', (req, res) => {
-// con.query('UPDATE workout_info SET intensity = '+ req.params['intensity'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's intensity...");
-// 	});
-// });
-//
-// app.put('/exercises/:workout_id/explevel/:ExpLevel', (req, res) => {
-// con.query('UPDATE workout_info SET ExpLevel = '+ req.params['ExpLevel'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's ExpLevel...");
-// 	});
-// });
-//
+
  app.put('/exercises/:workout_id/comments/:comments', (req, res) => {
  con.query('UPDATE user_workout SET comments = '+ req.params['comments'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
  	if (error)
@@ -406,14 +329,5 @@ app.listen(port, () => {
  console.log("Incoming request to update workout_id's comments...");
  	});
  });
-//
-// app.put('/exercises/:workout_id/visibility/:visibility', (req, res) => {
-// con.query('UPDATE workout_info SET visibility = '+ req.params['visibility'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
-// 	if (error)
-// 	throw error;
-// res.send(results);
-// console.log("Incoming request to update workout_id's visibility...");
-// 	});
-// });
-=======
->>>>>>> eb5da12e5d1d56ebbc123c076409c20a1a7471b1
+
+
