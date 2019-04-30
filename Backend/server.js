@@ -317,7 +317,6 @@ con.connect(function(err) {
 app.listen(port, () => {
 	console.log('Incoming Request');
 });
-<<<<<<< HEAD
 
 
  app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
@@ -340,5 +339,3 @@ app.listen(port, () => {
  
 
 
-=======
->>>>>>> e4361479a15ca1adbe1994a62a9766a29c09f562
