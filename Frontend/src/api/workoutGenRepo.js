@@ -17,7 +17,7 @@ export class WorkoutGeneratorRepository {
       return new Promise((resolve, reject) => {
         axios.post(`${this.url}/home/${l}/password/${p}`, this.config)
         .then(resp => resolve(resp.data))
-        .catch(resp => alert(resp));
+        .catch(resp => {alert("getUserId failed "+resp)});
       });
     }
 
@@ -25,7 +25,7 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/exerciseNames`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(resp));
+                .catch(resp => alert("getExercises failed "+resp));
         });
     }
 
@@ -33,14 +33,14 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/exerciseName/${exerciseName}`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(resp));
+                .catch(resp => alert("getExercisePic failed "+resp));
         });
     }
     getGeneratedWorkout(focus, expertise, length, intensity) {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/exercises`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(resp));
+                .catch(resp => alert("getGeneratedWorkout failed "+resp));
         });
     }
     //
@@ -48,14 +48,14 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.post(this.url, workout, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(workout.toSource()));
+                .catch(resp => alert("addWorkout failed "+workout.toSource()));
         });
     }
     addExerciseToWorkout(workoutName,exercise) {
         return new Promise((resolve, reject) => {
             axios.post(this.url, workoutName,exercise, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(exercise.toSource()));
+                .catch(resp => alert("addExerciseToWorkout failed "+exercise.toSource()));
         });
     }
 
