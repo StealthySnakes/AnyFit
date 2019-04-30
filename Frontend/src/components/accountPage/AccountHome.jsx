@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Navigation from './Navigation';
+import Navigation from '../Navigation';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import './AccountHome.css';
-import Account from '../models/Account';
-import { HomeRepository } from './../api/HomeRepository';
+import Account from '../../models/Account';
+import { HomeRepository } from '../../api/HomeRepository';
+import Timeline from './Timeline';
+import { Link } from 'react-router-dom';
 
 class AccountHome extends Component {
 
@@ -16,12 +18,22 @@ class AccountHome extends Component {
       avatar: '',
       bio: '',
       friends: [],
+      workouts: [],
       favorites: [],
       history: []
     }
   }
 
   componentDidMount() {
+    this.repo.getProfilePic(this.props.userID).then(avi => {
+      this.setState.avatar({avi})
+    });
+    this.repo.getBio(this.props.userID).then(info => {
+      this.setState.bio({info})
+    });
+    this.repo.getFriends(this.props.userID).then(buddies => {
+      this.setState.friends({buddies})
+    });
 
   }
 
@@ -57,9 +69,14 @@ class AccountHome extends Component {
 
                 <Col xs={12} sm={6} md={5} lg={5} xl={4}>                                 {/* Center Timeline */}
                   <Container>
-                    <Row>
-                      <h2 className="details">Timeline</h2>
-                    </Row>
+                  <Row>
+                  {/*<Link className="btn btn-info">                                 Link to the other page
+                    Generate Workout!
+                  </Link> */ }
+                  </Row>
+                  <Row>
+                    <Timeline user={this.currentAccount.id} repository={this.repo}/>
+                  </Row>                                                         {/* Timeline component */}
                   </Container>
                 </Col>
 
@@ -79,8 +96,11 @@ class AccountHome extends Component {
                   
                   <Container>
                     <Row>
-                      <Col xs={4}>
+                      <Col xs={4} sm={6} md={6} lg={6} xl={6}>
                         <h2 className="details" id="customs">Favorites</h2>
+                      </Col>
+                      <Col >
+
                       </Col>
                     </Row>
                     <Row>

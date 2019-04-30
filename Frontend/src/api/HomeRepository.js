@@ -33,12 +33,21 @@ export class HomeRepository {
         });
     }
 
-    getWorkouts(userID) {
+    getWorkouts(userID) {                                                           // this will probably need changing too
+        return new Promise((resolve, reject) => {                                   // this just gets a list of custom workouts
+            axios.get(`${this.url}/${userID}/workouts`, this.config)
+            .then(resp => resolve(resp.data))
+            .catch(resp => alert(resp))
+        })
 
     }
 
     getTimeline(userID) {
-
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/${userID}/timeline`, this.config)                // Assume this will change.
+            .then(resp => resolve(resp.data))
+            .catch(resp => alert(resp))
+        });
     }
 
     setFavorite(userID, workoutID) {
