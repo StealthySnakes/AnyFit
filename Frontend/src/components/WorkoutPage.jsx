@@ -11,11 +11,12 @@ import {Rating} from './Rating';
 import {Comment} from './../models/Comment';
 import {ReviewForm} from './reviews/reviewForm';
 import {Link} from 'react-router-dom';
+import {WorkoutRepository} from './../api/WorkoutRepository';
 
 export class WorkoutPage extends React.Component{
+    workoutRepository = new WorkoutRepository;
     state = {
-        wrkt: new Workout(
-            0,
+        workout: new Workout(
             "jimbo's stretch routine",
             "a fun workout that embiggens you",
             "Arms and Crotch",
@@ -29,22 +30,22 @@ export class WorkoutPage extends React.Component{
                 new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,10,10),
               ],
             5,
-            [
-                new Comment("Jimbo", "my favorite workout"),
-                new Comment("Jumbo", "I am not Jimbo")
-            ]
+            "how about that, jumbo"
         ),
+        wrkt: [],
         beginClk: false,
         pauseClk: false,
         btnCol: {background: 'dodgerblue'},
         btnWord: "Start",
+        rating: 0
     }
 
     onNewReview(review){
-        this.setState(state => {
-            state.wrkt.comments.push(review);
-            return state;
-        });
+        this.workoutRepository.updateComment()
+    }
+
+    newRating(){
+        this.workoutRepository.updateRating(123, this.state.rating)
     }
 
     timerState(){
@@ -67,11 +68,14 @@ export class WorkoutPage extends React.Component{
 
     }
 
+
+
+
     render(){
         return(
         <>
             <Navigation/>
-            <div className = "card" style={{float:'right', margin:'2em', padding:'5em', position:'fixed', zIndex:1, right:'1em'}}>
+            <div className = "card" style={{float:'right', margin:'2em', padding:'3em', textAlign:'center',position:'fixed', zIndex:1, right:'1em'}}>
                 <Stopwatch beginClk = {this.state.beginClk} pauseClk = {this.state.pauseClk}/>
                 <button className = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
             </div>
@@ -86,19 +90,30 @@ export class WorkoutPage extends React.Component{
                 <Col md={10} style={{background:'white', display:'block'}}>                                 {/* Right Side */}
                     <Container>
                         <Row style={{display:'block'}}>
-                            <h1>{this.state.wrkt.name}</h1>
-                             <button type="button" class="btn btn-warning btn-block">Edit Workout</button>
-                            <Rating value = {this.state.wrkt.rating} />
-                            <button className="btn btn-primary"style={{marginLeft:'2em', marginBottom:'1em', marginTop:'0.5em'}}>Rate Workout</button>
-                            <p style={{fontWeight:'bold'}}><span style={{fontWeight:'normal'}}>{this.state.wrkt.description}<br></br></span>focus: <span style={{fontWeight:'normal'}}>{this.state.wrkt.focus}</span> 
-                            <span style={{marginLeft:'1em'}}>expertise level: <span style={{fontWeight:'normal'}}>{this.state.wrkt.expertise}</span></span>
-                            <span style={{marginLeft:'1em'}}>length: <span style={{fontWeight:'normal'}}>{this.state.wrkt.length}</span></span>
-                            <span style={{marginLeft:'1em'}}>intensity: <span style={{fontWeight:'normal'}}>{this.state.wrkt.intensity}</span></span></p>
+                            <h1>{this.state.workout.name}</h1>
+                             <button type="button" className="btn btn-warning btn-block">Edit Workout</button>
+                            <Rating value = {this.state.workout.rating} />
+                            <label for='rating' style={{display:'inline'}}></label>
+                            <select className="form-control" 
+                            onChange={e => this.setState({ rating: e.target.value })} 
+                            style={{display:'inline', width:'4em', marginLeft:'1em'}}>
+                            <option value={1}>1</option>
+                            <option value={2}>2</option>
+                            <option value={3}>3</option>
+                            <option value={4}>4</option>
+                            <option value={5}>5</option>
+                            </select>
+                            <button className="btn btn-primary"
+                            style={{marginLeft:'2em', marginBottom:'1em', marginTop:'0.5em'}} onClick={this.newRating()}>Rate Workout</button>
+                            <p style={{fontWeight:'bold'}}><span style={{fontWeight:'normal'}}>{this.state.workout.description}<br></br></span>Focus: <span style={{fontWeight:'normal'}}>{this.state.workout.focus}</span> 
+                            <span style={{marginLeft:'1em'}}>Expertise Level: <span style={{fontWeight:'normal'}}>{this.state.workout.expertise}</span></span>
+                            <span style={{marginLeft:'1em'}}>Length: <span style={{fontWeight:'normal'}}>{this.state.workout.length}</span></span>
+                            <span style={{marginLeft:'1em'}}>Intensity: <span style={{fontWeight:'normal'}}>{this.state.workout.intensity}</span></span></p>
                         </Row>
                     </Container>
                 </Col>                                {/* Right Side Close */}
               </Row>
-                {this.state.wrkt.exercises.map((ex) => 
+                {this.state.workout.exercises.map((ex) => 
                 <Row>
                     <Col md={2}>
                         <div className = "form form-control-lg">
@@ -114,11 +129,35 @@ export class WorkoutPage extends React.Component{
             </Container>                              {/* Outer Container Close */}
 
             <div style={{margin:'2em', textAlign:'left'}}>
-                <ReviewForm reviews={this.state.wrkt.comments} onNewReview={a => this.onNewReview(a)}/>
+                <ReviewForm reviews={this.state.workout.comments} onNewReview={a => this.onNewReview(a)}/>
             </div>
             
         
         </>);
+    }
+
+    placeWorkout(wrkt){
+        
+    }
+
+    componentDidMount() {
+        let workoutId = 123;
+        if (workoutId) {
+            this.workoutRepository.getWorkout(workoutId)
+                .then(wrkt => {
+                    var temp=[]
+                    for(let i=0;i<wrkt.length;i++){
+                      temp.push(new Exercise(wrkt[i].exercise_name, wrkt[i].exercise_desc, 
+                        wrkt[i].exercise_image, wrkt[i].default_length, wrkt[i].set_count, wrkt[i].rep_count))
+
+                    }
+                    var tempwork=new Workout(wrkt[0].workout_name, wrkt[0].workout_desc, 
+                        wrkt[0].category, wrkt[0].ExpLevel, wrkt[0].workout_length, wrkt[0].intensity,
+                        temp, wrkt[0].rating, wrkt[0].comments
+                        )
+                    this.setState({ workout: tempwork})
+                  });
+        }
     }
 }
 

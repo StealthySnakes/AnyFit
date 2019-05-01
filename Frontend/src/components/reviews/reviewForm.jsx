@@ -28,14 +28,10 @@ export class ReviewForm extends React.Component {
             </div>
     
             <div class = "card ">
-                <h5 class = "card-header bg-secondary text-white">Add Comment</h5>
+                <h5 class = "card-header bg-secondary text-white">Replace Comment</h5>
                 <form style = {{margin:'1em'}}>
-                    <div class = "form-group" style = {{float:'left',display:'block', marginRight:'1em', width:'70%'}}>
-                        <label for="name" style={{textAlign:'left'}}>Your Name</label>
-                        <input type = "text" class = "form-control" value={this.state.userName} onChange={e => this.setState({userName: e.target.value})}></input>
-                    </div>
                     <div class = "form-group" style={{float:'left',width:'100%', display:'block'}}>
-                        <label for="comment">Comment</label>
+                        <label for="comment"></label>
                         <textarea class = "form-control" rows='10' id='comment' value={this.state.comment} onChange={e => this.setState({comment: e.target.value})}></textarea>
                     </div>
                     <div class = "form-group">

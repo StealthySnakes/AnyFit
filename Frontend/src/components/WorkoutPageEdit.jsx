@@ -17,7 +17,6 @@ export class WorkoutPageEdit extends React.Component{
 
     state = {
         wrkt: new Workout(
-            1,
             "jimbo's stretch routine",
             "a fun workout that embiggens you",
             "Arms and Crotch",
@@ -36,7 +35,6 @@ export class WorkoutPageEdit extends React.Component{
                 new Comment("Jumbo", "I am not Jimbo")
             ]
         ),
-        id:0,
         name:'placeholder',
         description:'placeholder',
         focus:'placeholder',
@@ -59,7 +57,7 @@ export class WorkoutPageEdit extends React.Component{
 
     updateWrkt(){
         this.setState({
-            wrkt: new Workout(this.state.id, this.state.name, this.state.description, this.state.focus, this.state.expertise, this.state.length, this.state.intensity,
+            wrkt: new Workout(this.state.name, this.state.description, this.state.focus, this.state.expertise, this.state.length, this.state.intensity,
                 this.state.exercises, this.state.rating, this.state.comments)
         })
     }
@@ -90,7 +88,7 @@ export class WorkoutPageEdit extends React.Component{
         return(
         <>
             <Navigation/>
-            <div className = "card" style={{float:'right', margin:'2em', padding:'5em', position:'fixed', zIndex:1, right:'1em'}}>
+            <div className = "card" style={{float:'right', margin:'2em', padding:'3em', position:'fixed', zIndex:1, right:'1em'}}>
                 <button className = "btn btn-primary btn-lg" onClick = {e => this.updateWrkt()}><h1>Save Changes</h1></button>
                 <button className = "btn btn-secondary btn-lg" style={{marginTop:'1em'}}><h1>Cancel</h1></button>
             </div>
