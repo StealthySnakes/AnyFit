@@ -6,6 +6,11 @@ const app = express();
 const port = 3000;
 const cors = require('cors');
 app.use(cors());
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 // Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
@@ -582,23 +587,36 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
 			maxExerciseID = results[0].exerciseID;
-//			console.log(maxExerciseID);
+			res.send({exercise_id: maxExerciseID});
+
 		});
 	}
 	catch(err){
 		console.log(error);
 	}
-	console.log(maxExerciseID);
-	//Insert exercise to workoutInfo
-	try{
-		con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workoutID'] + ', ' + maxExerciseID + ', ' + obj['sets'] + ', ' + obj['reps'] + ');', function(error, results, fields) {
-			if(error)
-				throw error;
-			});
-	}
-	catch(err){
-		console.log(error);
-	}
+	// //Insert exercise to workoutInfo
+	// try{
+	// 	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workoutID'] + ', ' + maxExerciseID + ', ' + obj['sets'] + ', ' + obj['reps'] + ');', function(error, results, fields) {
+	// 		if(error)
+	// 			throw error;
+	// 		});
+	// }
+	// catch(err){
+	// 	console.log(error);
+	// }
+});
+
+//add exercise to workout
+app.post('/exerciseID', (res,req) => {
+	console.log("Incoming request to add exercise to workout...");
+	//var obj = JSON.parse(req.params['exerciseObject']);
+
+	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.body.workout_id + ',' + req.body.exercise_id + ',' + req.body.set_count + ',' + req.body.rep_count + ');', function(error,results,fields) {
+		if(error)
+			throw error;
+		res.send({exercise_id: req.body.exercise_id});
+	})
+
 });
 
 app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
