@@ -566,23 +566,37 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
 			maxExerciseID = results[0].exerciseID;
-			console.log(maxExerciseID);
+			res.send(maxExerciseID);
+			//console.log(maxExerciseID);
 		});
 	}
 	catch(err){
 		console.log(error);
 	}
-	console.log(maxExerciseID);
-	//Insert exercise to workoutInfo
-	try{
-		con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workoutID'] + ', ' + maxExerciseID + ', ' + obj['sets'] + ', ' + obj['reps'] + ');', function(error, results, fields) {
-			if(error)
-				throw error;
-			});
-	}
-	catch(err){
-		console.log(error);
-	}
+	// //Insert exercise to workoutInfo
+	// try{
+	// 	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workoutID'] + ', ' + maxExerciseID + ', ' + obj['sets'] + ', ' + obj['reps'] + ');', function(error, results, fields) {
+	// 		if(error)
+	// 			throw error;
+	// 		});
+	// }
+	// catch(err){
+	// 	console.log(error);
+	// }
+});
+
+//add exercise to workout
+app.post('/exerciseID/:exerciseObject', (res,req) => {
+	
+	console.log("Incoming request to add exercise to workout...");
+	var obj = JSON.parse(req.params['exerciseObject']);
+
+	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + obj['workout_id'] + ',' + obj['exercise_id'] + ',' + obj['set_count'] + ',' + obj['rep_count'] + ');', function(error,results,fields) {
+		if(error)
+			throw error;
+		res.send(obj['exercise_id']);
+	})
+
 });
 
 app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
