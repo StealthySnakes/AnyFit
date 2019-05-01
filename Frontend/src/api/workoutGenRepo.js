@@ -36,9 +36,9 @@ export class WorkoutGeneratorRepository {
                 .catch(resp => alert("getExercisePic failed.... supplying dummy data"+resolve([{exercise_image:'https://sites.google.com/site/bodybildingserbia/_/rsrc/1472783288416/ronnie-coleman/Ronniecoleman.jpg?height=195&width=200'}])));
         });
     }
-    getGeneratedWorkout(focus, expertise, length, intensity) {
+    getGeneratedWorkout(focus, expertise, intensity) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/exercises`, this.config)
+            axios.get(`${this.url}/focus/${focus}/expertise/${expertise}/intensity/${intensity}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => {alert("getGeneratedWorkout failed... supply dummy data "+resp); resolve([{exercise_desc: "up and down boysssszzz", exercise_image: "https://data.whicdn.com/images/132534183/large.png", default_length: 4, exercise_name: "Jumping Jacks", reps: 8, sets: 4}, {exercise_desc: "lie there on the floor",exercise_image: "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1",default_length: 4,exercise_name:"Planks",reps: 10,sets: 3}])});
         });
