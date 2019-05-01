@@ -17,7 +17,7 @@ export class WorkoutGeneratorRepository {
       return new Promise((resolve, reject) => {
         axios.post(`${this.url}/home/${l}/password/${p}`, this.config)
         .then(resp => resolve(resp.data))
-        .catch(resp => {alert("getUserId failed supply dummy user id 123"+resp); resolve(123)});
+        .catch(resp => {alert("getUserId failed supply dummy user id 123"+resp); resolve([{user_id: 123}])});
       });
     }
 
