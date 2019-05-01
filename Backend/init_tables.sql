@@ -33,9 +33,8 @@ CREATE TABLE user_workout (
     comments VARCHAR(250),
     visibility BOOLEAN,
     Time_stamp DATETIME,
-	PRIMARY KEY( user_id, workout_id),
-    FOREIGN KEY(user_id) REFERENCES user_info(user_id),
-    FOREIGN KEY(workout_id) REFERENCES workout_info(workout_id)
+	PRIMARY KEY(workout_id),
+    FOREIGN KEY(user_id) REFERENCES user_info(user_id)
 );
 
 CREATE TABLE workout_info (
@@ -44,7 +43,8 @@ CREATE TABLE workout_info (
     set_count INT,
     rep_count INT,
     PRIMARY KEY( workout_id, exercise_id),
-    FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id)
+    FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id),
+    FOREIGN KEY(workout_id) REFERENCES user_workout(workout_id)
 );
 
 CREATE TABLE exercise (
