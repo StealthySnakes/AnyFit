@@ -426,7 +426,7 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	var obj = JSON.parse(req.params['workoutObject']);
 	//Insert new workout object into user_workout
 	try {
- 			con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name,intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
+ 		con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name,intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
     	if(error)
     		throw error;
   		});
@@ -445,6 +445,8 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	catch(err){
 		console.log(err);
 	}
+
+
 });
 
 app.get('/home/username/:username', (req,res) => {
