@@ -496,7 +496,7 @@ app.get('/exerciseObject/:exerciseObject',(req,res) =>{
 });
 
 //Post Exercise to Workout
-app.get('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
+app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 
 	console.log("Incoming request to create exercise...");
 
