@@ -46,7 +46,8 @@ export class WorkoutGeneratorRepository {
     //
     addWorkout(workout) {
         return new Promise((resolve, reject) => {
-            axios.post(this.url, workout, this.config)
+          workout = JSON.stringify(workout)
+            axios.post(`${this.url}/newWorkoutId/${workout}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => {alert("addWorkout failed... supply dummy workout id 222"+workout.toSource()); resolve(222)});
         });
