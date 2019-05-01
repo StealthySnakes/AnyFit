@@ -491,6 +491,7 @@ app.get('/home/username/:username', (req,res) => {
 app.get('/exerciseObject',(req,res) =>{
 	//var obj = JSON.parse(req.params['exerciseObject']);
 	console.log("Incoming request to test...");
+	res.send("Hello")
 	//console.log(obj);
 });
 
