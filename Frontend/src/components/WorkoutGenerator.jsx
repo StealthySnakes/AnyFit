@@ -164,7 +164,7 @@ class WorkoutGenerator extends Component {
       })
   }
   render() {
-    return (<> < Navigation />
+    return (<> < Navigation accountId={this.props.location.state.accountId} />
     <h1>Generate Workout</h1>
    <h2>  Focus</h2>
    <div >

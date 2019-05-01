@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.png';
 // import './AccoutHome.css';
 class Navigation extends Component {
@@ -47,7 +48,20 @@ class Navigation extends Component {
                   </Form>
 
                   <Nav className="ml-auto">
-                      <Nav.Link href="#home">Home</Nav.Link>
+
+
+                        <Link to={{
+                            pathname: '/home',
+                            state: {
+                              "accountId": this.props.accountId
+                            }
+                          }}>
+                          <Nav.Link href="/home">
+                              Home
+                            </Nav.Link>
+
+
+                          </Link>
                       <Nav.Link href="#friends">Friends</Nav.Link>
                       <NavDropdown title="My Account" id="collasible-nav-dropdown" alignRight={true}>
                           <NavDropdown.Item href="#action/3.1">Favorites</NavDropdown.Item>
