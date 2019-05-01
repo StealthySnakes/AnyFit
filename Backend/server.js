@@ -30,7 +30,7 @@ app.post('/home/:login/password/:password', (req, res) => {
 });
 
 //create user
-app.put('newuser/:name/:username/:password/:avatar', (req,res) => {
+app.post('newuser/:name/:username/:password/:avatar', (req,res) => {
 
 	console.log('Incoming request to create user...');
 
