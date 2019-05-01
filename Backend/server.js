@@ -575,7 +575,7 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	console.log(maxExerciseID);
 	//Insert exercise to workoutInfo
 	try{
-		con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (\'' + req.params['workoutID'] + '\', \'' + maxExerciseID + '\', \'' + obj['sets'] + '\, \'' + obj['reps'] + '\');', function(error, results, fields) {
+		con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workoutID'] + ', ' + maxExerciseID + ', ' + obj['sets'] + ', ' + obj['reps'] + ');', function(error, results, fields) {
 			if(error)
 				throw error;
 			});
