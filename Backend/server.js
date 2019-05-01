@@ -593,16 +593,6 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res,next)
 		console.log(error);
 	}
 	next();
-	// //Insert exercise to workoutInfo
-	// try{
-	// 	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workoutID'] + ', ' + maxExerciseID + ', ' + obj['sets'] + ', ' + obj['reps'] + ');', function(error, results, fields) {
-	// 		if(error)
-	// 			throw error;
-	// 		});
-	// }
-	// catch(err){
-	// 	console.log(error);
-	// }
 }, function(req,res){
 	
 	console.log("Inserting exercise into workout...");
