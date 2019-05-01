@@ -7,6 +7,7 @@ const port = 3000;
 const cors = require('cors');
 app.use(cors());
 
+// Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
 
 	console.log("Incoming login request...");
@@ -459,6 +460,7 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	}
 });
 
+// Checks to see if a username is taken
 app.get('/home/username/:username', (req,res) => {
 
 	console.log('Incoming username validation...');
