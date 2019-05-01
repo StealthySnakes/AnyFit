@@ -561,12 +561,15 @@ app.get('/exerciseObject/:exerciseObject',(req,res) =>{
 });
 
 //Post Exercise to Workout
-app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
+app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res,next) => {
 
 	console.log("Incoming request to create exercise...");
 
 	var obj = JSON.parse(req.params['exerciseObject']);
-	var maxExerciseID = 0;
+	req.set_count = req.params['set_count'];
+	req.rep_count = req.params['rep_count'];
+	req.workout_id = req.params['workoutID'];
+	//var maxExerciseID = 0;
 	//Insert new exercise object into exercise
 	try {
 		con.query('INSERT INTO exercise (exercise_name, exercise_desc, default_length, exercise_image) VALUES (\'' + obj['name'] + '\', \'' + obj['desc'] + '\', \'' + obj['length'] + '\', \'' + obj['imageurl'] + '\');', function(error, results, fields) {
@@ -581,14 +584,15 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	//Get newly created exerciseID
 	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
-			maxExerciseID = results[0].exerciseID;
-			res.send(maxExerciseID);
-
+			req.exercise_id = results[0].exerciseID;
+			//res.send(maxExerciseID);
+			
 		});
 	}
 	catch(err){
 		console.log(error);
 	}
+	next();
 	// //Insert exercise to workoutInfo
 	// try{
 	// 	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workoutID'] + ', ' + maxExerciseID + ', ' + obj['sets'] + ', ' + obj['reps'] + ');', function(error, results, fields) {
@@ -599,6 +603,16 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	// catch(err){
 	// 	console.log(error);
 	// }
+}, function(req,res){
+	
+	console.log("Inserting exercise into workout...");
+
+	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workout_id'] + ',' + req.params['exercise_id'] + ',' + req.params['set_count'] + ',' + req.params['rep_count'] + ');', function(error,results,fields) {
+		if(error)
+			throw error;
+		res.send(req.params['exercise_id']);
+	})
+
 });
 
 //add exercise to workout
