@@ -5,7 +5,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const cors = require('cors');
-<<<<<<< HEAD
 var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -13,8 +12,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 const bcrypt = require('bcrypt');
 
-=======
->>>>>>> parent of 79dd1171... added ability to pass post through body
 app.use(cors());
 
 // Returns a user_id
