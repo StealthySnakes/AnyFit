@@ -10,9 +10,10 @@ CREATE TABLE user_info (
 );
 
 CREATE TABLE friends (
-    user_id INT PRIMARY KEY,
+    user_id INT,
     friend_id INT,
     f_username VARCHAR(40),
+	PRIMARY KEY( user_id, friend_id),
     FOREIGN KEY(user_id) REFERENCES user_info(user_id),
 );
 
