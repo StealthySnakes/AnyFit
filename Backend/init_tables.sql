@@ -12,7 +12,8 @@ CREATE TABLE user_info (
 CREATE TABLE friends (
     user_id INT PRIMARY KEY,
     friend_id INT,
-    f_username VARCHAR(40)
+    f_username VARCHAR(40),
+    FOREIGN KEY(user_id) REFERENCES user_info(user_id),
 );
 
 CREATE TABLE user_workout (
