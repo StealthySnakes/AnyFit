@@ -180,10 +180,10 @@ class WorkoutGenerator extends Component {
       Expertise
     </h2>
     <ToggleButtonGroup className="w-75" name="Expertise" type="radio" value={this.state.expertise} onChange={event => this.setState({expertise: [event]})}>
-      <ToggleButton value={1}>Beginner</ToggleButton>
-      <ToggleButton value={2}>Novice</ToggleButton>
-      <ToggleButton value={3}>Intermediate</ToggleButton>
-      <ToggleButton value={4}>Advanced</ToggleButton>
+      <ToggleButton value={"Beginner"}>Beginner</ToggleButton>
+      <ToggleButton value={"Novice"}>Novice</ToggleButton>
+      <ToggleButton value={"Intermediate"}>Intermediate</ToggleButton>
+      <ToggleButton value={"Expert"}>Expert</ToggleButton>
     </ToggleButtonGroup>
 
     <h2>
