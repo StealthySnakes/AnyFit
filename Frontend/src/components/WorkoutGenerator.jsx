@@ -59,7 +59,14 @@ class WorkoutGenerator extends Component {
     this.handleWorkoutSubmit = this.handleWorkoutSubmit.bind(this);
   }
   componentDidMount() {
+    //
+    // this.workoutGeneratorRepo.createNewExercise(103,{desc: "up and down boysssszzz", imageurl: "hello ", length: 4, name: "Jumping Jacks"})
+    // .then(new_exercise_id => this.workoutGeneratorRepo.addExerciseToWorkout({workout_id:103,exercise_id:new_exercise_id.exercise_id, rep_count: 8, set_count: 4}))
+    // .then(confirmation_id => alert(confirmation_id))
+    // this.workoutGeneratorRepo.createNewExercise(103,{desc: "up and down boysssszzz", imageurl: "hello ", length: 4, name: "Jumping Jacks"})
+    // this.workoutGeneratorRepo.addExerciseToWorkout({workout_id:103,exercise_id:100026, rep_count: 8, set_count: 4});
 
+// 100,026 exercise id
 
     alert("here is the passed in accountId: "+this.props.location.state.accountId)
     //set up exercise for drop down
@@ -77,14 +84,17 @@ class WorkoutGenerator extends Component {
 
     );
 
-    // this.workoutGeneratorRepo.addWorkout(wrkt);
-    // this.workoutGeneratorRepo.addExerciseToWorkout(wrkt.name,ex);
 
   }
 
 
+
   handleWorkoutGenerate(event) {
-    this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(
+
+
+
+    // this.state.category, this.state.expertise, this.state.intensity lower body, expert,3
+    this.workoutGeneratorRepo.getGeneratedWorkout(this.state.category, this.state.expertise, this.state.intensity).then(
       workout => {
         var temp=[]
         // exercise_id
@@ -137,24 +147,25 @@ class WorkoutGenerator extends Component {
     event.preventDefault();
 
     const workout = {
-      chosenExercises:    this.state.chosenExercises,
-      workoutName:    this.state.workoutName,
-      workoutIntensity:   this.state.workoutIntensity,
-      workoutExperience:    this.state.workoutExperience,
+      userID:   this.props.location.state.accountId,
       workoutDuration:    this.state.workoutDuration,
-      workoutDescription:   this.state.workoutDescription
+      workoutDesc:   this.state.workoutDescription,
+      workoutName:    this.state.workoutName,
+      intensity:   this.state.workoutIntensity,
+      experience:    this.state.workoutExperience,
     };
 
 
     await this.workoutGeneratorRepo.addWorkout(workout).then(workout_id => this.setState({createWorkoutID: workout_id}))
+
+    // alert("Created workout " + this.state.createWorkoutID)
+    // this.workoutGeneratorRepo.addExerciseToWorkout(103,new Exercise("exercise_name", "exercise_desc", "https://data.whicdn.com/images/132534183/large.png",4, 8,4))
   //add workout array to backend ----exercisesGenerated and all workout meta data
   // addExerciseToWorkout
 
 
     this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:false});
 
-    var workoutId=2; //going to get one from the API
-    var accntId=0;//passed from previous page link also through state
     this.props.history.push(
       {
         pathname: `/workoutpage/${this.state.createWorkoutID}`,
@@ -164,7 +175,7 @@ class WorkoutGenerator extends Component {
       })
   }
   render() {
-    return (<> < Navigation />
+    return (<> < Navigation accountId={this.props.location.state.accountId} />
     <h1>Generate Workout</h1>
    <h2>  Focus</h2>
    <div >
@@ -180,10 +191,10 @@ class WorkoutGenerator extends Component {
       Expertise
     </h2>
     <ToggleButtonGroup className="w-75" name="Expertise" type="radio" value={this.state.expertise} onChange={event => this.setState({expertise: [event]})}>
-      <ToggleButton value={1}>Beginner</ToggleButton>
-      <ToggleButton value={2}>Novice</ToggleButton>
-      <ToggleButton value={3}>Intermediate</ToggleButton>
-      <ToggleButton value={4}>Advanced</ToggleButton>
+      <ToggleButton value={"Beginner"}>Beginner</ToggleButton>
+      <ToggleButton value={"Novice"}>Novice</ToggleButton>
+      <ToggleButton value={"Intermediate"}>Intermediate</ToggleButton>
+      <ToggleButton value={"Expert"}>Expert</ToggleButton>
     </ToggleButtonGroup>
 
     <h2>
