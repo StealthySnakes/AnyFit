@@ -418,11 +418,10 @@ app.get('/focus/:focus/expertise/:expertise/intensity/:intensity', (req, res) =>
 	console.log("Incoming request for exercises with custom features...");
 
 	try{
-		con.query('SELECT exercise_name, rep_count, set_count, exercise_image, exercise_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\';', function (error, results, fields) {
+		con.query('SELECT exercise_name, rep_count, set_count, exercise_image, default_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND intensity=' + req.params['intensity'] + ';', function (error, results, fields) {
 			if (error)
 				throw error;
 			res.send(results);
-			console.log(results);
 		});
 	}
 	catch(err){
