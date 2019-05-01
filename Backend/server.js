@@ -366,7 +366,7 @@ app.put('/exercises/:workout_id/comments/:comments', (req, res) => {
 	console.log("Incoming request to update workout_id's comments...");
 
 	try{
-		con.query('UPDATE user_workout SET comments = '+ req.params['comments'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE workout_info SET comments = \''+ req.params['comments'] + '\' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -439,7 +439,7 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	var obj = JSON.parse(req.params['workoutObject']);
 	//Insert new workout object into user_workout
 	try {
- 			con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name,intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
+ 		con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name,intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
     	if(error)
     		throw error;
   		});
@@ -458,6 +458,8 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	catch(err){
 		console.log(err);
 	}
+
+
 });
 
 // Checks to see if a username is taken
@@ -507,6 +509,7 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
 			maxExerciseID = results[0].exerciseID;
+			
 		});
 	}
 	catch(err){
