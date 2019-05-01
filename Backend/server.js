@@ -366,7 +366,7 @@ app.put('/exercises/:workout_id/comments/:comments', (req, res) => {
 	console.log("Incoming request to update workout_id's comments...");
 
 	try{
-		con.query('UPDATE workout_info SET comments = \''+ req.params['comments'] + '\' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET comments = \''+ req.params['comments'] + '\' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
