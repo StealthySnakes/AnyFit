@@ -10,42 +10,53 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
+const bcrypt = require('bcrypt');
+
 app.use(cors());
 
 // Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
 
-	console.log("Incoming login request...");
+		console.log("Incoming login request...");
 
-	try {
-		con.query('SELECT user_id FROM user_info WHERE username = \'' + req.params['login'] + '\' AND _password =\'' + req.params['password'] + "\';" , function (error, results, fields) {
-			if (error){
-				throw error;
-			}
-			if(results.length >= 1){
-				res.send(results);
-			}
-			else {
-				res.send("null");
-			}
-		});
+		try {
+			const hashed_password = bcrypt.hash(req.params['password'], 10, function(err, hash) {
+				// Store hash in database
+				con.query('SELECT user_id FROM user_info WHERE username = \'' + req.params['login'] + '\' AND _password =\'' + hash + "\';" , function (error, results, fields) {
+					if (error){
+						throw error;
+					}
+					if(results.length >= 1){
+						res.send(results);
+					}
+					else {
+						res.send("null");
+					}
+				});
+			});
+		
 	}
 	catch(err){
 		console.log(err);
 	}
 });
 
-//create user
+//create user -no ; at the end of query?
 app.post('newuser/:name/:username/:password/:avatar', (req,res) => {
 
 	console.log('Incoming request to create user...');
 
+	
 	try {
-		con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
-			if(error)
-				throw error;
-
-		});
+		const hashed_password = bcrypt.hash(req.params['password'], 10, function(err, hash) {
+			// Store hash in database
+			con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + hash + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
+				if(error)
+					throw error;
+	
+			});
+		  });
+		
 	}
 	catch(err){
 		console.log(err);
@@ -99,6 +110,24 @@ app.get('/home/:userID/friend/:friend_id', (req,res) => {
 	catch(err){
 		console.log(err);
 	}
+});
+
+//add friend
+app.post('addfriend/:user_id/friend/:friend_id/f_username/:f_username', (req,res) => {
+
+	console.log('Incoming request to add friend...');
+
+	try {
+		con.query('INSERT INTO friends VALUES(' + req.params['user_id'] + ', ' + req.params['friend_id'] + ',' + req.params['f_username'] + ';', function(error,results,fields) {
+			if(error)
+				throw error;
+
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+	
 });
 
 //return user's avatar
