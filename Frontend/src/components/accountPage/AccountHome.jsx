@@ -7,6 +7,33 @@ import { HomeRepository } from '../../api/HomeRepository';
 import Timeline from './Timeline';
 import { Link } from 'react-router-dom';
 
+
+
+function WorkoutButtons(props){
+
+  return <>
+  {props.workout.map((wrkt) =>
+
+    <Link className="btn btn-info btn-m m-1" to={{
+        pathname: `/workoutpage/${wrkt[0]}`,
+        state: {
+          "accountId": props.accountId
+        }
+      }}>
+
+      <h5>{wrkt[1]}</h5>
+
+        {wrkt[2]
+      }
+    </Link>
+
+
+
+
+)  }
+    </>
+
+}
 class AccountHome extends Component {
 
   repo = new HomeRepository();
@@ -28,15 +55,20 @@ class AccountHome extends Component {
 
     alert("here is the passed in accountId: "+this.props.location.state.accountId)
 
-    this.repo.getProfilePic(this.props.userID).then(avi => {
-      this.setState.avatar({avi})
-    });
-    this.repo.getBio(this.props.userID).then(info => {
-      this.setState.bio({info})
-    });
-    this.repo.getFriends(this.props.userID).then(buddies => {
-      this.setState.friends({buddies})
-    });
+    this.repo.getProfilePic(this.props.location.state.accountId).then(pic => this.setState({avatar:pic[0].avatar}));
+    this.repo.getBio(this.props.location.state.accountId).then(info => this.setState({bio: info[0].user_bio }));
+    this.repo.getWorkouts(this.props.location.state.accountId).then(wrkts => {
+        var temp=[]
+        for(let workout of wrkts){
+          temp.push([workout.workout_id, workout.workout_name, workout.workout_desc])
+        }
+        this.setState({workouts: temp })
+      }
+    );
+
+    // this.repo.getFriends(this.props.userID).then(buddies => {
+    //   this.setState({buddies})
+    // });
 
   }
 
@@ -55,7 +87,7 @@ class AccountHome extends Component {
                      <img
                         style={{maxWidth: '100%', height: 'auto'}}
                         className="mr-3"
-                        src="http://placehold.it/240x240"
+                        src={this.state.avatar}
                         alt="Profile"
                       />
                   </Row>
@@ -63,8 +95,8 @@ class AccountHome extends Component {
                       <h3 className="details">Bio</h3>
                   </Row>
                   <Row>
-                    <p>
-                      Tell us about yourself
+                    <p align="left">
+                      {this.state.bio}
                     </p>
                   </Row>
                 </Col>                                                          {/* Left Side Close */}
@@ -82,7 +114,14 @@ class AccountHome extends Component {
                     Generate Workout!</Link>  }
                   </Row>
                   <Row>
+
+                    <h2 className="details" id="customs">Routines</h2>
+                    <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.workouts}/>
+                  </Row>
+
+                  <Row>
                     <Timeline user={this.currentAccount.id} repository={this.repo}/>
+
                   </Row>                                                         {/* Timeline component */}
                   </Container>
                 </Col>
@@ -100,7 +139,7 @@ class AccountHome extends Component {
                     </Row>
                     {/* List of friends would be here */}
                   </Container>
-                  
+
                   <Container>
                     <Row>
                       <Col xs={4} sm={6} md={6} lg={6} xl={6}>
