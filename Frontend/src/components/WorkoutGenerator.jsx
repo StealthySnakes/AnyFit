@@ -84,14 +84,17 @@ class WorkoutGenerator extends Component {
 
     );
 
-    // this.workoutGeneratorRepo.addWorkout(wrkt);
-    // this.workoutGeneratorRepo.addExerciseToWorkout(wrkt.name,ex);
 
   }
 
 
+
   handleWorkoutGenerate(event) {
-    this.workoutGeneratorRepo.getGeneratedWorkout(1, 2, 3, 4).then(
+
+
+
+    // this.state.category, this.state.expertise, this.state.intensity lower body, expert,3
+    this.workoutGeneratorRepo.getGeneratedWorkout(this.state.category, this.state.expertise, this.state.intensity).then(
       workout => {
         var temp=[]
         // exercise_id
@@ -144,24 +147,25 @@ class WorkoutGenerator extends Component {
     event.preventDefault();
 
     const workout = {
-      chosenExercises:    this.state.chosenExercises,
-      workoutName:    this.state.workoutName,
-      workoutIntensity:   this.state.workoutIntensity,
-      workoutExperience:    this.state.workoutExperience,
+      userID:   this.props.location.state.accountId,
       workoutDuration:    this.state.workoutDuration,
-      workoutDescription:   this.state.workoutDescription
+      workoutDesc:   this.state.workoutDescription,
+      workoutName:    this.state.workoutName,
+      intensity:   this.state.workoutIntensity,
+      experience:    this.state.workoutExperience,
     };
 
 
     await this.workoutGeneratorRepo.addWorkout(workout).then(workout_id => this.setState({createWorkoutID: workout_id}))
+
+    // alert("Created workout " + this.state.createWorkoutID)
+    // this.workoutGeneratorRepo.addExerciseToWorkout(103,new Exercise("exercise_name", "exercise_desc", "https://data.whicdn.com/images/132534183/large.png",4, 8,4))
   //add workout array to backend ----exercisesGenerated and all workout meta data
   // addExerciseToWorkout
 
 
     this.setState({category: [], expertise: [], length: [], intensity: [], showAddWorkout:false});
 
-    var workoutId=2; //going to get one from the API
-    var accntId=0;//passed from previous page link also through state
     this.props.history.push(
       {
         pathname: `/workoutpage/${this.state.createWorkoutID}`,
