@@ -496,11 +496,13 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
 			maxExerciseID = results[0].exerciseID;
+			
 		});
 	}
 	catch(err){
 		console.log(error);
 	}
+	console.log(maxExerciseID);
 	//Insert exercise to workoutInfo
 	try{
 		con.query('INSERT INTO workout_info (workout_id INT, exercise_id, set_count, rep_count) VALUES (\'' + req.params['workoutID'] + '\', \'' + maxExerciseID + '\', \'' + obj['sets'] + '\, \'' + obj['reps'] + '\');', function(error, results, fields) {
