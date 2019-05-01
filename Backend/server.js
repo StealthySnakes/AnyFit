@@ -488,10 +488,10 @@ app.get('/home/username/:username', (req,res) => {
 });
 
 //test
-app.get('/exerciseObject/:exerciseObject',(req,res) =>{
-	var obj = JSON.parse(req.params['exerciseObject']);
+app.get('/exerciseObject/',(req,res) =>{
+	//var obj = JSON.parse(req.params['exerciseObject']);
 	console.log("Incoming request to test...");
-	console.log(obj);
+	//console.log(obj);
 });
 
 //Post Exercise to Workout
