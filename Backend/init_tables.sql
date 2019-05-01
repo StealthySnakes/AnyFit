@@ -17,7 +17,7 @@ CREATE TABLE friends (
 
 CREATE TABLE user_workout (
     user_id INT,
-    workout_id INT AUTO_INCREMENT,
+    workout_id INT,
     past_workout BOOLEAN,
     favorite_workout BOOLEAN,
     custom_workout BOOLEAN,
@@ -38,7 +38,7 @@ CREATE TABLE user_workout (
 );
 
 CREATE TABLE workout_info (
-    workout_id INT,
+    workout_id INT AUTO_INCREMENT,
     exercise_id INT,
     set_count INT,
     rep_count INT,
