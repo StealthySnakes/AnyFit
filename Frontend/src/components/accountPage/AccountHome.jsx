@@ -21,7 +21,10 @@ function WorkoutButtons(props){
         }
       }}>
 
-      {wrkt[1]}
+      <h5>{wrkt[1]}</h5>
+
+        {wrkt[2]
+      }
     </Link>
 
 
@@ -57,7 +60,7 @@ class AccountHome extends Component {
     this.repo.getWorkouts(this.props.location.state.accountId).then(wrkts => {
         var temp=[]
         for(let workout of wrkts){
-          temp.push([workout.workout_id, workout.workout_name])
+          temp.push([workout.workout_id, workout.workout_name, workout.workout_desc])
         }
         this.setState({workouts: temp })
       }

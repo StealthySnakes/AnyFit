@@ -37,7 +37,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {                                   // this just gets a list of custom workouts
             axios.get(`${this.url}/home/${userID}/user_workouts`, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => {alert("getWorkouts failed: "+resp); resolve([{workout_id:123, workout_name:"Jimbo's stretch routing" },{workout_id:133, workout_name:"Omar's stretch routing" }])})
+            .catch(resp => {alert("getWorkouts failed: "+resp); resolve([{workout_id:123, workout_name:"Jimbo's stretch routing", workout_desc:"its a str" },{workout_id:133,workout_desc:"its a str", workout_name:"Omar's stretch routing" }])})
         })
 
     }
