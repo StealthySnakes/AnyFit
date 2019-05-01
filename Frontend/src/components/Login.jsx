@@ -52,7 +52,7 @@ class Login extends Component {
             {
               pathname: '/home',
               state: {
-                accountId: login_success,
+                accountId: login_success[0].user_id,
               }
             }
           )
