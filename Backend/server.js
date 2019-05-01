@@ -177,7 +177,7 @@ app.get('/home/:userID/favorite_workout', (req, res) => {
 });
 
 //Return list of workouts from user
-app.get('/home/:userID/user_workouts' (req, res) => {
+app.get('/home/:userID/user_workouts', (req, res) => {
 
 	console.log("Incoming request for friends..");
   
