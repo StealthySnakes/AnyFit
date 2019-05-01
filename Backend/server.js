@@ -5,25 +5,31 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+
 app.use(cors());
 
 // Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
 
-	console.log("Incoming login request...");
+		console.log("Incoming login request...");
 
-	try {
-		con.query('SELECT user_id FROM user_info WHERE username = \'' + req.params['login'] + '\' AND _password =\'' + req.params['password'] + "\';" , function (error, results, fields) {
-			if (error){
-				throw error;
-			}
-			if(results.length >= 1){
-				res.send(results);
-			}
-			else {
-				res.send("null");
-			}
-		});
+		try {
+			const hashed_password = bcrypt.hash(req.params['password'], 10, function(err, hash) {
+				// Store hash in database
+				con.query('SELECT user_id FROM user_info WHERE username = \'' + req.params['login'] + '\' AND _password =\'' + hash + "\';" , function (error, results, fields) {
+					if (error){
+						throw error;
+					}
+					if(results.length >= 1){
+						res.send(results);
+					}
+					else {
+						res.send("null");
+					}
+				});
+			});
+		
 	}
 	catch(err){
 		console.log(err);
@@ -35,12 +41,17 @@ app.post('newuser/:name/:username/:password/:avatar', (req,res) => {
 
 	console.log('Incoming request to create user...');
 
+	
 	try {
-		con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + req.params['password'] + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
-			if(error)
-				throw error;
-
-		});
+		const hashed_password = bcrypt.hash(req.params['password'], 10, function(err, hash) {
+			// Store hash in database
+			con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + hash + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
+				if(error)
+					throw error;
+	
+			});
+		  });
+		
 	}
 	catch(err){
 		console.log(err);
