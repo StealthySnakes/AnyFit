@@ -75,6 +75,27 @@ app.get('/home/:userID', (req,res) => {
 	}
 });
 
+//Set user's friends
+app.get('/home/:userID/friend/:friend_id', (req,res) => {
+
+	console.log("Incoming request for friends data...");
+
+	try{
+		con.query('SELECT f_username,friend_id FROM friends WHERE user_id = ' + req.params['userID'] + ' ;', function(error,results,fields) {
+			if (error){
+				throw error;
+			}
+			if(results.length >= 1){
+				res.send(results);
+			}
+
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+});
+
 //return user's avatar
 app.get('/home/:userID/avatar', (req,res) =>{
 
@@ -460,6 +481,34 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	}
 });
 
+//updates existing workout with new values
+app.put('/newWorkoutId/:workoutObject/workout_id/:workout_id' , (req, res) => {
+
+	console.log("Incoming request to create workout...");
+
+	var obj = JSON.parse(req.params['workoutObject']);
+	//Insert new workout object into user_workout
+	try {
+ 			con.query('UPDATE user_workout SET workout_length = ' + obj['workoutDuration'] + ', workout_desc = ' + '\'' + obj['workoutDesc'] + '\', workout_name = ' + '\'' + obj['workoutName'] + '\', rating = ' + obj['rating'] + ', category = ' + '\'' + obj['focus'] + '\', intensity = ' + obj['intensity'] + ', ExpLevel = ' + obj['experience'] + ', comments = ' + '\'' + obj['comments'] + '\', Time_stamp = ' + CURRENT_TIMESTAMP + 'WHERE workout_id = ' + workout_id + ");'\'", function (error, results, fields) {
+    	if(error)
+    		throw error;
+  		});
+	}
+	catch(err){
+		console.log(error);
+	}
+
+	//select workoutID that was created in the last step return it
+	try{
+		con.query('SELECT max(workout_id) as workoutID from user_workout;', function(error,results,fields){
+			var max = results[0].workoutID;
+			res.send({workoutID: max});
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+});
 // Checks to see if a username is taken
 app.get('/home/username/:username', (req,res) => {
 
