@@ -488,7 +488,7 @@ app.get('/home/username/:username', (req,res) => {
 });
 
 //test
-app.post('/exerciseObject/:exerciseObject',(req,res) =>{
+app.get('/exerciseObject/:exerciseObject',(req,res) =>{
 	var obj = JSON.parse(req.params['exerciseObject']);
 	console.log("Incoming request to test...");
 	console.log(obj);
