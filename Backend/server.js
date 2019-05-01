@@ -30,7 +30,7 @@ app.post('/home/:login/password/:password', (req, res) => {
 	}
 });
 
-//create user
+//create user -no ; at the end of query?
 app.post('newuser/:name/:username/:password/:avatar', (req,res) => {
 
 	console.log('Incoming request to create user...');
@@ -94,6 +94,24 @@ app.get('/home/:userID/friend/:friend_id', (req,res) => {
 	catch(err){
 		console.log(err);
 	}
+});
+
+//add friend
+app.post('addfriend/:user_id/friend/:friend_id/f_username/:f_username', (req,res) => {
+
+	console.log('Incoming request to add friend...');
+
+	try {
+		con.query('INSERT INTO friends VALUES(' + req.params['user_id'] + ', ' + req.params['friend_id'] + ',' + req.params['f_username'] + ';', function(error,results,fields) {
+			if(error)
+				throw error;
+
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+	
 });
 
 //return user's avatar
