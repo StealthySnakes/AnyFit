@@ -405,11 +405,10 @@ app.get('/focus/:focus/expertise/:expertise/intensity/:intensity', (req, res) =>
 	console.log("Incoming request for exercises with custom features...");
 
 	try{
-		con.query('SELECT exercise_name, rep_count, set_count, exercise_image, exercise_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\';', function (error, results, fields) {
+		con.query('SELECT exercise_name, rep_count, set_count, exercise_image, default_length FROM exercise NATURAL JOIN workout_info NATURAL JOIN user_workout WHERE category = \'' + req.params['focus'] + '\' AND ExpLevel = \'' + req.params['expertise'] + '\' AND intensity=' + req.params['intensity'] + ';', function (error, results, fields) {
 			if (error)
 				throw error;
 			res.send(results);
-			console.log(results);
 		});
 	}
 	catch(err){
@@ -426,7 +425,7 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	var obj = JSON.parse(req.params['workoutObject']);
 	//Insert new workout object into user_workout
 	try {
- 			con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name,intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
+ 			con.query('INSERT INTO user_workout (user_id, workout_length, workout_desc, workout_name,intensity, ExpLevel, Time_stamp) VALUES (' +  obj['userID'] + ',' + obj['workoutDuration'] + ', \'' + obj['workoutDesc'] + '\' , \'' + obj['workoutName'] + '\', \'' + obj['category'] + '\',' + obj['intensity'] + ', \'' + obj['experience'] + '\', CURRENT_TIMESTAMP);', function (error, results, fields) {
     	if(error)
     		throw error;
   		});
