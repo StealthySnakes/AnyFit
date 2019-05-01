@@ -517,7 +517,7 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res) => {
 	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
 			maxExerciseID = results[0].exerciseID;
-			
+			console.log(maxExerciseID);
 		});
 	}
 	catch(err){
