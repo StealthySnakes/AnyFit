@@ -7,6 +7,7 @@ const port = 3000;
 const cors = require('cors');
 app.use(cors());
 
+// Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
 
 	console.log("Incoming login request...");
@@ -188,6 +189,7 @@ app.get('/exerciseName/:exercise_name', (req, res) => {
 	}
 });
 
+// Returns all information about the workout info
 app.get('/exercises/workout_info', (req, res) => {
 
 	console.log("Incoming request for workout_info... ");
@@ -204,6 +206,7 @@ app.get('/exercises/workout_info', (req, res) => {
 	}
 });
 
+// modify set count
 app.put('/exercises/:workout_id/set_count/:set_count', (req, res) => {
 
 	console.log("Incoming request to update workout_id's set count...");
@@ -220,6 +223,7 @@ app.put('/exercises/:workout_id/set_count/:set_count', (req, res) => {
 	}
 });
 
+// Modify rep count
 app.put('/exercises/:workout_id/rep_count/:rep_count', (req, res) => {
 
 	console.log("Incoming request to update workout_id's rep count...");
@@ -236,6 +240,7 @@ app.put('/exercises/:workout_id/rep_count/:rep_count', (req, res) => {
 	}
 });
 
+// modify workout length
 app.put('/exercises/:workout_id/workout_length/:workout_length', (req, res) => {
 
 	console.log("Incoming request to update workout_id's workout length...");
@@ -252,6 +257,7 @@ app.put('/exercises/:workout_id/workout_length/:workout_length', (req, res) => {
 	}
 });
 
+// Modify workout description
 app.put('/exercises/:workout_id/workout_desc/:workout_desc', (req, res) => {
 
 	console.log("Incoming request to update workout_id's workout desc...");
@@ -269,6 +275,7 @@ app.put('/exercises/:workout_id/workout_desc/:workout_desc', (req, res) => {
 
 });
 
+// Modify workout name
 app.put('/exercises/:workout_id/workout_name/:workout_name', (req, res) => {
 
 	console.log("Incoming request to update workout_id's workout name...");
@@ -285,12 +292,13 @@ app.put('/exercises/:workout_id/workout_name/:workout_name', (req, res) => {
 	}
 });
 
+// Modify workout rating
 app.put('/exercises/:workout_id/rating/:rating', (req, res) => {
 
 	console.log("Incoming request to update workout_id's rating...");
 
 	try{
-		con.query('UPDATE workout_info SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET rating = '+ req.params['rating'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -301,6 +309,7 @@ app.put('/exercises/:workout_id/rating/:rating', (req, res) => {
 	}
 });
 
+// Modify workout category
 app.put('/exercises/:workout_id/category/:category', (req, res) => {
 
 	console.log("Incoming request to update workout_id's category...");
@@ -317,6 +326,7 @@ app.put('/exercises/:workout_id/category/:category', (req, res) => {
 	}
 });
 
+// Modify workout intensity
 app.put('/exercises/:workout_id/intensity/:intensity', (req, res) => {
 
 	console.log("Incoming request to update workout_id's intensity...");
@@ -333,6 +343,7 @@ app.put('/exercises/:workout_id/intensity/:intensity', (req, res) => {
 	}
 });
 
+// Modify workout ExpLevel
 app.put('/exercises/:workout_id/explevel/:ExpLevel', (req, res) => {
 
 	console.log("Incoming request to update workout_id's ExpLevel...");
@@ -349,6 +360,7 @@ app.put('/exercises/:workout_id/explevel/:ExpLevel', (req, res) => {
 	}
 });
 
+// Modify workout comments
 app.put('/exercises/:workout_id/comments/:comments', (req, res) => {
 
 	console.log("Incoming request to update workout_id's comments...");
@@ -365,6 +377,7 @@ app.put('/exercises/:workout_id/comments/:comments', (req, res) => {
 	}
 });
 
+// Modify workout's public/private visibility
 app.put('/exercises/:workout_id/visibility/:visibility', (req, res) => {
 
 	console.log("Incoming request to update workout_id's visibility...");
@@ -447,6 +460,7 @@ app.post('/newWorkoutId/:workoutObject' , (req, res) => {
 	}
 });
 
+// Checks to see if a username is taken
 app.get('/home/username/:username', (req,res) => {
 
 	console.log('Incoming username validation...');
