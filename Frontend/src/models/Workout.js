@@ -1,6 +1,7 @@
 export class Workout {
-    constructor(name, focus, expertise, length, intensity, exercises, rating, comments) {
+    constructor(name, description, focus, expertise, length, intensity, exercises, rating, comments) {
       this.name = name;
+      this.description = description;
       this.focus = focus;
       this. expertise = expertise;
       this.length = length;
