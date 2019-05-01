@@ -59,7 +59,14 @@ class WorkoutGenerator extends Component {
     this.handleWorkoutSubmit = this.handleWorkoutSubmit.bind(this);
   }
   componentDidMount() {
+    //
+    // this.workoutGeneratorRepo.createNewExercise(103,{desc: "up and down boysssszzz", imageurl: "hello ", length: 4, name: "Jumping Jacks"})
+    // .then(new_exercise_id => this.workoutGeneratorRepo.addExerciseToWorkout({workout_id:103,exercise_id:new_exercise_id.exercise_id, rep_count: 8, set_count: 4}))
+    // .then(confirmation_id => alert(confirmation_id))
+    // this.workoutGeneratorRepo.createNewExercise(103,{desc: "up and down boysssszzz", imageurl: "hello ", length: 4, name: "Jumping Jacks"})
+    // this.workoutGeneratorRepo.addExerciseToWorkout({workout_id:103,exercise_id:100026, rep_count: 8, set_count: 4});
 
+// 100,026 exercise id
 
     alert("here is the passed in accountId: "+this.props.location.state.accountId)
     //set up exercise for drop down

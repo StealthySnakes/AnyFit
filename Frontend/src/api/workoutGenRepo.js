@@ -52,11 +52,25 @@ export class WorkoutGeneratorRepository {
                 .catch(resp => {alert("addWorkout failed... supply dummy workout id 222"+workout.toSource()); resolve(222)});
         });
     }
-    addExerciseToWorkout(workoutName,exercise) {
+
+    // /workoutID/:workoutID/exerciseObject/:exerciseObject
+    createNewExercise(workoutID,exerciseObject) {
+
         return new Promise((resolve, reject) => {
-            axios.post(this.url, workoutName,exercise, this.config)
+          exerciseObject = JSON.stringify(exerciseObject)
+            axios.post(`${this.url}/workoutID/${workoutID}/exerciseObject/${exerciseObject}`)
                 .then(resp => resolve(resp.data))
-                .catch(resp => {alert("addExerciseToWorkout failed... no dummy data this behing the scenes "+exercise.toSource())});
+                .catch(resp => {alert("addExerciseToWorkout failed... no dummy data this behing the scenes "+resp)});
+        });
+    }
+    addExerciseToWorkout(exercise) {
+
+        return new Promise((resolve, reject) => {
+          exercise = JSON.stringify(exercise)
+          console.log(typeof(exercise))
+            axios.post(`${this.url}/exerciseID/${exercise}`)
+                .then(resp => resolve(resp.data))
+                .catch(resp => {alert("addExerciseToWorkout failed... no dummy data this behing the scenes "+resp)});
         });
     }
 
