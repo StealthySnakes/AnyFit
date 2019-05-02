@@ -9,13 +9,13 @@ export class HomeRepository {
         }
     };
 
-    getFriends(userID) {
-        return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/${userID}`, this.config)
-            .then(resp => resolve(resp.data))
-            .catch(resp => alert("getFriends failed: "+resp))
-        });
-    }
+    // getFriends(userID) {
+    //     return new Promise((resolve, reject) => {
+    //         axios.get(`${this.url}/${userID}`, this.config)
+    //         .then(resp => resolve(resp.data))
+    //         .catch(resp => alert("getFriends failed: "+resp))
+    //     });
+    // }
 
     getProfilePic(userID) {
         return new Promise((resolve, reject) => {
@@ -42,13 +42,13 @@ export class HomeRepository {
 
     }
 
-    getTimeline(userID) {
-        return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/${userID}/timeline`, this.config)                // Assume this will change.
-            .then(resp => resolve(resp.data))
-            .catch(resp => alert("getTimeline failed: "+resp))
-        });
-    }
+    // getTimeline(userID) {
+    //     return new Promise((resolve, reject) => {
+    //         axios.get(`${this.url}/${userID}/timeline`, this.config)                // Assume this will change.
+    //         .then(resp => resolve(resp.data))
+    //         .catch(resp => alert("getTimeline failed: "+resp))
+    //     });
+    // }
 
 //favorite is one or zero
     setFavorite(userID, workoutID, favorite) {
