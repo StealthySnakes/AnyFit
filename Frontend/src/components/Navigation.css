@@ -1,20 +1,54 @@
+
 /* Small */
 @media (max-width: 575px) {
     .navitems {
         visibility: hidden;
     }
+
     #sidebar {
         visibility: visible;
+    }
+
+    .probChild {
+        max-width: 40%;
+    }
+    
+    #searchform {
+        float: right;
     }
 }
 
 /* Medium */
 @media (min-width: 576px) and (max-width: 991px) {
+    .navitems {
+        visibility: hidden;
+    }
+
+    #sidebar {
+        visibility: visible;
+    }
+
+    .probChild {
+        max-width: 40%;
+    }
+    
+    #searchform {
+        position: relative;
+        float: right;
+    }
+
+    #sbtn {
+        max-width: 20%;
+    }
 
 }
 
 /* Large */
 @media (min-width: 992px) {
+
+    #sbtn {
+        max-width: 15%;
+    }
 
 }
 
@@ -25,5 +59,7 @@
 
 /* Landscape */
 @media (orientation: landscape) {
-    
+    #sbtn {
+        max-width: 15%;
+    }
 }

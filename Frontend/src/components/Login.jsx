@@ -70,7 +70,7 @@ class Login extends Component {
   render() {
     return (
       <>
-      < Navigation hideNav={true} />
+      <Navigation hideNav={true} />
 
 
       <img
@@ -103,13 +103,11 @@ class Login extends Component {
                   type="password"
                 />
               </Form.Group>
-              <Button className="m-1"
-                type="submit"
-              >
+              <Button type="submit" style={{width: '100%'}}>
                 Login
               </Button>
 
-              <Link to={`/signup`}>Click Here to Sign UP</Link>
+              <Link to={`/signup`}>Click Here to Sign Up</Link>
             </Form>
 
             <FailedLogin isLoggedIn={this.state.failed_login}/>
