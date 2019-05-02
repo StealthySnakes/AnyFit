@@ -157,7 +157,9 @@ class WorkoutGenerator extends Component {
 
 
     await this.workoutGeneratorRepo.addWorkout(workout).then(workout_id => this.setState({createWorkoutID: workout_id}))
-
+    for(let i=0;i<this.state.exercisesGenerated.length;i++){
+      alert(JSON.stringify(this.state.exercisesGenerated[i].toSource()))
+    }
     // alert("Created workout " + this.state.createWorkoutID)
     // this.workoutGeneratorRepo.addExerciseToWorkout(103,new Exercise("exercise_name", "exercise_desc", "https://data.whicdn.com/images/132534183/large.png",4, 8,4))
   //add workout array to backend ----exercisesGenerated and all workout meta data
@@ -287,7 +289,7 @@ class WorkoutGenerator extends Component {
              return state;
            })
 
-           // alert(this.state.chosenExercises)
+           alert(this.state.chosenExercises.toSource())
 
          }
        }
