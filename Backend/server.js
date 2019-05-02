@@ -12,6 +12,22 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
+app.post('/addExercise/', (req,res) => {
+	console.log("Incoming request to add exercise to workout...");
+	console.log(req.body);
+	var obj = req.body;
+	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + obj['workout_id'] + ',' + obj['exercise_id'] + ',' + obj['set_count'] + ',' + obj['rep_count'] + ');', function(error,results,fields) {
+		if(error)
+			throw error;
+		res.send({exerciseID: obj['exercise_id']});
+	});
+});
+
+
+app.get('/home/:exercise_id/:workout_id/:set_count/:rep_count',(req,res) => {
+	res.send(req.params);
+});
+
 
 // Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
@@ -40,16 +56,16 @@ app.post('/home/:login/password/:password', (req, res) => {
 	}
 });
 
-//create user -no ; at the end of query?
-app.post('newuser/:name/:username/:password/:avatar', (req,res) => {
+//create user -no ; at the end of query? - added it
+app.post('newuser/:userObject', (req,res) => {
 
 	console.log('Incoming request to create user...');
 
-	
+	var obj = JSON.parse(req.params['userObject']);
 	try {
 		const hashed_password = bcrypt.hash(req.params['password'], 10, function(err, hash) {
 			// Store hash in database
-			con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + hash + '\',\'' + req.params['avatar'] + ',\'\')', function(error,results,fields) {
+			con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + hash + '\',\'' + req.params['avatar'] + ',\'\');', function(error,results,fields) {
 				if(error)
 					throw error;
 	
@@ -215,7 +231,7 @@ app.get('/home/:userID/user_workouts', (req, res) => {
 	console.log("Incoming request for friends..");
   
 	  try{
-		  con.query('SELECT workout_id, workout_name FROM user_workout WHERE user_id = \'' + req.params['userID'] + "\';" , function (error, results, fields) {
+		  con.query('SELECT workout_id, workout_name, workout_desc FROM user_workout WHERE user_id = \'' + req.params['userID'] + "\';" , function (error, results, fields) {
 			  if (error)
 				  throw error;
 			  res.send(results);
@@ -316,7 +332,7 @@ app.put('/exercises/:workout_id/workout_length/:workout_length', (req, res) => {
 	console.log("Incoming request to update workout_id's workout length...");
 
 	try{
-		con.query('UPDATE workout_info SET workout_length = '+ req.params['workout_length'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET workout_length = '+ req.params['workout_length'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 			res.send(results);
@@ -333,7 +349,7 @@ app.put('/exercises/:workout_id/workout_desc/:workout_desc', (req, res) => {
 	console.log("Incoming request to update workout_id's workout desc...");
 
 	try{
-		con.query('UPDATE workout_info SET workout_desc = '+ req.params['workout_desc'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET workout_desc = '+ req.params['workout_desc'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 			res.send(results);
@@ -385,7 +401,7 @@ app.put('/exercises/:workout_id/category/:category', (req, res) => {
 	console.log("Incoming request to update workout_id's category...");
 
 	try{
-		con.query('UPDATE workout_info SET category = '+ req.params['category'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET category = '+ req.params['category'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -402,7 +418,7 @@ app.put('/exercises/:workout_id/intensity/:intensity', (req, res) => {
 	console.log("Incoming request to update workout_id's intensity...");
 
 	try{
-		con.query('UPDATE workout_info SET intensity = '+ req.params['intensity'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET intensity = '+ req.params['intensity'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -419,7 +435,7 @@ app.put('/exercises/:workout_id/explevel/:ExpLevel', (req, res) => {
 	console.log("Incoming request to update workout_id's ExpLevel...");
 
 	try{
-		con.query('UPDATE workout_info SET ExpLevel = '+ req.params['ExpLevel'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET ExpLevel = '+ req.params['ExpLevel'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -453,7 +469,24 @@ app.put('/exercises/:workout_id/visibility/:visibility', (req, res) => {
 	console.log("Incoming request to update workout_id's visibility...");
 
 	try{
-		con.query('UPDATE workout_info SET visibility = '+ req.params['visibility'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET visibility = '+ req.params['visibility'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+			if (error)
+				throw error;
+		res.send(results);
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+});
+
+// Delete a workout
+app.delete('/exercises_delete/:workout_id', (req, res) => {
+
+	console.log("Incoming request to update workout_id's visibility...");
+
+	try{
+		con.query('DELETE FROM user_workout WHERE workout_id = ' + req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -614,40 +647,17 @@ app.post('/workoutID/:workoutID', (req, res,next) => {
 	}
 
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
-			getExercise_id(results[0]['exerciseID']) ;
+			res.send({exerciseID: results[0]['exerciseID']}) ;
 		});
-	res.locals.exercise_id = exerciseID;
-	console.log(exerciseID);
-	next();
-}, function(req,res){
-	
-	console.log("Inserting exercise into workout...");
-	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workout_id'] + ',' + res.locals.exercise_id + ',' + res.locals.set_count + ',' + res.locals.rep_count + ');', function(error,results,fields) {
-		if(error)
-			throw error;
-		res.send(res.locals.exercise_id);
-	})
+
 
 });
 
-function getExercise_id(val){
+const  getExercise_id = async(val) => {
 	exerciseID = val;
 	console.log(exerciseID);
 }
-
 //add exercise to workout
-app.post('/exerciseID', (res,req) => {
-	console.log("Incoming request to add exercise to workout...");
-	//var obj = JSON.parse(req.params['exerciseObject']);
-
-	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.body.workout_id + ',' + req.body.exercise_id + ',' + req.body.set_count + ',' + req.body.rep_count + ');', function(error,results,fields) {
-		if(error)
-			throw error;
-		res.send({exercise_id: req.body.exercise_id});
-	})
-
-});
-
 app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
 
 	console.log("Incoming request to update workout_id's rating...");
