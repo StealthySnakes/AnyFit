@@ -33,7 +33,7 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/exerciseName/${exerciseName}`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => console.log("getExercisePic failed.... supplying dummy data"+resolve([{exercise_image:'https://sites.google.com/site/bodybildingserbia/_/rsrc/1472783288416/ronnie-coleman/Ronniecoleman.jpg?height=195&width=200'}])));
+                .catch(resp => console.log("getExercisePic failed.... supplying dummy data"+resolve([{exercise_image:'https://www.google.com/imgres?imgurl=https%3A%2F%2Fis4-ssl.mzstatic.com%2Fimage%2Fthumb%2FPurple113%2Fv4%2F3b%2Fda%2F34%2F3bda3484-6392-14de-3735-14eceda4ef98%2Fsource%2F256x256bb.jpg&imgrefurl=https%3A%2F%2Fappadvice.com%2Fapp%2F30-day-squat-and-abs-challenge%2F1030348951&docid=H62EGWxIe_qNBM&tbnid=XUQULLKDlZNveM%3A&vet=10ahUKEwjL_cSux_3hAhWCxVkKHaMYBBIQMwhrKAIwAg..i&w=256&h=256&client=ubuntu&bih=846&biw=1187&q=squat%20&ved=0ahUKEwjL_cSux_3hAhWCxVkKHaMYBBIQMwhrKAIwAg&iact=mrc&uact=8'}])));
         });
     }
     getGeneratedWorkout(focus, expertise, intensity) {
