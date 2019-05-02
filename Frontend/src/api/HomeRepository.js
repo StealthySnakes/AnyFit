@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export class HomeRepository {
 
-    url = 'http://18.218.117.25:3000/';
+    url = 'http://18.218.117.25:3000';
     config = {
         headers: {
             Authorization: 'root'
