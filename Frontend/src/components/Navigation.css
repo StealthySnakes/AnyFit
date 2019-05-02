@@ -1,18 +1,11 @@
-* {
-    box-sizing: border-box;
-}
-
-#enclosed {
-    margin: 2em;
-}
-
-.details {
-    font-weight: bold;
-}
-
 /* Small */
 @media (max-width: 575px) {
-
+    .navitems {
+        visibility: hidden;
+    }
+    #sidebar {
+        visibility: visible;
+    }
 }
 
 /* Medium */
