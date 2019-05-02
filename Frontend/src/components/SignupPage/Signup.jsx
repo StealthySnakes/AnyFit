@@ -21,19 +21,18 @@ class Signup extends React.Component {
     id: ''
   };
 
+async addAcct(){
 
-  newAcc = event =>{
     var acc = {
       name: this.state.nname,
       username: this.state.nusername,
       password: this.state.npassword,
       image: this.state.imag
     }
-    this.setState({
-      id: this.signupRepository.addAccount(acc)
-    })
-  }
+   await this.signupRepository.addAccount(acc).then( acc_id =>{ alert(acc_id);this.setState({ id:acc_id.userID})})
+   alert(this.state.id)
 
+}
 
 
   render() {
@@ -57,7 +56,9 @@ class Signup extends React.Component {
               </div>
               <div class="form-group">
                 <label htmlFor="username"></label>
-                <input type="text" className='form-control' name="Username" id="username" placeholder="Username"></input>
+                <input type="text" className='form-control' name="Username" id="username" placeholder="Username"
+                  value={this.state.nusername} onChange={e => this.setState({nusername: e.target.value})}
+                  ></input>
               </div>
               <div class="form-group">
                 <label htmlFor="email"></label>
@@ -77,13 +78,16 @@ class Signup extends React.Component {
                 id="addimg" placeholder="Add image link here"
                 onChange={e => this.setState({imag: e.target.value})}></input>
               </div>
-              <Link style={{marginTop:'1em'}} className="btn btn-primary" to={{
+              <Link style={{marginTop:'1em'}} onClick={event => this.addAcct()}
+
+
+                    className="btn btn-primary" to={{
                   pathname: `/home`,
                   //passin not real account right now
                   state: {
-                    "accountId": 123
-                  }
-                }}>
+                    "accountId": this.state.id
+                  }}
+                }>
                 <h3>Create Account</h3>
               </Link>
             </div>
