@@ -1,5 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
 #login{
   padding: 10em;
   padding-top: 5em;
   max-width: 50em;
+}
+
+/* Small */
+@media (max-width: 575px) {
+  #login {
+    padding: 5rem;
+    padding-top: 3rem;
+    
+  }
+}
+
+/* Medium */
+@media (min-width: 576px) and (max-width: 991px) {
+
+}
+
+/* Large */
+@media (min-width: 992px) {
+
+}
+
+/* Portrait */
+@media (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media (orientation: landscape) {
+    
 }

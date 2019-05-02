@@ -24,16 +24,16 @@ class Navigation extends Component {
         </div>
 
         <ul>
-          <Link></Link>
-          <Link></Link>
-          <Link></Link>
+          <Link to='/home'>Home</Link>
+          <Link to='/workoutgen'>Generate Workout</Link>
+          <Link to='/'>Log Out</Link>
         </ul>
       </div>
     )
   }
 
   render() {
-    if(this.props.hideNav==true){
+    if(this.props.hideNav===true){
       return (
         <>
         <Navbar bg="primary" variant="light" sticky="top">
@@ -43,9 +43,9 @@ class Navigation extends Component {
             width="100"
             className="d-inline-block align-top"
             />
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mx-sm-2" />
-            <Button variant="outline-dark">Search</Button>
+          <Form inline id="searchform" style={{maxWidth: '60%', marginLeft: '2rem', marginRight: '0rem'}}>
+            <FormControl type="text" placeholder="Search" className="mx-2 probChild" />
+            <Button className="probChild" variant="outline-dark" id="sbtn">Search</Button>
           </Form>
 
         </Navbar>
