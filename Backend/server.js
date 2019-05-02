@@ -12,6 +12,22 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
+app.post('/addExercise/', (req,res) => {
+	console.log("Incoming request to add exercise to workout...");
+	console.log(req.body);
+	var obj = req.body;
+	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + obj['workout_id'] + ',' + obj['exercise_id'] + ',' + obj['set_count'] + ',' + obj['rep_count'] + ');', function(error,results,fields) {
+		if(error)
+			throw error;
+		res.send({exerciseID: obj['exercise_id']});
+	});
+});
+
+
+app.get('/home/:exercise_id/:workout_id/:set_count/:rep_count',(req,res) => {
+	res.send(req.params);
+});
+
 
 // Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
@@ -351,7 +367,7 @@ app.put('/exercises/:workout_id/workout_name/:workout_name', (req, res) => {
 	console.log("Incoming request to update workout_id's workout name...");
 
 	try{
-		con.query('UPDATE user_workout SET workout_name = '+ req.params['workout_name'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET workout_name =\''+ req.params['workout_name'] +'\' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -610,19 +626,18 @@ app.get('/exerciseObject/:exerciseObject',(req,res) =>{
 	//console.log(obj);
 });
 
+var exerciseID;
 //Post Exercise to Workout
-app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res,next) => {
+app.post('/workoutID/:workoutID', (req, res,next) => {
 
 	console.log("Incoming request to create exercise...");
-
-	var obj = JSON.parse(req.params['exerciseObject']);
-	req.set_count = req.params['set_count'];
-	req.rep_count = req.params['rep_count'];
-	req.workout_id = req.params['workoutID'];
-	//var maxExerciseID = 0;
+	var obj = JSON.parse(Object.keys(req.body)[0]);
+	res.locals.set_count = obj['set_count'];
+	res.locals.rep_count = obj ['rep_count'];
+	res.locals.workout_id = req.params['workoutID'];
 	//Insert new exercise object into exercise
 	try {
-		con.query('INSERT INTO exercise (exercise_name, exercise_desc, default_length, exercise_image) VALUES (\'' + obj['name'] + '\', \'' + obj['desc'] + '\', \'' + obj['length'] + '\', \'' + obj['imageurl'] + '\');', function(error, results, fields) {
+		con.query('INSERT INTO exercise (exercise_name, exercise_desc, default_length, exercise_image) VALUES (\'' + obj['exercise_name'] + '\', \'' + obj['exercise_desc'] + '\', \'' + obj['default_length'] + '\', \'' + obj['exercise_image'] + '\');', function(error, results, fields) {
 			if(error)
 				throw error;
 			});
@@ -631,44 +646,18 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res,next)
 		console.log(error);
 	}
 
-	//Get newly created exerciseID
-	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
-			//maxExerciseID = results[0].exerciseID;
-			//res.send({exercise_id: maxExerciseID});
-			req.exercise_id = results[0].exerciseID;
-			//res.send(maxExerciseID);
+			res.send({exerciseID: results[0]['exerciseID']}) ;
 		});
-	}
-	catch(err){
-		console.log(error);
-	}
-	next();
-}, function(req,res){
-	
-	console.log("Inserting exercise into workout...");
 
-	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.params['workout_id'] + ',' + req.params['exercise_id'] + ',' + req.params['set_count'] + ',' + req.params['rep_count'] + ');', function(error,results,fields) {
-		if(error)
-			throw error;
-		res.send(req.params['exercise_id']);
-	})
 
 });
 
+const  getExercise_id = async(val) => {
+	exerciseID = val;
+	console.log(exerciseID);
+}
 //add exercise to workout
-app.post('/exerciseID', (res,req) => {
-	console.log("Incoming request to add exercise to workout...");
-	//var obj = JSON.parse(req.params['exerciseObject']);
-
-	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.body.workout_id + ',' + req.body.exercise_id + ',' + req.body.set_count + ',' + req.body.rep_count + ');', function(error,results,fields) {
-		if(error)
-			throw error;
-		res.send({exercise_id: req.body.exercise_id});
-	})
-
-});
-
 app.patch('/exercises/:workout_id/rating/:rating', (req, res) => {
 
 	console.log("Incoming request to update workout_id's rating...");
