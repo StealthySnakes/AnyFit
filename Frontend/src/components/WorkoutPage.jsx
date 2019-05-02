@@ -17,12 +17,12 @@ export class WorkoutPage extends React.Component{
     workoutRepository = new WorkoutRepository;
     state = {
         workout: new Workout(
-            "jimbo's stretch routine",
-            "a fun workout that embiggens you",
-            "Arms and Crotch",
+            "Default workout",
+            "Sorry, our server is currently down. Please enjoy this simple workout instead",
+            "Arms",
             "Beginner",
-            "8 hours",
-            "Intense",
+            "30 min",
+            "Low",
             [
                 new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,3,3),
                 new Exercise("Jumping Jacks", "up and down boysssszzz", "https://data.whicdn.com/images/132534183/large.png", 4,4,8),
@@ -30,22 +30,31 @@ export class WorkoutPage extends React.Component{
                 new Exercise("Planks", "lie there on the floor", "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1", 4,10,10),
               ],
             5,
-            "how about that, jumbo"
+            "We apologize for the inconvinience"
         ),
         wrkt: [],
         beginClk: false,
         pauseClk: false,
         btnCol: {background: 'dodgerblue'},
         btnWord: "Start",
-        rating: 0
+        rating: 3,
+        comment: 'test',
+
     }
 
-    onNewReview(review){
-        this.workoutRepository.updateComment()
+    onNewReview(rev){
+        let workoutId = +this.props.match.params.workoutId;
+        this.workoutRepository.updateComment(workoutId, rev);
+        window.location.reload();
     }
 
-    newRating(){
-        this.workoutRepository.updateRating(123, this.state.rating)
+    newRating(rat){
+        let workoutId = +this.props.match.params.workoutId;
+        this.workoutRepository.updateRating(workoutId, rat);
+        this.setState({
+            rating: rat
+        })
+        window.location.reload();
     }
 
     timerState(){
@@ -73,9 +82,9 @@ export class WorkoutPage extends React.Component{
 
     render(){
         return(
-        <>
+        <body>
             <Navigation accountId={this.props.location.state.accountId}/>
-            <div className = "card" style={{float:'right', margin:'2em', padding:'3em', textAlign:'center',position:'fixed', zIndex:1, right:'1em'}}>
+            <div className = "card timer" style={{float:'right', margin:'0em', padding:'2em', textAlign:'center',position:'fixed', zIndex:1, right:'1em' }}>
                 <Stopwatch beginClk = {this.state.beginClk} pauseClk = {this.state.pauseClk}/>
                 <button className = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
             </div>
@@ -92,10 +101,10 @@ export class WorkoutPage extends React.Component{
                         <Row style={{display:'block'}}>
                             <h1>{this.state.workout.name}</h1>
                              <button type="button" className="btn btn-warning btn-block">Edit Workout</button>
-                            <Rating value = {this.state.workout.rating} />
-                            <label for='rating' style={{display:'inline'}}></label>
+                            <Rating value = {this.state.rating} />
+                            <label for='rating' style={{display:'inline', marginLeft:'1em', marginBottom:'1em'}}><span class="badge badge-primary">Rate Workout:</span></label>
                             <select className="form-control" 
-                            onChange={e => this.setState({ rating: e.target.value })} 
+                            onChange={e => this.newRating(e.target.value)} 
                             style={{display:'inline', width:'4em', marginLeft:'1em'}}>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
@@ -103,8 +112,6 @@ export class WorkoutPage extends React.Component{
                             <option value={4}>4</option>
                             <option value={5}>5</option>
                             </select>
-                            <button className="btn btn-primary"
-                            style={{marginLeft:'2em', marginBottom:'1em', marginTop:'0.5em'}} onClick={this.newRating()}>Rate Workout</button>
                             <p style={{fontWeight:'bold'}}><span style={{fontWeight:'normal'}}>{this.state.workout.description}<br></br></span>Focus: <span style={{fontWeight:'normal'}}>{this.state.workout.focus}</span> 
                             <span style={{marginLeft:'1em'}}>Expertise Level: <span style={{fontWeight:'normal'}}>{this.state.workout.expertise}</span></span>
                             <span style={{marginLeft:'1em'}}>Length: <span style={{fontWeight:'normal'}}>{this.state.workout.length}</span></span>
@@ -115,7 +122,7 @@ export class WorkoutPage extends React.Component{
               </Row>
                 {this.state.workout.exercises.map((ex) => 
                 <Row>
-                    <Col md={2}>
+                    <Col md={2} style={{position:'relative', marginBottom:'3em'}}>
                         <div className = "form form-control-lg">
                             <label><input className = "checks" type="checkbox" value=""/></label>
                         </div>
@@ -129,11 +136,11 @@ export class WorkoutPage extends React.Component{
             </Container>                              {/* Outer Container Close */}
 
             <div style={{margin:'2em', textAlign:'left'}}>
-                <ReviewForm reviews={this.state.workout.comments} onNewReview={a => this.onNewReview(a)}/>
+                <ReviewForm reviews={this.state.comment} onNewReview={a => this.onNewReview(a)}/>
             </div>
             
         
-        </>);
+        </body>);
     }
 
     placeWorkout(wrkt){
@@ -155,7 +162,9 @@ export class WorkoutPage extends React.Component{
                         wrkt[0].category, wrkt[0].ExpLevel, wrkt[0].workout_length, wrkt[0].intensity,
                         temp, wrkt[0].rating, wrkt[0].comments
                         )
-                    this.setState({ workout: tempwork})
+                    this.setState({ workout: tempwork,
+                                    rating: tempwork.rating,
+                                    comment: tempwork.comments})
                   });
         }
     }

@@ -16,9 +16,10 @@ export class WorkoutRepository {
         });
     }
 
-    updateWorkout(workoutId, workout) {
+    updateWorkout(workoutId, workoutObject) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/${workoutId}`, workout, this.config)
+            workoutObject = JSON.stringify(workoutObject);
+            axios.put(`${this.url}/newWorkoutId/${workoutObject}/workout_id/${workoutId}`,  this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });
@@ -26,7 +27,8 @@ export class WorkoutRepository {
 
     updateRating(workoutId, rating) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/${workoutId}/rating/${rating}`, this.config)
+            rating = JSON.stringify(rating);
+            axios.put(`${this.url}/exercises/${workoutId}/rating/${rating}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });
@@ -34,7 +36,7 @@ export class WorkoutRepository {
 
     updateComment(workoutId, comment) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/${workoutId}/comment/${comment}`, this.config)
+            axios.put(`${this.url}/exercises/${workoutId}/comments/${comment}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });
