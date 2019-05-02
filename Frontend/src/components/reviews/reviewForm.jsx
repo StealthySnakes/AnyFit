@@ -5,15 +5,12 @@ import Comment from './../../models/Comment';
 
 export class ReviewForm extends React.Component {
     state = {
-        userName:"",
         comment:""
     }
 
     onSubmit(){
-        var curRev = new Comment(this.state.userName, this.state.comment);
-        this.props.onNewReview(curRev);
+        this.props.onNewReview(this.state.comment);
         this.setState({
-            userName:"",
             comment:""
         });
 
