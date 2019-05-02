@@ -12,6 +12,7 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     //  to support URL-encoded bodies
   extended: true
 })); 
+
 app.post('/addExercise/', (req,res) => {
 	console.log("Incoming request to add exercise to workout...");
 	var obj = req.body;
@@ -56,15 +57,15 @@ app.post('/home/:login/password/:password', (req, res) => {
 });
 
 //create user -no ; at the end of query? - added it
-app.post('newuser/:userObject', (req,res) => {
+app.post('/newuser/:userObject', (req,res) => {
 
 	console.log('Incoming request to create user...');
 
 	var obj = JSON.parse(req.params['userObject']);
 	try {
-		const hashed_password = bcrypt.hash(req.params['password'], 10, function(err, hash) {
+		const hashed_password = bcrypt.hash(obj['password'], 10, function(err, hash) {
 			// Store hash in database
-			con.query('INSERT INTO user_info VALUES(\'' + req.params['username'] + '\',\'' + req.params['name'] + '\',\'' + hash + '\',\'' + req.params['avatar'] + ',\'\');', function(error,results,fields) {
+			con.query('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + hash + '\',\'' + obj['image'] + ',\'\');', function(error,results,fields) {
 				if(error)
 					throw error;
 	
@@ -348,7 +349,7 @@ app.put('/exercises/:workout_id/workout_desc/:workout_desc', (req, res) => {
 	console.log("Incoming request to update workout_id's workout desc...");
 
 	try{
-		con.query('UPDATE user_workout SET workout_desc = '+ req.params['workout_desc'] +' WHERE workout_id = '+ req.params['workout_id'] + ';\'' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET workout_desc = '+ req.params['workout_desc'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 			res.send(results);
