@@ -9,9 +9,10 @@ export class SignupRepository {
     };
 
     addAccount(acc) {
-        
+
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/newuser`, acc, this.config)
+          acc = JSON.stringify(acc)
+            axios.post(`${this.url}/newuser/${acc}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });

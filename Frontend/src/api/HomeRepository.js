@@ -53,7 +53,7 @@ export class HomeRepository {
 //favorite is one or zero
     setFavorite(userID, workoutID, favorite) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/exercises/${userID}/workout_id/${workoutID}/favorite/${favorite}`, workoutID, this.config)
+            axios.put(`${this.url}/exercises/${userID}/workout_id/${workoutID}/favorite/${favorite}`, this.config)
             .then(resp => resolve(resp.data))
             .catch(resp => console.log("setFavorite failed: "+resp))
         });
