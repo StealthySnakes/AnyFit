@@ -1,0 +1,79 @@
+.dd-btn {
+    display: none;
+}
+
+
+/* Small */
+@media (max-width: 575px) {
+    .navitems {
+        display: none;
+    }
+
+
+
+    .probChild {
+        max-width: 45%;
+    }
+
+    .dd-btn {
+        display: initial;
+        font-size: normal;
+    }
+
+    
+    #searchform {
+        float: right;
+        overflow: hidden;
+    }
+}
+
+/* Medium */
+@media (min-width: 576px) and (max-width: 991px) {
+    .navitems {
+        display: none;
+    }
+
+    #sidebar {
+        visibility: visible;
+    }
+
+    .probChild {
+        max-width: 40%;
+    }
+    
+    #searchform {
+        position: relative;
+        float: right;
+        overflow: hidden;
+    }
+
+    .sbtn {
+        max-width: 20%;
+    }
+
+    .dd-btn {
+        display: initial;
+    }
+
+}
+
+/* Large */
+@media (min-width: 992px) {
+
+    .sbtn {
+        max-width: 15%;
+    }
+
+}
+
+/* Portrait */
+@media (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media (orientation: landscape) {
+    .sbtn {
+        max-width: 15%;
+    }
+}

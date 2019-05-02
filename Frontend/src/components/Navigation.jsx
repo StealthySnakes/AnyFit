@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.png';
+import './Navigation.css';
 // import './AccoutHome.css';
 class Navigation extends Component {
   constructor(props) {
@@ -10,11 +11,10 @@ class Navigation extends Component {
     this.state={
         search:""
       }
-
-
   }
+
   render() {
-    if(this.props.hideNav==true){
+    if(this.props.hideNav===true){
       return (
         <>
         <Navbar bg="primary" variant="light" sticky="top">
@@ -24,6 +24,11 @@ class Navigation extends Component {
             width="100"
             className="d-inline-block align-top"
             />
+
+          <Form inline id="searchform" style={{maxWidth: '60%', marginLeft: '2rem', marginRight: '0rem'}}>
+            <FormControl type="text" placeholder="Search" className="mx-2 probChild" />
+            <Button className="probChild sbtn" variant="outline-dark" >Search</Button>
+          </Form>
 
 
         </Navbar>
@@ -39,7 +44,10 @@ class Navigation extends Component {
                       width="100"
                       className="d-inline-block align-top"
                   />
-                  <Form inline>
+
+                  <Form inline id="insearchform" style={{maxWidth: '55%', marginLeft: '.25rem', marginRight: '0rem'}}>
+                      <FormControl type="text" placeholder="Search" className="mx-sm-2 probChild" />
+                      <Button className="probChild sbtn" variant="outline-dark">Search</Button>
 
                   </Form>
 
@@ -52,13 +60,14 @@ class Navigation extends Component {
                               "accountId": this.props.accountId
                             }
                           }}>
-                          <Nav.Link href="/home">
+                          <Nav.Link href="/home" className="navitems">
                               Home
                             </Nav.Link>
                           </Link>
                           <Nav.Link href="/login">
                               Log Out
                             </Nav.Link>
+
 
 
 

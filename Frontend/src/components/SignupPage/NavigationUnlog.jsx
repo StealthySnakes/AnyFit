@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import Logo from '../../assets/logo.png';
+import Logo from './../../assets/logo.png';
 // import './AccoutHome.css';
 
-class Navigation extends Component {
+class Navigationunlog extends Component {
   render() {
     return (
         <>
@@ -14,14 +14,10 @@ class Navigation extends Component {
                     width="100"
                     className="d-inline-block align-top"
                 />
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mx-sm-2" />
-                    <Button variant="outline-dark">Search</Button>
-                </Form>
             </Navbar>
         </>
     );
   }
 }
 
-export default Navigation;
+export default Navigationunlog;

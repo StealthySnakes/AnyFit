@@ -9,3 +9,28 @@
 .details {
     font-weight: bold;
 }
+
+/* Small */
+@media (max-width: 575px) {
+
+}
+
+/* Medium */
+@media (min-width: 576px) and (max-width: 991px) {
+
+}
+
+/* Large */
+@media (min-width: 992px) {
+
+}
+
+/* Portrait */
+@media (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media (orientation: landscape) {
+    
+}
