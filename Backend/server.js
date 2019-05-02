@@ -80,7 +80,7 @@ app.get('/home/:userID', (req,res) => {
 	console.log("Incoming request for friends data...");
 
 	try{
-		con.query('SELECT f_username,friend_id FROM friends WHERE user_id = ' + req.params['userID'] + ' ;', function(error,results,fields) {
+		con.query('SELECT f_username, friend_id FROM friends WHERE user_id = ' + req.params['userID'] + ' ;', function(error,results,fields) {
 			if (error){
 				throw error;
 			}
@@ -95,13 +95,13 @@ app.get('/home/:userID', (req,res) => {
 	}
 });
 
-//Set user's friends
+//return user's friends
 app.get('/home/:userID/friend/:friend_id', (req,res) => {
 
 	console.log("Incoming request for friends data...");
 
 	try{
-		con.query('SELECT f_username,friend_id FROM friends WHERE user_id = ' + req.params['userID'] + ' ;', function(error,results,fields) {
+		con.query('SELECT f_username, friend_id FROM friends WHERE user_id = ' + req.params['userID'] + ' ;', function(error,results,fields) {
 			if (error){
 				throw error;
 			}
@@ -140,7 +140,7 @@ app.get('/home/:userID/avatar', (req,res) =>{
 	console.log("Incoming request for user avatar...");
 
 	try{
-		con.query('SELECT avatar FROM user_info WHERE user_id = ' + req.params['userID'] + ' ;', function(error,results,fields) {
+		con.query('SELECT avatar FROM user_info WHERE user_id = ' + req.params['userID'] + ';', function(error,results,fields) {
 			if (error){
 				throw error;
 			}
