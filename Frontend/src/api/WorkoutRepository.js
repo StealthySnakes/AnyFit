@@ -12,7 +12,7 @@ export class WorkoutRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/workout/${workoutId}`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(resp));
+                .catch(resp => console.log(resp));
         });
     }
 
@@ -20,7 +20,7 @@ export class WorkoutRepository {
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/${workoutId}`, workout, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(resp));
+                .catch(resp => console.log(resp));
         });
     }
 
@@ -28,7 +28,7 @@ export class WorkoutRepository {
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/${workoutId}/rating/${rating}`, this.config)
                 .then(resp => resolve(resp.data))
-                .catch(resp => alert(resp));
+                .catch(resp => console.log(resp));
         });
     }
 

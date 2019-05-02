@@ -29,10 +29,10 @@ class WorkoutGenerator extends Component {
     super(props, context);
 
     this.state = {
-      category: [],
-      expertise: [],
-      length: [],
-      intensity: [],
+      category: ["lower body"],
+      expertise: ["Expert"],
+      length: [30],
+      intensity: [3],
       exercisesGenerated: [
 
       ],

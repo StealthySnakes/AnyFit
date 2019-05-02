@@ -118,9 +118,8 @@ class AccountHome extends Component {
 
 
                 <Col xs={12} sm={6} md={5} lg={5} xl={4}>                                 {/* Center Timeline */}
-                  <Container>
                   <Row>
-                  {<Link className="btn btn-info btn-lg btn-warning" to={{
+                    {<Link className="btn btn-info btn-lg btn-warning" to={{
                       pathname: '/workoutgen',
                       state: {
                         "accountId": this.props.location.state.accountId
@@ -128,10 +127,16 @@ class AccountHome extends Component {
                     }}>
                     Generate Workout!</Link>  }
                   </Row>
+                  <Container>
                   <Row><h2 className="details" id="customs">Routines</h2></Row>
                   <Row>
 
                     <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.workouts}/>
+                  </Row>
+                  <Row><h2 className="details" id="customs">Favorites</h2></Row>
+                  <Row>
+
+                    <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.favorites}/>
                   </Row>
 
                   <Row>
@@ -145,9 +150,6 @@ class AccountHome extends Component {
                   <Container>
                     <Row className="justify-content-xs-between">
                       <Col xs={4} sm={6} md={6} lg={6} xl={6}>
-                        <h2 className="details" id="friends">Favorites</h2>
-
-                          <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.favorites}/>
 
                       </Col>
                       <Col xs={{span: 4, offset: 1}} sm={{span: 4, offset: 1}} md={{span: 4, offset: 1}} lg={{span: 4, offset: 1}} xl={{span: 4, offset: 1}}>
@@ -183,6 +185,7 @@ class AccountHome extends Component {
 
               </Row>
             </Container>                              {/* Outer Container Close */}
+
 
 
 
