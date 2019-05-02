@@ -43,7 +43,7 @@ export class WorkoutRepository {
 
     updateDescription(workoutId, desc) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/exercises/${workoutId}/workout_description/${desc}`, this.config)
+            axios.put(`${this.url}/exercises/${workoutId}/workout_desc/${desc}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });
@@ -84,6 +84,14 @@ export class WorkoutRepository {
     updateIntensity(workoutId, intensity) {
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/exercises/${workoutId}/intensity/${intensity}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
+
+    removeExercise(exerciseId) {
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/exercises_delete/${exerciseId}`, this.config)
                 .then(resp => resolve(resp.data))
                 .catch(resp => alert(resp));
         });
