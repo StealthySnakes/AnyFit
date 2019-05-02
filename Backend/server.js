@@ -57,7 +57,7 @@ app.post('/newuser/:userObject', (req,res) => {
 
 	var obj = JSON.parse(req.params['userObject']);
 	try {	
-		con.query('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + hash + '\',\'' + obj['image'] + ',\'\');', function(error,results,fields) {
+		con.query('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + obj['password']+ '\',\'' + obj['image'] + ',\'\');', function(error,results,fields) {
 			if(error)
 				throw error;
 		});
