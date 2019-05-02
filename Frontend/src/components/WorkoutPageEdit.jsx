@@ -127,7 +127,7 @@ export class WorkoutPageEdit extends React.Component{
                 {this.state.wrkt.exercises.map((ex, i) =>
                 <Row>
                     <Col md={2}>
-                        <button className="btn btn-danger btn-sm" style={{height:'4em', width:'12em', marginTop:'4em', left:'1em'}} onClick={event => this.removeExercise(i)}>Remove <br></br>this workout</button>
+                        
                     </Col>
                     <Col md={10}>
                         <ExerciseCard name={ex.name} desc={ex.desc} imageUrl={ex.imageUrl} length={ex.length} sets={ex.sets} reps={ex.reps}/>
