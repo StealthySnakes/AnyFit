@@ -140,8 +140,11 @@ app.post('addfriend/:user_id/friend/:friend_id/f_username/:f_username', (req,res
 app.get('/home/:userID/avatar', (req,res) =>{
 
 	console.log("Incoming request for user avatar...");
+ console.log(req.params['userID']);
+ console.log('SELECT avatar FROM user_info WHERE user_id = ' + req.params['userID'] + ';');
 
 	try{
+     
 		con.query('SELECT avatar FROM user_info WHERE user_id = ' + req.params['userID'] + ';', function(error,results,fields) {
 			if (error){
 				throw error;
