@@ -5,3 +5,48 @@
     float: center;
     
 }
+
+.card-timer {
+    float: right;
+    border: 1px solid #007bff;
+    border-radius: 25px;
+    background: white;
+    margin: 0em;
+    padding: 2em;
+    text-align: center;
+    position: fixed;
+    z-index: 1;
+    right: 1em;
+}
+
+/* Small */
+@media (max-width: 575px) {
+    .card-timer {
+        float: none;
+        position: sticky;
+        top: 2rem;
+    }
+}
+
+/* Medium */
+@media (min-width: 576px) and (max-width: 991px) {
+    .card-timer {
+        padding: 1em 0;
+        width: 35%;
+    }
+
+}
+
+/* Large */
+@media (min-width: 992px) {
+    .card-timer {
+        padding: 1.5em;
+
+    }
+}
+
+
+/* Landscape */
+@media (orientation: landscape) {
+    
+}

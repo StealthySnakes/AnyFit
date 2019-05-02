@@ -35,7 +35,7 @@ export class WorkoutPage extends React.Component{
         wrkt: [],
         beginClk: false,
         pauseClk: false,
-        btnCol: {background: 'dodgerblue'},
+        btnCol: {background: 'dodgerblue', maxWidth: '50%'},
         btnWord: "Start",
         rating: 3,
         comment: 'test',
@@ -84,11 +84,11 @@ export class WorkoutPage extends React.Component{
         return(
         <body>
             <Navigation />
-            <div className = "card timer" style={{float:'right', margin:'0em', padding:'2em', textAlign:'center',position:'fixed', zIndex:1, right:'1em' }}>
+            <div className = "card-timer">
                 <Stopwatch beginClk = {this.state.beginClk} pauseClk = {this.state.pauseClk}/>
                 <button className = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
             </div>
-            <Container style={{margin:'1em'}}>               {/* Outer Container */}
+            <Container style={{margin:'1em 0'}}>               {/* Outer Container */}
 
               <Row >
                 <Col md={2}>                               {/* Left Side */}
@@ -100,7 +100,7 @@ export class WorkoutPage extends React.Component{
                     <Container>
                         <Row style={{display:'block'}}>
                             <h1>{this.state.workout.name}</h1>
-                             <button type="button" className="btn btn-warning btn-block">Edit Workout</button>
+                             <button style={{maxWidth: '100%'}} type="button" className="btn btn-warning btn-block">Edit Workout</button>
                             <Rating value = {this.state.rating} />
                             <label for='rating' style={{display:'inline', marginLeft:'1em', marginBottom:'1em'}}><span class="badge badge-primary">Rate Workout:</span></label>
                             <select className="form-control" 
