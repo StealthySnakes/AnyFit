@@ -48,13 +48,12 @@ export class WorkoutPage extends React.Component{
         window.location.reload();
     }
 
-    newRating(rat){
+    newRating = (rat) => {
         let workoutId = +this.props.match.params.workoutId;
         this.workoutRepository.updateRating(workoutId, rat);
         this.setState({
             rating: rat
         })
-        window.location.reload();
     }
 
     timerState(){
