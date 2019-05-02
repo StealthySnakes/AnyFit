@@ -35,19 +35,17 @@ app.post('/home/:login/password/:password', (req, res) => {
 		console.log("Incoming login request...");
 
 		try {
-			const hashed_password = bcrypt.hash(req.params['password'], 10, function(err, hash) {
-				// Store hash in database
-				con.query('SELECT user_id FROM user_info WHERE username = \'' + req.params['login'] + '\' AND _password =\'' + hash + "\';" , function (error, results, fields) {
-					if (error){
-						throw error;
-					}
-					if(results.length >= 1){
-						res.send(results);
-					}
-					else {
-						res.send("null");
-					}
-				});
+	
+			con.query('SELECT user_id FROM user_info WHERE username = \'' + req.params['login'] + '\' AND _password =\'' + req.params['password'] + "\';" , function (error, results, fields) {
+				if (error){
+					throw error;
+				}
+				if(results.length >= 1){
+					res.send(results);
+				}
+				else {
+					res.send("null");
+				}
 			});
 		
 	}
@@ -62,16 +60,11 @@ app.post('/newuser/:userObject', (req,res) => {
 	console.log('Incoming request to create user...');
 
 	var obj = JSON.parse(req.params['userObject']);
-	try {
-		const hashed_password = bcrypt.hash(obj['password'], 10, function(err, hash) {
-			// Store hash in database
-			con.query('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + hash + '\',\'' + obj['image'] + ',\'\');', function(error,results,fields) {
-				if(error)
-					throw error;
-	
-			});
-		  });
-		
+	try {	
+		con.query('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + hash + '\',\'' + obj['image'] + ',\'\');', function(error,results,fields) {
+			if(error)
+				throw error;
+		});
 	}
 	catch(err){
 		console.log(err);
