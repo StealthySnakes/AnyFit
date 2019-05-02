@@ -16,15 +16,6 @@ export class WorkoutRepository {
         });
     }
 
-    updateWorkout(workoutId, workoutObject) {
-        return new Promise((resolve, reject) => {
-            workoutObject = JSON.stringify(workoutObject);
-            axios.put(`${this.url}/newWorkoutId/${workoutObject}/workout_id/${workoutId}`,  this.config)
-                .then(resp => resolve(resp.data))
-                .catch(resp => alert(resp));
-        });
-    }
-
     updateRating(workoutId, rating) {
         return new Promise((resolve, reject) => {
             rating = JSON.stringify(rating);
@@ -42,5 +33,59 @@ export class WorkoutRepository {
         });
     }
 
+    updateName(workoutId, name) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/exercises/${workoutId}/workout_name/${name}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
 
+    updateDescription(workoutId, desc) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/exercises/${workoutId}/workout_description/${desc}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
+
+    updateFocus(workoutId, focus) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/exercises/${workoutId}/category/${focus}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
+
+    updateIntensity(workoutId, intensity) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/exercises/${workoutId}/intensity/${intensity}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
+
+    updateLength(workoutId, length) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/exercises/${workoutId}/workout_length/${length}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
+
+    updateExpertise(workoutId, exp) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/exercises/${workoutId}/explevel/${exp}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
+
+    updateIntensity(workoutId, intensity) {
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/exercises/${workoutId}/intensity/${intensity}`, this.config)
+                .then(resp => resolve(resp.data))
+                .catch(resp => alert(resp));
+        });
+    }
 }
