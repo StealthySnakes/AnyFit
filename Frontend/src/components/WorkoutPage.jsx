@@ -54,7 +54,6 @@ export class WorkoutPage extends React.Component{
         this.setState({
             rating: rat
         })
-        window.location.reload()
     }
 
     timerState(){
