@@ -1,27 +1,36 @@
+.dd-btn {
+    display: none;
+}
+
 
 /* Small */
 @media (max-width: 575px) {
     .navitems {
-        visibility: hidden;
+        display: none;
     }
 
-    #sidebar {
-        visibility: visible;
-    }
+
 
     .probChild {
         max-width: 40%;
     }
+
+    .dd-btn {
+        display: initial;
+        font-size: normal;
+    }
+
     
     #searchform {
         float: right;
+        overflow: hidden;
     }
 }
 
 /* Medium */
 @media (min-width: 576px) and (max-width: 991px) {
     .navitems {
-        visibility: hidden;
+        display: none;
     }
 
     #sidebar {
@@ -35,10 +44,11 @@
     #searchform {
         position: relative;
         float: right;
+        overflow: hidden;
     }
 
-    #sbtn {
-        max-width: 20%;
+    .sbtn {
+        max-width: 10%;
     }
 
 }
@@ -46,7 +56,7 @@
 /* Large */
 @media (min-width: 992px) {
 
-    #sbtn {
+    .sbtn {
         max-width: 15%;
     }
 
@@ -59,7 +69,7 @@
 
 /* Landscape */
 @media (orientation: landscape) {
-    #sbtn {
+    .sbtn {
         max-width: 15%;
     }
 }
