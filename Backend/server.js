@@ -464,6 +464,23 @@ app.put('/exercises/:workout_id/visibility/:visibility', (req, res) => {
 	}
 });
 
+// Delete a workout
+app.delete('/exercises_delete/:workout_id', (req, res) => {
+
+	console.log("Incoming request to update workout_id's visibility...");
+
+	try{
+		con.query('DELETE FROM user_workout WHERE workout_id = ' + req.params['workout_id'] + ';' , function (error, results, fields) {
+			if (error)
+				throw error;
+		res.send(results);
+		});
+	}
+	catch(err){
+		console.log(err);
+	}
+});
+
 //return workout by workout_id
 app.get('/workout/:workout_id', (req,res) => {
 
