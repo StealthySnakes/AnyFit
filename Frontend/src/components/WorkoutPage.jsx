@@ -17,8 +17,8 @@ export class WorkoutPage extends React.Component{
     workoutRepository = new WorkoutRepository;
     state = {
         workout: new Workout(
-            "Default workout",
-            "Sorry, our server is currently down. Please enjoy this simple workout instead",
+            "Jimbo's stretch workout",
+            "a fun workout that embiggens you",
             "Arms",
             "Beginner",
             "30 min",
@@ -100,11 +100,22 @@ export class WorkoutPage extends React.Component{
                     <Container>
                         <Row style={{display:'block'}}>
                             <h1>{this.state.workout.name}</h1>
-                             <button style={{maxWidth: '100%'}} type="button" className="btn btn-warning btn-block">Edit Workout</button>
+
+
+                              <Link style={{maxWidth: '100%'}} className="btn btn-warning btn-block" to={{
+                                  pathname: `/workoutedit/${this.props.match.params.workoutId}`,
+                                  
+                                }}>
+
+                              Edit Workout
+
+                                </Link>
+
+
                             <Rating value = {this.state.rating} />
                             <label for='rating' style={{display:'inline', marginLeft:'1em', marginBottom:'1em'}}><span class="badge badge-primary">Rate Workout:</span></label>
-                            <select className="form-control" 
-                            onChange={e => this.newRating(e.target.value)} 
+                            <select className="form-control"
+                            onChange={e => this.newRating(e.target.value)}
                             style={{display:'inline', width:'4em', marginLeft:'1em'}}>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
@@ -112,7 +123,7 @@ export class WorkoutPage extends React.Component{
                             <option value={4}>4</option>
                             <option value={5}>5</option>
                             </select>
-                            <p style={{fontWeight:'bold'}}><span style={{fontWeight:'normal'}}>{this.state.workout.description}<br></br></span>Focus: <span style={{fontWeight:'normal'}}>{this.state.workout.focus}</span> 
+                            <p style={{fontWeight:'bold'}}><span style={{fontWeight:'normal'}}>{this.state.workout.description}<br></br></span>Focus: <span style={{fontWeight:'normal'}}>{this.state.workout.focus}</span>
                             <span style={{marginLeft:'1em'}}>Expertise Level: <span style={{fontWeight:'normal'}}>{this.state.workout.expertise}</span></span>
                             <span style={{marginLeft:'1em'}}>Length: <span style={{fontWeight:'normal'}}>{this.state.workout.length}</span></span>
                             <span style={{marginLeft:'1em'}}>Intensity: <span style={{fontWeight:'normal'}}>{this.state.workout.intensity}</span></span></p>
@@ -120,7 +131,7 @@ export class WorkoutPage extends React.Component{
                     </Container>
                 </Col>                                {/* Right Side Close */}
               </Row>
-                {this.state.workout.exercises.map((ex) => 
+                {this.state.workout.exercises.map((ex) =>
                 <Row>
                     <Col md={2} style={{position:'relative', marginBottom:'3em'}}>
                         <div className = "form form-control-lg">
@@ -131,20 +142,20 @@ export class WorkoutPage extends React.Component{
                         <ExerciseCard name={ex.name} desc={ex.desc} imageUrl={ex.imageUrl} length={ex.length} sets={ex.sets} reps={ex.reps}/>
                     </Col>
                 </Row>
-                
+
                 )}
             </Container>                              {/* Outer Container Close */}
 
             <div style={{margin:'2em', textAlign:'left'}}>
                 <ReviewForm reviews={this.state.comment} onNewReview={a => this.onNewReview(a)}/>
             </div>
-            
-        
+
+
         </body>);
     }
 
     placeWorkout(wrkt){
-        
+
     }
 
     componentDidMount() {
@@ -154,11 +165,11 @@ export class WorkoutPage extends React.Component{
                 .then(wrkt => {
                     var temp=[]
                     for(let i=0;i<wrkt.length;i++){
-                      temp.push(new Exercise(wrkt[i].exercise_name, wrkt[i].exercise_desc, 
+                      temp.push(new Exercise(wrkt[i].exercise_name, wrkt[i].exercise_desc,
                         wrkt[i].exercise_image, wrkt[i].default_length, wrkt[i].set_count, wrkt[i].rep_count))
 
                     }
-                    var tempwork=new Workout(wrkt[0].workout_name, wrkt[0].workout_desc, 
+                    var tempwork=new Workout(wrkt[0].workout_name, wrkt[0].workout_desc,
                         wrkt[0].category, wrkt[0].ExpLevel, wrkt[0].workout_length, wrkt[0].intensity,
                         temp, wrkt[0].rating, wrkt[0].comments
                         )
