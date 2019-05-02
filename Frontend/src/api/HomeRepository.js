@@ -50,9 +50,10 @@ export class HomeRepository {
         });
     }
 
-    setFavorite(userID, workoutID) {
+//favorite is one or zero
+    setFavorite(userID, workoutID, favorite) {
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/${userID}`, workoutID, this.config)
+            axios.put(`${this.url}/exercises/${userID}/workout_id/${workoutID}/favorite/${favorite}`, workoutID, this.config)
             .then(resp => resolve(resp.data))
             .catch(resp => alert("setFavorite failed: "+resp))
         });
@@ -60,9 +61,9 @@ export class HomeRepository {
 
     getFavorites(userID) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/${userID}/favorites`, this.config)               //prepare to switch this link
+            axios.get(`${this.url}/home/${userID}/favorite_workout`, this.config)               //prepare to switch this link
             .then(resp => resolve(resp.data))
-            .catch(resp => alert("getFavorites failed: "+resp))
+            .catch(resp => {alert("getFavorites failed: "+resp); resolve([{workout_id:123, workout_name:"Jimbo's stretch routing", workout_desc:"its a str" },{workout_id:133,workout_desc:"its a str", workout_name:"Omar's stretch routing" }])})
         });
     }
 }

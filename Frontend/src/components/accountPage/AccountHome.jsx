@@ -6,8 +6,13 @@ import Account from '../../models/Account';
 import { HomeRepository } from '../../api/HomeRepository';
 import Timeline from './Timeline';
 import { Link } from 'react-router-dom';
+import { Form, Modal} from 'react-bootstrap';
 
-
+function FormOptions(props){
+  return <>
+  {props.opts.map((opt) => <option value={opt}>{opt}</option>)  }
+    </>
+}
 
 function WorkoutButtons(props){
 
@@ -23,8 +28,7 @@ function WorkoutButtons(props){
 
       <h5>{wrkt[1]}</h5>
 
-        {wrkt[2]
-      }
+        {wrkt[2]}
     </Link>
 
 
@@ -47,7 +51,10 @@ class AccountHome extends Component {
       friends: [],
       workouts: [],
       favorites: [],
-      history: []
+      history: [],
+      addOption: "Add",
+      currentWorkoutSelected:[],
+      showAddRemoveFavorites: false
     }
   }
 
@@ -63,6 +70,14 @@ class AccountHome extends Component {
           temp.push([workout.workout_id, workout.workout_name, workout.workout_desc])
         }
         this.setState({workouts: temp })
+      }
+    );
+    this.repo.getFavorites(this.props.location.state.accountId).then(wrkts => {
+        var temp=[]
+        for(let workout of wrkts){
+          temp.push([workout.workout_id, workout.workout_name, workout.workout_desc])
+        }
+        this.setState({favorites: temp })
       }
     );
 
@@ -131,10 +146,13 @@ class AccountHome extends Component {
                   <Container>
                     <Row className="justify-content-xs-between">
                       <Col xs={4} sm={6} md={6} lg={6} xl={6}>
-                        <h2 className="details" id="friends">Friends</h2>
+                        <h2 className="details" id="friends">Favorites</h2>
+
+                          <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.favorites}/>
+
                       </Col>
                       <Col xs={{span: 4, offset: 1}} sm={{span: 4, offset: 1}} md={{span: 4, offset: 1}} lg={{span: 4, offset: 1}} xl={{span: 4, offset: 1}}>
-                        <Button variant="success" size="sm">Add Friend</Button>
+                        <Button variant="success" onClick={event => this.setState({ showAddRemoveFavorites: true })} size="sm">Add Favorites</Button>
                       </Col>
                     </Row>
                     {/* List of friends would be here */}
@@ -143,7 +161,7 @@ class AccountHome extends Component {
                   <Container>
                     <Row>
                       <Col xs={4} sm={6} md={6} lg={6} xl={6}>
-                        <h2 className="details" id="customs">Favorites</h2>
+                        <h2 className="details" id="customs">Friends</h2>
                       </Col>
                       <Col >
 
@@ -167,6 +185,52 @@ class AccountHome extends Component {
               </Row>
             </Container>                              {/* Outer Container Close */}
 
+
+
+
+            <Modal show={this.state.showAddRemoveFavorites} onHide={event => this.setState({ showAddRemoveFavorites: false })}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Add Custom Exercise</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+
+
+                      <Form>
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                          <Form.Label>Add or Remove</Form.Label>
+                          <Form.Control as="select"
+                            onChange={event =>  {this.setState({addOption: event.currentTarget.value})}}>
+                            <FormOptions opts={["Add","Remove"]}/>
+                          </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                          <Form.Label>Select Workout</Form.Label>
+                          <Form.Control as="select"
+                            onChange={event =>  {this.setState({currentWorkoutSelected: event.currentTarget.value})}}>
+                            <FormOptions opts={this.state.workouts}/>
+                          </Form.Control>
+                        </Form.Group>
+                      </Form>
+                    </Modal.Body>
+
+          <Modal.Footer>
+                      <Button variant="secondary" onClick={event => this.setState({ showAddRemoveFavorites: false })}>
+                        Cancel
+                      </Button>
+                      <Button variant="primary" onClick={event => {
+                          if( this.state.addOption=="Add"){
+                            this.repo.setFavorite(this.props.location.state.accountId, this.state.currentWorkoutSelected[0], 1)
+                          }
+                          else{
+                            this.repo.setFavorite(this.props.location.state.accountId, this.state.currentWorkoutSelected[0], 0)
+                          }
+
+                          this.setState({ showAddRemoveFavorites: false })
+                        }}>
+                        Add Favorite
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
         </>
     );
   }
