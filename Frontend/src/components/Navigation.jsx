@@ -13,25 +13,6 @@ class Navigation extends Component {
       }
   }
 
-  smallScreen = () => {
-    return(
-      <div id="sidebar" style={{visibility: 'hidden'}}>
-
-        <div class="toggle-btn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-
-        <ul>
-          <Link to='/home'>Home</Link>
-          <Link to='/workoutgen'>Generate Workout</Link>
-          <Link to='/'>Log Out</Link>
-        </ul>
-      </div>
-    )
-  }
-
   render() {
     if(this.props.hideNav===true){
       return (
@@ -45,7 +26,7 @@ class Navigation extends Component {
             />
           <Form inline id="searchform" style={{maxWidth: '60%', marginLeft: '2rem', marginRight: '0rem'}}>
             <FormControl type="text" placeholder="Search" className="mx-2 probChild" />
-            <Button className="probChild" variant="outline-dark" id="sbtn">Search</Button>
+            <Button className="probChild sbtn" variant="outline-dark" >Search</Button>
           </Form>
 
         </Navbar>
@@ -61,9 +42,9 @@ class Navigation extends Component {
                       width="100"
                       className="d-inline-block align-top"
                   />
-                  <Form inline>
-                      <FormControl type="text" placeholder="Search" className="mx-sm-2" />
-                      <Button variant="outline-dark">Search</Button>
+                  <Form inline id="insearchform" style={{maxWidth: '50%', marginLeft: '1rem', marginRight: '0rem'}}>
+                      <FormControl type="text" placeholder="Search" className="mx-sm-2 probChild" />
+                      <Button className="probChild sbtn" variant="outline-dark">Search</Button>
                   </Form>
 
                   <Nav className="ml-auto">
@@ -79,7 +60,6 @@ class Navigation extends Component {
                               Home
                             </Nav.Link>
 
-
                           </Link>
                       <Nav.Link href="#friends" className="navitems">Friends</Nav.Link>
                       <NavDropdown className="navitems" title="My Account" id="collasible-nav-dropdown" alignRight={true}>
@@ -88,6 +68,11 @@ class Navigation extends Component {
                           <NavDropdown.Divider />
                           <NavDropdown.Item className="navitems" href="/login">Log Out</NavDropdown.Item>
                       </NavDropdown>
+
+                      {/* Smaller screen version */}
+
+
+                      <Button className="btn btn-primary dd-btn" style={{maxWidth: '1rem', marginRight: '.5rem'}}>{'\u2630'}</Button>
                   </Nav>
               </Navbar>
           </>);

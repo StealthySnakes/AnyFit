@@ -83,7 +83,7 @@ export class WorkoutPage extends React.Component{
     render(){
         return(
         <body>
-            <Navigation accountId={this.props.location.state.accountId}/>
+            <Navigation />
             <div className = "card timer" style={{float:'right', margin:'0em', padding:'2em', textAlign:'center',position:'fixed', zIndex:1, right:'1em' }}>
                 <Stopwatch beginClk = {this.state.beginClk} pauseClk = {this.state.pauseClk}/>
                 <button className = "btn" style = {this.state.btnCol} onClick = {e => this.timerState()}>{this.state.btnWord}</button>
