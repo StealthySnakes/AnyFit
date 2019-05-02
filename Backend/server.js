@@ -9,12 +9,11 @@ const bcrypt = require('bcrypt');
 app.use(cors());
 var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+app.use(bodyParser.urlencoded({     //  to support URL-encoded bodies
   extended: true
 })); 
 app.post('/addExercise/', (req,res) => {
 	console.log("Incoming request to add exercise to workout...");
-	console.log(req.body);
 	var obj = req.body;
 	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + obj['workout_id'] + ',' + obj['exercise_id'] + ',' + obj['set_count'] + ',' + obj['rep_count'] + ');', function(error,results,fields) {
 		if(error)
