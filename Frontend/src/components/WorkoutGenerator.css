@@ -3,3 +3,69 @@
   padding-top: 5em;
   max-width: 50em;
 }
+
+.focus {
+  max-width: 100%;
+}
+
+.workgen {
+  max-width: 100%;
+}
+
+.expertise {
+  max-width: 75%;
+}
+
+.length {
+  max-width: 50%;
+}
+
+.intensity {
+  max-width: 25%;
+}
+/* Small */
+@media (max-width: 575px) {
+  .overarching {
+    text-align: center;
+  }
+  .workgen {
+    width: 100%!important;
+  }
+  .expertise {
+    float: left;
+    max-width: 100%;
+  }
+  .big-buttons {
+  }
+  .level-buttons {
+  }
+  .intensity {
+    text-align: center;
+    max-width: 50%;
+  }
+
+}
+
+/* Medium */
+@media (min-width: 576px) and (max-width: 991px) {
+  .workgen {
+    width: 100%!important;
+  }
+}
+
+/* Large */
+@media (min-width: 992px) {
+  .workgen {
+    margin: 1.5rem;
+  }
+}
+
+/* Portrait */
+@media (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media (orientation: landscape) {
+    
+}
