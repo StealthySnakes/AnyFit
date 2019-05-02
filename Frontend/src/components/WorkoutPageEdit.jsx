@@ -47,9 +47,11 @@ export class WorkoutPageEdit extends React.Component{
         rating:' ',
         comments: [],
 
+        exid: [],
+
         showAddExercise: false,
         customExerciseName:'placeholder',
-        customExerciseDesciption:'placeholder',
+        customExerciseDescription:'placeholder',
         customExerciseDuration:'placeholder',
         customExerciseSets:1,
         customExerciseReps:10,
@@ -68,17 +70,33 @@ export class WorkoutPageEdit extends React.Component{
     }
 
 
-    handleCustomAdditionSubmit() {
+    handleCustomAdditionSubmit(event) {     //delete if !addexercise
       //add to generated workouts
+      // var loc_image=this.state.exerciseOptions.indexOf(this.state.customExerciseName)
+  
+      // this.setState({custom_image_url:""});
+      // alert(this.state.custom_image_urls)
+  
+  
+  
+      this.workoutGeneratorRepo.getExercisePic(this.state.customExerciseName).then(image =>
+  
+  
+  
+          {
                this.setState(
-                 state => {state.exercises.push(new Exercise(this.state.customExerciseName,
+                 state => {state.exercisesGenerated.push(new Exercise(this.state.customExerciseName,
                    this.state.customExerciseDescription,
-                   "https://i1.wp.com/muscleandbrawn.com/wp-content/uploads/2009/11/100.jpg?resize=150%2C150",
+                  image[0].exercise_image,
                    this.state.customExerciseDuration,
                    this.state.customExerciseSets,
                    this.state.customExerciseReps))
                    return state;
                  })
+          }
+               );
+                 this.setState({ showAddExercise: false })
+  
     }
 
     newName = event => {
@@ -112,7 +130,7 @@ export class WorkoutPageEdit extends React.Component{
         }
       );
       this.setState({disp:'display:"none"'})
-
+      this.workoutRepository.removeExercise(102, this.state.exid[ind])
     }
 
     render(){
@@ -156,7 +174,7 @@ export class WorkoutPageEdit extends React.Component{
                 {this.state.wrkt.exercises.map((ex, i) => 
                 <Row>
                     <Col md={2}>
-                        <button className="btn btn-danger btn-sm" style={{height:'4em', width:'12em', marginTop:'4em', left:'1em'}} onClick={event => this.removeExercise(i)}><i className="fa fa-trash"></i>Remove <br></br>this workout</button>
+                        <button className="btn btn-danger btn-sm" style={{height:'4em', width:'12em', marginTop:'4em', left:'1em'}} onClick={event => this.removeExercise(i)}>Remove <br></br>this workout</button>
                     </Col>
                     <Col md={10}>
                         <ExerciseCard name={ex.name} desc={ex.desc} imageUrl={ex.imageUrl} length={ex.length} sets={ex.sets} reps={ex.reps}/>
@@ -177,47 +195,36 @@ export class WorkoutPageEdit extends React.Component{
 
             <Modal show={this.state.showAddExercise} onHide={event => this.setState({ showAddExercise: false })}>
             <Modal.Header closeButton>
-              <Modal.Title>Add Custom Exercise</Modal.Title>
+              <Modal.Title>Add Custom Exercise</Modal.Title>        {/* delete if !addexercise*/}
             </Modal.Header>
             <Modal.Body>
 
 
               <Form>
                 <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Exercise Name</Form.Label>
-                  <Form.Control type="text"
+                  <Form.Label>Exercises</Form.Label>
+                  <Form.Control as="select"
                     onChange={event =>  {this.setState({customExerciseName: event.currentTarget.value})}}>
+                    <FormOptions opts={this.state.exerciseOptions}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Sets</Form.Label> 
+                  <Form.Label>Sets</Form.Label>
                   <Form.Control as="select"
                     onChange={event =>  {this.setState({customExerciseSets: event.currentTarget.value})}}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <FormOptions opts={[1,2,3,4,5]}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Label>Reps</Form.Label>
                   <Form.Control as="select" onChange={event =>  {this.setState({customExerciseReps: event.currentTarget.value})}}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <FormOptions opts={[1,2,3,4,5]}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Label>Duration</Form.Label>
                   <Form.Control as="select" onChange={event =>  {this.setState({customExerciseDuration: event.currentTarget.value})}}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <FormOptions opts={[1,2,3,4,5]}/>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -227,7 +234,7 @@ export class WorkoutPageEdit extends React.Component{
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary"style={this.state.disp} onClick={event => this.setState({ showAddExercise: false })}>
+              <Button variant="secondary" onClick={event => this.setState({ showAddExercise: false })}>
                 Cancel
               </Button>
               <Button variant="primary" onClick={this.handleCustomAdditionSubmit}>
@@ -251,11 +258,11 @@ export class WorkoutPageEdit extends React.Component{
             this.workoutRepository.getWorkout(workoutId)
                 .then(wrkt => {
                     var temp=[]
-                    
+                    var tempid=[]
                     for(let i=0;i<wrkt.length;i++){
                       temp.push(new Exercise(wrkt[i].exercise_name, wrkt[i].exercise_desc, 
                         wrkt[i].exercise_image, wrkt[i].default_length, wrkt[i].set_count, wrkt[i].rep_count))
-
+                      tempid.push(wrkt[i].exercise_id)
                     }
                     var tempwork=new Workout(wrkt[0].workout_name, wrkt[0].workout_desc, 
                         wrkt[0].category, wrkt[0].ExpLevel, wrkt[0].workout_length, wrkt[0].intensity,
@@ -267,10 +274,23 @@ export class WorkoutPageEdit extends React.Component{
                                     focus: tempwork.focus,
                                     intensity: tempwork.intensity,
                                     lenght: tempwork.length,
-                                    expertise: tempwork.expertise
+                                    expertise: tempwork.expertise,
+                                    exid: tempid
                                     })
                   });
         }
+        this.workoutGeneratorRepo.getExercises().then(      //Delete if !addexercise 
+          exercises =>
+          {
+            var temp=[]
+            for(let i=0;i<exercises.length;i++){
+              temp.push(exercises[i].exercise_name)
+            }
+            this.setState({ exerciseOptions: temp })
+          }
+    
+    
+        );
       }
 }
 
