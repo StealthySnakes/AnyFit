@@ -41,21 +41,12 @@ class Navigation extends Component {
                       className="d-inline-block align-top"
                   />
 
-                  
+
 
                   <Nav className="ml-auto">
 
 
-                        <Link to={{
-                            pathname: '/home',
-                            state: {
-                              "accountId": this.props.accountId
-                            }
-                          }}>
-                          <Nav.Link href="/home" className="navitems">
-                              Home
-                            </Nav.Link>
-                          </Link>
+                        
                           <Nav.Link href="/login">
                               Log Out
                             </Nav.Link>
