@@ -316,7 +316,7 @@ app.put('/exercises/:workout_id/workout_length/:workout_length', (req, res) => {
 	console.log("Incoming request to update workout_id's workout length...");
 
 	try{
-		con.query('UPDATE workout_info SET workout_length = '+ req.params['workout_length'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET workout_length = '+ req.params['workout_length'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 			res.send(results);
@@ -385,7 +385,7 @@ app.put('/exercises/:workout_id/category/:category', (req, res) => {
 	console.log("Incoming request to update workout_id's category...");
 
 	try{
-		con.query('UPDATE workout_info SET category = '+ req.params['category'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET category = '+ req.params['category'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -402,7 +402,7 @@ app.put('/exercises/:workout_id/intensity/:intensity', (req, res) => {
 	console.log("Incoming request to update workout_id's intensity...");
 
 	try{
-		con.query('UPDATE workout_info SET intensity = '+ req.params['intensity'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET intensity = '+ req.params['intensity'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -419,7 +419,7 @@ app.put('/exercises/:workout_id/explevel/:ExpLevel', (req, res) => {
 	console.log("Incoming request to update workout_id's ExpLevel...");
 
 	try{
-		con.query('UPDATE workout_info SET ExpLevel = '+ req.params['ExpLevel'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET ExpLevel = '+ req.params['ExpLevel'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
@@ -453,7 +453,7 @@ app.put('/exercises/:workout_id/visibility/:visibility', (req, res) => {
 	console.log("Incoming request to update workout_id's visibility...");
 
 	try{
-		con.query('UPDATE workout_info SET visibility = '+ req.params['visibility'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET visibility = '+ req.params['visibility'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 		res.send(results);
