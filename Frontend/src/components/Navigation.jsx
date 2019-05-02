@@ -42,7 +42,7 @@ class Navigation extends Component {
                       width="100"
                       className="d-inline-block align-top"
                   />
-                  <Form inline id="insearchform" style={{maxWidth: '50%', marginLeft: '1rem', marginRight: '0rem'}}>
+                  <Form inline id="insearchform" style={{maxWidth: '55%', marginLeft: '.25rem', marginRight: '0rem'}}>
                       <FormControl type="text" placeholder="Search" className="mx-sm-2 probChild" />
                       <Button className="probChild sbtn" variant="outline-dark">Search</Button>
                   </Form>

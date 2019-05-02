@@ -12,7 +12,7 @@
 
 
     .probChild {
-        max-width: 40%;
+        max-width: 45%;
     }
 
     .dd-btn {
@@ -48,7 +48,11 @@
     }
 
     .sbtn {
-        max-width: 10%;
+        max-width: 20%;
+    }
+
+    .dd-btn {
+        display: initial;
     }
 
 }

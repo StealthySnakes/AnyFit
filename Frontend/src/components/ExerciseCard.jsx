@@ -9,9 +9,9 @@ function ExerciseCard(props) {
 
   return <>
 
-  < Card style={{background:'gainsboro'}} >
+  <Card style={{background:'gainsboro'}} >
     <Card.Body>
-      <img src={props.imageUrl} style={{margin:'1em'}}></img>
+      <img src={props.imageUrl} style={{margin:'1em', maxWidth: '75%'}}></img>
       <Card.Title>{props.name}</Card.Title>
       <Card.Text>
 

@@ -31,8 +31,8 @@ export class ReviewForm extends React.Component {
                         <label for="comment"></label>
                         <textarea class = "form-control" rows='10' id='comment' value={this.state.comment} onChange={e => this.setState({comment: e.target.value})}></textarea>
                     </div>
-                    <div class = "form-group">
-                    <button type="button" class="btn btn-primary btn-lg" onClick={e => this.onSubmit()}>Submit</button>
+                    <div class = "form-group" style={{textAlign: 'center'}}>
+                    <button type="button" class="btn btn-primary btn-lg" style={{width: '25%'}} onClick={e => this.onSubmit()}>Submit</button>
                     </div>
                 </form>
             </div>
