@@ -57,7 +57,17 @@ class AccountHome extends Component {
       showAddRemoveFavorites: false
     }
   }
-
+  async setCorrectFavorite(){
+    console.log("favores caled")
+    if( this.state.addOption=="Add"){
+      console.log(this.props.location.state.accountId+' '+ this.state.currentWorkoutSelected[0])
+      await this.repo.setFavorite(this.props.location.state.accountId, this.state.currentWorkoutSelected[0], 1)
+    }
+    else{
+      console.log(this.props.location.state.accountId+' '+ this.state.currentWorkoutSelected[0])
+      await this.repo.setFavorite(this.props.location.state.accountId, this.state.currentWorkoutSelected[0], 0)
+    }
+  }
   componentDidMount() {
 
     console.log("here is the passed in accountId: "+this.props.location.state.accountId)
@@ -134,8 +144,9 @@ class AccountHome extends Component {
                     <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.workouts}/>
                   </Row>
                   <Row><h2 className="details" id="customs">Favorites</h2></Row>
-                  <Row>
 
+                  <Row>
+                    <Button variant="success" onClick={event => this.setState({ showAddRemoveFavorites: true })} size="sm">Add Favorites</Button>
                     <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.favorites}/>
                   </Row>
 
@@ -153,7 +164,7 @@ class AccountHome extends Component {
 
                       </Col>
                       <Col xs={{span: 4, offset: 1}} sm={{span: 4, offset: 1}} md={{span: 4, offset: 1}} lg={{span: 4, offset: 1}} xl={{span: 4, offset: 1}}>
-                        { /*<Button variant="success" onClick={event => this.setState({ showAddRemoveFavorites: true })} size="sm">Add Favorites</Button>*/}
+
                       </Col>
                     </Row>
                     {/* List of friends would be here */}
@@ -220,12 +231,7 @@ class AccountHome extends Component {
                         Cancel
                       </Button>
                       <Button variant="primary" onClick={event => {
-                          if( this.state.addOption=="Add"){
-                            this.repo.setFavorite(this.props.location.state.accountId, this.state.currentWorkoutSelected[0], 1)
-                          }
-                          else{
-                            this.repo.setFavorite(this.props.location.state.accountId, this.state.currentWorkoutSelected[0], 0)
-                          }
+                          this.setCorrectFavorite()
 
                           this.setState({ showAddRemoveFavorites: false })
                         }}>
