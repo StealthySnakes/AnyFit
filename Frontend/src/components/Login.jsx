@@ -12,7 +12,7 @@ function FailedLogin(props) {
   const isLoggedIn = props.isLoggedIn;
   if (isLoggedIn) {
     return <div class="alert alert-primary" role="alert">
-  Login FAAAILED
+  Login Failed
 </div>;
   }
   return <></>;
@@ -47,7 +47,7 @@ class Login extends Component {
       login_success => {
 
         if (login_success){
-          alert("Login success will redirect now..")
+          console.log("Login success will redirect now..")
           this.props.history.push(
             {
               pathname: '/home',

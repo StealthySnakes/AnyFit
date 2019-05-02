@@ -29,10 +29,10 @@ class WorkoutGenerator extends Component {
     super(props, context);
 
     this.state = {
-      category: [],
-      expertise: [],
-      length: [],
-      intensity: [],
+      category: ["lower body"],
+      expertise: ["Expert"],
+      length: [30],
+      intensity: [3],
       exercisesGenerated: [
 
       ],
@@ -68,7 +68,7 @@ class WorkoutGenerator extends Component {
 
 // 100,026 exercise id
 
-    alert("here is the passed in accountId: "+this.props.location.state.accountId)
+    console.log("here is the passed in accountId: "+this.props.location.state.accountId)
     //set up exercise for drop down
 
     this.workoutGeneratorRepo.getExercises().then(
@@ -157,6 +157,36 @@ class WorkoutGenerator extends Component {
 
 
     await this.workoutGeneratorRepo.addWorkout(workout).then(workout_id => this.setState({createWorkoutID: workout_id}))
+
+
+
+
+
+
+    // this.workoutGeneratorRepo.setFavorite(userID, workoutID, favorite)
+
+
+
+    // for(let i=0;i<this.state.exercisesGenerated.length;i++){
+    //
+    //
+    //   this.workoutGeneratorRepo.createNewExercise(this.state.createWorkoutID,
+    //     {exercise_name:this.state.exerciseGenerate[i].name,
+    //       exercise_desc:this.state.exerciseGenerate[i].desc,
+    //       exercise_image:this.state.exerciseGenerate[i].imageUrl,
+    //       default_length:this.state.exerciseGenerate[i].length})
+    //   .then(ex_id =>
+    //     this.workoutGeneratorRepo.addExerciseToWorkout({
+    //       workout_id:this.state.createWorkoutID,
+    //       exercise_id:ex_id.exerciseID,
+    //       set_count:this.state.exerciseGenerate[i].sets,
+    //       rep_count:this.state.exerciseGenerate[i].reps})
+    //
+    //     )
+    //   alert("Add exerise: "+this.state.exercisesGenerated[i].toSource())
+    // }
+
+
 
     // alert("Created workout " + this.state.createWorkoutID)
     // this.workoutGeneratorRepo.addExerciseToWorkout(103,new Exercise("exercise_name", "exercise_desc", "https://data.whicdn.com/images/132534183/large.png",4, 8,4))
@@ -275,7 +305,7 @@ class WorkoutGenerator extends Component {
           </Modal>
 
     <h2>
-      Choose exercises to keep in Generated Workout
+      Current Exercises
       <br></br>
     </h2>
     <ExerciseList exercises={this.state.exercisesGenerated} onExerciseSelected=
@@ -287,7 +317,7 @@ class WorkoutGenerator extends Component {
              return state;
            })
 
-           // alert(this.state.chosenExercises)
+           // alert(this.state.chosenExercises.toSource())
 
          }
        }

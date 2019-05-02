@@ -33,9 +33,9 @@ class Timeline extends Component {
     }
 
     componentDidMount() {
-        this.props.repository.getTimeline(this.props.user).then(timeline => {
-            this.setState({timeline})
-        });
+        // this.props.repository.getTimeline(this.props.user).then(timeline => {
+        //     this.setState({timeline})
+        // });
     }
 
 
