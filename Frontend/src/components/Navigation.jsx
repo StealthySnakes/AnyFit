@@ -24,10 +24,7 @@ class Navigation extends Component {
             width="100"
             className="d-inline-block align-top"
             />
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mx-sm-2" />
-            <Button variant="outline-dark">Search</Button>
-          </Form>
+
 
         </Navbar>
         </>);
@@ -43,8 +40,7 @@ class Navigation extends Component {
                       className="d-inline-block align-top"
                   />
                   <Form inline>
-                      <FormControl type="text" placeholder="Search" className="mx-sm-2" />
-                      <Button variant="outline-dark">Search</Button>
+
                   </Form>
 
                   <Nav className="ml-auto">
@@ -59,17 +55,15 @@ class Navigation extends Component {
                           <Nav.Link href="/home">
                               Home
                             </Nav.Link>
-
-
                           </Link>
-                      <Nav.Link href="#friends">Friends</Nav.Link>
-                      <NavDropdown title="My Account" id="collasible-nav-dropdown" alignRight={true}>
-                          <NavDropdown.Item href="#action/3.1">Favorites</NavDropdown.Item>
-                          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                          <NavDropdown.Item href="#action/3.3">Settings</NavDropdown.Item>
-                          <NavDropdown.Divider />
-                          <NavDropdown.Item href="/login">Log Out</NavDropdown.Item>
-                      </NavDropdown>
+                          <Nav.Link href="/login">
+                              Log Out
+                            </Nav.Link>
+
+
+
+
+
                   </Nav>
               </Navbar>
           </>);

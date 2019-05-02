@@ -60,7 +60,7 @@ class AccountHome extends Component {
 
   componentDidMount() {
 
-    alert("here is the passed in accountId: "+this.props.location.state.accountId)
+    console.log("here is the passed in accountId: "+this.props.location.state.accountId)
 
     this.repo.getProfilePic(this.props.location.state.accountId).then(pic => this.setState({avatar:pic[0].avatar}));
     this.repo.getBio(this.props.location.state.accountId).then(info => this.setState({bio: info[0].user_bio }));
@@ -128,14 +128,13 @@ class AccountHome extends Component {
                     }}>
                     Generate Workout!</Link>  }
                   </Row>
+                  <Row><h2 className="details" id="customs">Routines</h2></Row>
                   <Row>
 
-                    <h2 className="details" id="customs">Routines</h2>
                     <WorkoutButtons accountId={this.props.location.state.accountId} workout={this.state.workouts}/>
                   </Row>
 
                   <Row>
-                    <Timeline user={this.currentAccount.id} repository={this.repo}/>
 
                   </Row>                                                         {/* Timeline component */}
                   </Container>
@@ -152,7 +151,7 @@ class AccountHome extends Component {
 
                       </Col>
                       <Col xs={{span: 4, offset: 1}} sm={{span: 4, offset: 1}} md={{span: 4, offset: 1}} lg={{span: 4, offset: 1}} xl={{span: 4, offset: 1}}>
-                        <Button variant="success" onClick={event => this.setState({ showAddRemoveFavorites: true })} size="sm">Add Favorites</Button>
+                        { /*<Button variant="success" onClick={event => this.setState({ showAddRemoveFavorites: true })} size="sm">Add Favorites</Button>*/}
                       </Col>
                     </Row>
                     {/* List of friends would be here */}
@@ -161,7 +160,7 @@ class AccountHome extends Component {
                   <Container>
                     <Row>
                       <Col xs={4} sm={6} md={6} lg={6} xl={6}>
-                        <h2 className="details" id="customs">Friends</h2>
+                        {/*<h2 className="details" id="customs">Friends</h2>*/}
                       </Col>
                       <Col >
 
@@ -176,7 +175,7 @@ class AccountHome extends Component {
                   <Container>
                     <Row>
                       <Col xs={4}>
-                        <h2 className="details" id="previews">History</h2>
+                        {/* <h2 className="details" id="previews">History</h2>*/}
                       </Col>
                     </Row>
                   </Container>

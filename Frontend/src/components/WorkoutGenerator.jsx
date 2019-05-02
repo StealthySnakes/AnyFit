@@ -68,7 +68,7 @@ class WorkoutGenerator extends Component {
 
 // 100,026 exercise id
 
-    alert("here is the passed in accountId: "+this.props.location.state.accountId)
+    console.log("here is the passed in accountId: "+this.props.location.state.accountId)
     //set up exercise for drop down
 
     this.workoutGeneratorRepo.getExercises().then(
@@ -167,24 +167,24 @@ class WorkoutGenerator extends Component {
 
 
 
-    for(let i=0;i<this.state.exercisesGenerated.length;i++){
-
-
-      this.workoutGeneratorRepo.createNewExercise(this.state.createWorkoutID,
-        {exercise_name:this.state.exerciseGenerate[i].name,
-          exercise_desc:this.state.exerciseGenerate[i].desc,
-          exercise_image:this.state.exerciseGenerate[i].imageUrl,
-          default_length:this.state.exerciseGenerate[i].length})
-      .then(ex_id =>
-        this.workoutGeneratorRepo.addExerciseToWorkout({
-          workout_id:this.state.createWorkoutID,
-          exercise_id:ex_id.exerciseID,
-          set_count:this.state.exerciseGenerate[i].sets,
-          rep_count:this.state.exerciseGenerate[i].reps})
-
-        )
-      alert("Add exerise: "+this.state.exercisesGenerated[i].toSource())
-    }
+    // for(let i=0;i<this.state.exercisesGenerated.length;i++){
+    //
+    //
+    //   this.workoutGeneratorRepo.createNewExercise(this.state.createWorkoutID,
+    //     {exercise_name:this.state.exerciseGenerate[i].name,
+    //       exercise_desc:this.state.exerciseGenerate[i].desc,
+    //       exercise_image:this.state.exerciseGenerate[i].imageUrl,
+    //       default_length:this.state.exerciseGenerate[i].length})
+    //   .then(ex_id =>
+    //     this.workoutGeneratorRepo.addExerciseToWorkout({
+    //       workout_id:this.state.createWorkoutID,
+    //       exercise_id:ex_id.exerciseID,
+    //       set_count:this.state.exerciseGenerate[i].sets,
+    //       rep_count:this.state.exerciseGenerate[i].reps})
+    //
+    //     )
+    //   alert("Add exerise: "+this.state.exercisesGenerated[i].toSource())
+    // }
 
 
 

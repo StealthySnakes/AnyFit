@@ -21,7 +21,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/home/${userID}/avatar`, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => {alert("getProfilePic failed: supplu imge "+resp); resolve([{avatar:"https://via.placeholder.com/150"}])})
+            .catch(resp => {console.log("getProfilePic failed: supplu imge "+resp); resolve([{avatar:"https://via.placeholder.com/150"}])})
         });
     }
 
@@ -29,7 +29,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/${userID}/bio`, this.config)                     //prepare to switch this link
             .then(resp => resolve(resp.data))
-            .catch(resp => {alert("getBio failed: supply bio "+resp); resolve([{user_bio:"Hey guys, I'm a sport enthusiast who enjoys stretching everyday. Yes."}])})
+            .catch(resp => {console.log("getBio failed: supply bio "+resp); resolve([{user_bio:"Hey guys, I'm a sport enthusiast who enjoys stretching everyday. Yes."}])})
         });
     }
 
@@ -37,7 +37,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {                                   // this just gets a list of custom workouts
             axios.get(`${this.url}/home/${userID}/user_workouts`, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => {alert("getWorkouts failed: "+resp); resolve([{workout_id:123, workout_name:"Jimbo's stretch routing", workout_desc:"its a str" },{workout_id:133,workout_desc:"its a str", workout_name:"Omar's stretch routing" }])})
+            .catch(resp => {console.log("getWorkouts failed: "+resp); resolve([{workout_id:101, workout_name:"Jimbo's stretch routing", workout_desc:"its a str" },{workout_id:102,workout_desc:"its a str", workout_name:"Omar's stretch routing" }])})
         })
 
     }
@@ -55,7 +55,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.put(`${this.url}/exercises/${userID}/workout_id/${workoutID}/favorite/${favorite}`, workoutID, this.config)
             .then(resp => resolve(resp.data))
-            .catch(resp => alert("setFavorite failed: "+resp))
+            .catch(resp => console.log("setFavorite failed: "+resp))
         });
     }
 
@@ -63,7 +63,7 @@ export class HomeRepository {
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/home/${userID}/favorite_workout`, this.config)               //prepare to switch this link
             .then(resp => resolve(resp.data))
-            .catch(resp => {alert("getFavorites failed: "+resp); resolve([{workout_id:123, workout_name:"Jimbo's stretch routing", workout_desc:"its a str" },{workout_id:133,workout_desc:"its a str", workout_name:"Omar's stretch routing" }])})
+            .catch(resp => {console.log("getFavorites failed: "+resp); resolve([{workout_id:123, workout_name:"Jimbo's stretch routing", workout_desc:"its a str" },{workout_id:133,workout_desc:"its a str", workout_name:"Omar's stretch routing" }])})
         });
     }
 }
