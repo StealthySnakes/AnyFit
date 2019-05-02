@@ -79,7 +79,7 @@ export class WorkoutPageEdit extends React.Component{
 
 
     newName = event => {
-      this.workoutRepository.updateName(102, this.state.name);
+      this.workoutRepository.updateName(+this.props.match.params.workoutId, this.state.name);
     }
 
   

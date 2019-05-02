@@ -208,29 +208,29 @@ class WorkoutGenerator extends Component {
     return (<> < Navigation accountId={this.props.location.state.accountId} />
     <h1>Generate Workout</h1>
    <h2>  Focus</h2>
-   <div >
-    <ToggleButtonGroup className="w-100" name="Focus" id="category" type="radio" value={this.state.category} onChange={event => this.setState({category: [event]})}>
-      <ToggleButton value={"upper body"}>Upper body </ToggleButton>
-      <ToggleButton value={"lower body"}>Lower body </ToggleButton>
-      <ToggleButton value={"full body"}>Full body </ToggleButton>
-      <ToggleButton value={"cardio"}>Cardio</ToggleButton>
-      <ToggleButton value={"abdominals"}>Abdominals</ToggleButton>
+   <div className="overarching">
+    <ToggleButtonGroup className="w-100 focus" name="Focus" id="category" type="radio" value={this.state.category} onChange={event => this.setState({category: [event]})}>
+      <ToggleButton className="big-buttons" value={"upper body"}>Upper body </ToggleButton>
+      <ToggleButton className="big-buttons" value={"lower body"}>Lower body </ToggleButton>
+      <ToggleButton className="big-buttons" value={"full body"}>Full body </ToggleButton>
+      <ToggleButton className="big-buttons" value={"cardio"}>Cardio</ToggleButton>
+      <ToggleButton className="big-buttons" value={"abdominals"}>Core</ToggleButton>
     </ToggleButtonGroup>
 
     <h2>
       Expertise
     </h2>
-    <ToggleButtonGroup className="w-75" name="Expertise" type="radio" value={this.state.expertise} onChange={event => this.setState({expertise: [event]})}>
-      <ToggleButton value={"Beginner"}>Beginner</ToggleButton>
-      <ToggleButton value={"Novice"}>Novice</ToggleButton>
-      <ToggleButton value={"Intermediate"}>Intermediate</ToggleButton>
-      <ToggleButton value={"Expert"}>Expert</ToggleButton>
+    <ToggleButtonGroup className="w-75 expertise" name="Expertise" type="radio" value={this.state.expertise} onChange={event => this.setState({expertise: [event]})}>
+      <ToggleButton className="level-buttons" value={"Beginner"}>Beginner</ToggleButton>
+      <ToggleButton className="level-buttons" value={"Novice"}>Novice</ToggleButton>
+      <ToggleButton className="level-buttons" value={"Intermediate"}>Intermediate</ToggleButton>
+      <ToggleButton className="level-buttons" value={"Expert"}>Expert</ToggleButton>
     </ToggleButtonGroup>
 
     <h2>
       Length
     </h2>
-    <ToggleButtonGroup className="w-50" name="Length" type="radio" value={this.state.length} onChange={event => this.setState({length: [event]})}>
+    <ToggleButtonGroup className="length" name="Length" type="radio" value={this.state.length} onChange={event => this.setState({length: [event]})}>
       <ToggleButton value={30}>30 min</ToggleButton>
       <ToggleButton value={60}>60 min</ToggleButton>
       <ToggleButton value={90}>90 min</ToggleButton>
@@ -240,15 +240,15 @@ class WorkoutGenerator extends Component {
     <h2>
       Intensity
     </h2>
-    <ToggleButtonGroup className="w-25"  name="Intensity" type="radio" value={this.state.intensity} onChange={event => this.setState({intensity: [event]})}>
+    <ToggleButtonGroup className="intensity" name="Intensity" type="radio" value={this.state.intensity} onChange={event => this.setState({intensity: [event]})}>
       <ToggleButton value={1}>Easy</ToggleButton>
       <ToggleButton value={2}>Medium</ToggleButton>
       <ToggleButton value={3}>Hard</ToggleButton>
     </ToggleButtonGroup>
     </div>
     <ButtonToolbar bsPrefix="inline-flex">
-      <Button onClick={this.handleWorkoutGenerate} className="m-4" size="lg" variant="outline-primary">Generate Workout</Button>
-      <Button onClick={event => this.setState({ showAddExercise: true })} className="m-4" size="lg"  variant="outline-secondary">Add custom exercise</Button>
+      <Button onClick={this.handleWorkoutGenerate} className="workgen" size="lg" variant="outline-primary">Generate Workout</Button>
+      <Button onClick={event => this.setState({ showAddExercise: true })} className="workgen" size="lg"  variant="outline-secondary">Add custom exercise</Button>
       {/*<Button onClick={event => this.setState({ showAddWorkout: true })} className="m-4" size="lg" variant="outline-success" >Add to Workouts</Button>*/}
 
     </ButtonToolbar>

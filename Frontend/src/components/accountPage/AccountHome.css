@@ -3,7 +3,7 @@
 }
 
 #enclosed {
-    margin: 2em;
+
 }
 
 .details {
@@ -12,6 +12,8 @@
 
 /* Small */
 @media (max-width: 575px) {
+    #enclosed {
+    }
 
 }
 
