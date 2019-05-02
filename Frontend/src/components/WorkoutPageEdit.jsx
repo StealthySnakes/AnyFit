@@ -20,10 +20,9 @@ export class WorkoutPageEdit extends React.Component{
 
   constructor(){
     super();
-    this.handleCustomAdditionSubmit = this.handleCustomAdditionSubmit.bind(this);
+ 
     this.removeExercise = this.removeExercise.bind(this);
     this.newName = this.newName.bind(this);
-    this.newDesc = this.newDesc.bind(this);
 
   }
   workoutRepository = new WorkoutRepository;
@@ -77,58 +76,13 @@ export class WorkoutPageEdit extends React.Component{
     }
 
 
-    handleCustomAdditionSubmit(event) {     //delete if !addexercise
-      //add to generated workouts
-      // var loc_image=this.state.exerciseOptions.indexOf(this.state.customExerciseName)
 
-      // this.setState({custom_image_url:""});
-      // alert(this.state.custom_image_urls)
-
-
-
-      this.workoutGeneratorRepo.getExercisePic(this.state.customExerciseName).then(image =>
-
-
-
-          {
-               this.setState(
-                 state => {state.exercisesGenerated.push(new Exercise(this.state.customExerciseName,
-                   this.state.customExerciseDescription,
-                  image[0].exercise_image,
-                   this.state.customExerciseDuration,
-                   this.state.customExerciseSets,
-                   this.state.customExerciseReps))
-                   return state;
-                 })
-          }
-               );
-                 this.setState({ showAddExercise: false })
-
-    }
 
     newName = event => {
       this.workoutRepository.updateName(102, this.state.name);
     }
 
-    newDesc = event =>{
-      this.workoutRepository.updateDescription(102, this.state.description);
-    }
-
-    newFocus = event =>{
-      this.workoutRepository.updateFocus(102, this.state.focus);
-    }
-
-    newLength = event =>{
-      this.workoutRepository.updateLength(102, this.state.length);
-    }
-
-    newExpertise = event =>{
-      this.workoutRepository.updateExpertise(102, this.state.expertise);
-    }
-
-    newIntensity = event =>{
-      this.workoutRepository.updateIntensity(102, this.state.intensity);
-    }
+  
 
     removeExercise(ind){
       this.setState(
@@ -165,21 +119,7 @@ export class WorkoutPageEdit extends React.Component{
                             <label for="name" style = {{float:'left'}}>Workout Name:</label>
                             <input type = "text" className = "form-control" placeholder={this.state.wrkt.name} onChange={e => this.setState({name: e.target.value})}></input>
                             <button className="btn btn-primary btn-block" style={{marginBottom:'1em'}}onClick={this.newName}>Save</button>
-                            <label for="description" style = {{float:'left'}}>Description:</label>
-                            <input type = "text" className = "form-control" placeholder={this.state.wrkt.description} onChange={e => this.setState({description: e.target.value})}></input>
-                            <button className="btn btn-primary btn-block"onClick={this.newDesc}>Save</button>
-                            <label for="focus" style={{float:'left'}}>Focus:</label>
-                            <input type = "text" className = "form-control" placeholder={this.state.wrkt.focus} onChange={e => this.setState({focus: e.target.value})}></input>
-                            <button className="btn btn-primary btn-block"style={{marginBottom:'1em'}}onClick={this.newFocus}>Save</button>
-                            <label for="expertise-level" style={{float:'left'}}>Expertise Level:</label>
-                            <input type = "text" className = "form-control" placeholder={this.state.wrkt.expertise} onChange={e => this.setState({expertise: e.target.value})}></input>
-                            <button className="btn btn-primary btn-block"style={{marginBottom:'1em'}}onClick={this.newExpertise}>Save</button>
-                            <label for="length" style={{float:'left'}}>Length:</label>
-                            <input type = "text" className = "form-control" placeholder={this.state.wrkt.length} onChange={e => this.setState({length: e.target.value})}></input>
-                            <button className="btn btn-primary btn-block"style={{marginBottom:'1em'}}onClick={this.newLength}>Save</button>
-                            <label for="intensity" style={{float:'left'}}>Intensity:</label>
-                            <input type = "text" className = "form-control" placeholder={this.state.wrkt.intensity} onChange={e => this.setState({intensity: e.target.value})}></input>
-                            <button className="btn btn-primary btn-block"style={{marginBottom:'1em'}}onClick={this.newIntensity}>Save</button>
+                          
                         </Row>
                     </Container>
                 </Col>                                {/* Right Side Close */}
@@ -195,66 +135,11 @@ export class WorkoutPageEdit extends React.Component{
                     </Col>
                 </Row>
                 )}
-                <Row>
-                    <Col md={2}>
-                    </Col>
-                    <Col md={10}>
-                        <button className="btn btn-primary btn-large btn-block" style={{marginTop:'1em'}} onClick={event => this.setState({ showAddExercise: true })}>Add Exercise</button>
-                    </Col>
-                </Row>
 
 
             </Container>                              {/* Outer Container Close */}
 
-            <Modal show={this.state.showAddExercise} onHide={event => this.setState({ showAddExercise: false })}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add Custom Exercise</Modal.Title>        {/* delete if !addexercise*/}
-            </Modal.Header>
-            <Modal.Body>
-
-
-              <Form>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Exercises</Form.Label>
-                  <Form.Control as="select"
-                    onChange={event =>  {this.setState({customExerciseName: event.currentTarget.value})}}>
-                    <FormOptions opts={this.state.exerciseOptions}/>
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Sets</Form.Label>
-                  <Form.Control as="select"
-                    onChange={event =>  {this.setState({customExerciseSets: event.currentTarget.value})}}>
-                    <FormOptions opts={[1,2,3,4,5]}/>
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Reps</Form.Label>
-                  <Form.Control as="select" onChange={event =>  {this.setState({customExerciseReps: event.currentTarget.value})}}>
-                    <FormOptions opts={[1,2,3,4,5]}/>
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Duration</Form.Label>
-                  <Form.Control as="select" onChange={event =>  {this.setState({customExerciseDuration: event.currentTarget.value})}}>
-                    <FormOptions opts={[1,2,3,4,5]}/>
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control as="textarea" rows="3" onChange={event =>  {this.setState({customExerciseDescription: event.currentTarget.value})}} />
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={event => this.setState({ showAddExercise: false })}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={this.handleCustomAdditionSubmit}>
-                Add Exercise
-              </Button>
-            </Modal.Footer>
-          </Modal>
+            
 
 
         </body>);
