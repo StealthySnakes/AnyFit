@@ -6,8 +6,12 @@ const app = express();
 const port = 3000;
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-
 app.use(cors());
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 // Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
@@ -613,9 +617,10 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res,next)
 	//Get newly created exerciseID
 	try{
 		con.query('SELECT MAX(exercise_id) as exerciseID from exercise;', function(error,results,fields){
+			//maxExerciseID = results[0].exerciseID;
+			//res.send({exercise_id: maxExerciseID});
 			req.exercise_id = results[0].exerciseID;
 			//res.send(maxExerciseID);
-			
 		});
 	}
 	catch(err){
@@ -635,15 +640,14 @@ app.post('/workoutID/:workoutID/exerciseObject/:exerciseObject', (req, res,next)
 });
 
 //add exercise to workout
-app.post('/exerciseID/:exerciseObject', (res,req) => {
-	
+app.post('/exerciseID', (res,req) => {
 	console.log("Incoming request to add exercise to workout...");
-	var obj = JSON.parse(req.params['exerciseObject']);
+	//var obj = JSON.parse(req.params['exerciseObject']);
 
-	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + obj['workout_id'] + ',' + obj['exercise_id'] + ',' + obj['set_count'] + ',' + obj['rep_count'] + ');', function(error,results,fields) {
+	con.query('INSERT INTO workout_info (workout_id, exercise_id, set_count, rep_count) VALUES (' + req.body.workout_id + ',' + req.body.exercise_id + ',' + req.body.set_count + ',' + req.body.rep_count + ');', function(error,results,fields) {
 		if(error)
 			throw error;
-		res.send(obj['exercise_id']);
+		res.send({exercise_id: req.body.exercise_id});
 	})
 
 });
