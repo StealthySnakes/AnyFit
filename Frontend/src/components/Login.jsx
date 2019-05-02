@@ -107,7 +107,7 @@ class Login extends Component {
                 Login
               </Button>
 
-              <Link to={`/signup`}>Click Here to Sign Up</Link>
+              {/*<Link to={`/signup`}>Click Here to Sign Up</Link>*/}
             </Form>
 
             <FailedLogin isLoggedIn={this.state.failed_login}/>

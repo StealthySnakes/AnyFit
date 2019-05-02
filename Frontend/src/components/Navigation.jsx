@@ -25,10 +25,6 @@ class Navigation extends Component {
             className="d-inline-block align-top"
             />
 
-          <Form inline id="searchform" style={{maxWidth: '60%', marginLeft: '2rem', marginRight: '0rem'}}>
-            <FormControl type="text" placeholder="Search" className="mx-2 probChild" />
-            <Button className="probChild sbtn" variant="outline-dark" >Search</Button>
-          </Form>
 
 
         </Navbar>
@@ -45,11 +41,7 @@ class Navigation extends Component {
                       className="d-inline-block align-top"
                   />
 
-                  <Form inline id="insearchform" style={{maxWidth: '55%', marginLeft: '.25rem', marginRight: '0rem'}}>
-                      <FormControl type="text" placeholder="Search" className="mx-sm-2 probChild" />
-                      <Button className="probChild sbtn" variant="outline-dark">Search</Button>
-
-                  </Form>
+                  
 
                   <Nav className="ml-auto">
 
