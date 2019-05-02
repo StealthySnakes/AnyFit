@@ -151,7 +151,7 @@ export class WorkoutPageEdit extends React.Component{
 
 
     componentDidMount() {
-      let workoutId = 102;
+      let workoutId = +this.props.match.params.workoutId;
         if (workoutId) {
             this.workoutRepository.getWorkout(workoutId)
                 .then(wrkt => {
