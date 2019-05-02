@@ -277,7 +277,7 @@ class WorkoutGenerator extends Component {
           </Modal>
 
     <h2>
-      Choose exercises to keep in Generated Workout
+      Current Exercises
       <br></br>
     </h2>
     <ExerciseList exercises={this.state.exercisesGenerated} onExerciseSelected=
@@ -289,7 +289,7 @@ class WorkoutGenerator extends Component {
              return state;
            })
 
-           alert(this.state.chosenExercises.toSource())
+           // alert(this.state.chosenExercises.toSource())
 
          }
        }

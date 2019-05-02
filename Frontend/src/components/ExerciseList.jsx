@@ -11,13 +11,7 @@ function ExerciseCard(props) {
 
   < Card style = {{ width: '18rem' }} >
     <Card.Header>
-      <Nav
-        onSelect={props.onExerciseSelection()}
-         variant="pills" defaultActiveKey="#first">
-        <Nav.Item>
-          <Nav.Link eventKey={new Exercise(props.name,props.desc,props.imageUrl,props.length)}>Keep</Nav.Link>
-        </Nav.Item>
-      </Nav>
+
     </Card.Header>
     <Card.Img variant="top" src={props.imageUrl}/>
     <Card.Body>
