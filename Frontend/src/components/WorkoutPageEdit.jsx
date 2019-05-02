@@ -7,17 +7,23 @@ import {ExerciseCard, ExerciseList} from './ExerciseCard';
 import './WorkoutPage.css';
 import {Rating} from './Rating';
 import { WorkoutRepository } from '../api/WorkoutRepository';
+import { Link } from 'react-router-dom';
 
+
+function FormOptions(props){
+  return <>
+  {props.opts.map((opt) => <option value={opt}>{opt}</option>)  }
+    </>
+}
 
 export class WorkoutPageEdit extends React.Component{
-  
+
   constructor(){
     super();
  
     this.removeExercise = this.removeExercise.bind(this);
     this.newName = this.newName.bind(this);
- 
-    
+
   }
   workoutRepository = new WorkoutRepository;
     state = {
@@ -70,7 +76,7 @@ export class WorkoutPageEdit extends React.Component{
     }
 
 
-   
+
 
     newName = event => {
       this.workoutRepository.updateName(102, this.state.name);
@@ -93,7 +99,13 @@ export class WorkoutPageEdit extends React.Component{
         <body style={{}}>
             <Navigation/>
             <div className = "card" style={{float:'right', margin:'0em', padding:'2em', position:'fixed', zIndex:1, right:'1em', bottom:'1em'}}>
-                <button className = "btn btn-success" style={{marginTop:'1em'}}><h3>Done Editing</h3></button>
+
+              <Link style={{marginTop:'1em'}} className="btn btn-success" to={{
+                  pathname: `/workoutpage/${this.props.match.params.workoutId}`,
+
+                }}>
+                <h3>Done Editing</h3>
+              </Link>
             </div>
             <Container style={{margin:'1em'}}>               {/* Outer Container */}
               <Row >
@@ -112,7 +124,7 @@ export class WorkoutPageEdit extends React.Component{
                     </Container>
                 </Col>                                {/* Right Side Close */}
               </Row>
-                {this.state.wrkt.exercises.map((ex, i) => 
+                {this.state.wrkt.exercises.map((ex, i) =>
                 <Row>
                     <Col md={2}>
                         <button className="btn btn-danger btn-sm" style={{height:'4em', width:'12em', marginTop:'4em', left:'1em'}} onClick={event => this.removeExercise(i)}>Remove <br></br>this workout</button>
@@ -123,7 +135,7 @@ export class WorkoutPageEdit extends React.Component{
                     </Col>
                 </Row>
                 )}
-              
+
 
             </Container>                              {/* Outer Container Close */}
 
@@ -135,7 +147,7 @@ export class WorkoutPageEdit extends React.Component{
 
 
 
-    
+
 
 
     componentDidMount() {
@@ -146,11 +158,11 @@ export class WorkoutPageEdit extends React.Component{
                     var temp=[]
                     var tempid=[]
                     for(let i=0;i<wrkt.length;i++){
-                      temp.push(new Exercise(wrkt[i].exercise_name, wrkt[i].exercise_desc, 
+                      temp.push(new Exercise(wrkt[i].exercise_name, wrkt[i].exercise_desc,
                         wrkt[i].exercise_image, wrkt[i].default_length, wrkt[i].set_count, wrkt[i].rep_count))
                       tempid.push(wrkt[i].exercise_id)
                     }
-                    var tempwork=new Workout(wrkt[0].workout_name, wrkt[0].workout_desc, 
+                    var tempwork=new Workout(wrkt[0].workout_name, wrkt[0].workout_desc,
                         wrkt[0].category, wrkt[0].ExpLevel, wrkt[0].workout_length, wrkt[0].intensity,
                         temp, wrkt[0].rating, wrkt[0].comments
                         )
@@ -165,18 +177,18 @@ export class WorkoutPageEdit extends React.Component{
                                     })
                   });
         }
-        this.workoutGeneratorRepo.getExercises().then(      //Delete if !addexercise 
-          exercises =>
-          {
-            var temp=[]
-            for(let i=0;i<exercises.length;i++){
-              temp.push(exercises[i].exercise_name)
-            }
-            this.setState({ exerciseOptions: temp })
-          }
-    
-    
-        );
+        // this.workoutGeneratorRepo.getExercises().then(      //Delete if !addexercise
+        //   exercises =>
+        //   {
+        //     var temp=[]
+        //     for(let i=0;i<exercises.length;i++){
+        //       temp.push(exercises[i].exercise_name)
+        //     }
+        //     this.setState({ exerciseOptions: temp })
+        //   }
+        //
+        //
+        // );
       }
 }
 
