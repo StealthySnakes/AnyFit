@@ -24,10 +24,6 @@ app.post('/addExercise/', (req,res) => {
 });
 
 
-app.get('/home/:exercise_id/:workout_id/:set_count/:rep_count',(req,res) => {
-	res.send(req.params);
-});
-
 
 // Returns a user_id
 app.post('/home/:login/password/:password', (req, res) => {
