@@ -188,6 +188,7 @@ app.put('/exercises/:userID/workout_id/:workout_id/favorite/:favorite', (req, re
 	console.log("Incoming request to update user_workout's favorite_workout...");
 
 	try{
+		console.log("UPDATE user_workout SET favorite_workout = '+ req.params['favorite'] +' WHERE user_id = '+ req.params['userID'] + ' AND workout_id = ' + req.params['workout_id'] + ';'");
 		con.query('UPDATE user_workout SET favorite_workout = '+ req.params['favorite'] +' WHERE user_id = '+ req.params['userID'] + ' AND workout_id = ' + req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
@@ -205,7 +206,7 @@ app.get('/home/:userID/favorite_workout', (req, res) => {
   console.log("Incoming request for friends..");
 
 	try{
-		console.log("'SELECT workout_id, workout_name, workout_desc FROM user_workout WHERE user_id = \'' + req.params['userID'] + ' AND favorite_workout = 1 ' +  \';");
+		
 
 		con.query('SELECT workout_id, workout_name, workout_desc FROM user_workout WHERE user_id = \'' + req.params['userID'] + ' AND favorite_workout = 1 ' +  "\';" , function (error, results, fields) {
 			if (error)
