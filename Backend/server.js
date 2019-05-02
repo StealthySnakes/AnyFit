@@ -57,14 +57,16 @@ app.post('/newuser/:userObject', (req,res) => {
 
 	var obj = JSON.parse(req.params['userObject']);
 	try {	
+    console.log(obj);
+		console.log('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + obj['password']+ '\',\'' + obj['image'] + ',\');');
 		con.query('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + obj['password']+ '\',\'' + obj['image'] + ',\');', function(error,results,fields) {
 			if(error)
 				throw error;
 		});
 	}
 	catch(err){
-		console.log(err);
-		console.log('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + obj['password']+ '\',\'' + obj['image'] + ',\');');
+    console.log(err);
+		
 	}
 	//select recently created user_id and return it
 	con.query('SELECT max(user_id) as userID from user_info;', function(error,results,fields){
