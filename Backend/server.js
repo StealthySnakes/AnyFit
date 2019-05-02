@@ -215,7 +215,7 @@ app.get('/home/:userID/user_workouts', (req, res) => {
 	console.log("Incoming request for friends..");
   
 	  try{
-		  con.query('SELECT workout_id, workout_name FROM user_workout WHERE user_id = \'' + req.params['userID'] + "\';" , function (error, results, fields) {
+		  con.query('SELECT workout_id, workout_name, workout_desc FROM user_workout WHERE user_id = \'' + req.params['userID'] + "\';" , function (error, results, fields) {
 			  if (error)
 				  throw error;
 			  res.send(results);
