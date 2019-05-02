@@ -64,6 +64,7 @@ app.post('/newuser/:userObject', (req,res) => {
 	}
 	catch(err){
 		console.log(err);
+		console.log('INSERT INTO user_info VALUES(\'' + obj['username'] + '\',\'' + obj['name'] + '\',\'' + obj['password']+ '\',\'' + obj['image'] + ',\');');
 	}
 	//select recently created user_id and return it
 	con.query('SELECT max(user_id) as userID from user_info;', function(error,results,fields){
