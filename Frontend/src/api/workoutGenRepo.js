@@ -68,7 +68,7 @@ export class WorkoutGeneratorRepository {
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}/addExercise/`, exercise)
                 .then(resp => resolve(resp.data))
-                .catch(resp => {alert("getGeneratedWorkout failed... supply dummy data "+resp); resolve([{exercise_desc: "up and down boysssszzz", exercise_image: "https://data.whicdn.com/images/132534183/large.png", default_length: 4, exercise_name: "Jumping Jacks", reps: 8, sets: 4}, {exercise_desc: "lie there on the floor",exercise_image: "https://static-s.aa-cdn.net/img/ios/1132834831/eb7c52c5f7fd82798ff99ad6264c8727?v=1",default_length: 4,exercise_name:"Planks",reps: 10,sets: 3}])});
+                .catch(resp => {alert("getGeneratedWorkout failed... supply dummy data "+resp)});
         });
     }
 
