@@ -338,7 +338,7 @@ app.put('/exercises/:workout_id/workout_desc/:workout_desc', (req, res) => {
 	console.log("Incoming request to update workout_id's workout desc...");
 
 	try{
-		con.query('UPDATE user_workout SET workout_desc = '+ req.params['workout_desc'] +' WHERE workout_id = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
+		con.query('UPDATE user_workout SET `workout_desc` = '+ req.params['workout_desc'] +' WHERE `workout_id` = '+ req.params['workout_id'] + ';' , function (error, results, fields) {
 			if (error)
 				throw error;
 			res.send(results);
